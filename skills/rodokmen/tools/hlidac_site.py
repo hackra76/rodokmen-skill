@@ -53,7 +53,7 @@ def posoudit(tool, cmd, cwd):
     """Vrátí důvod zamítnutí, nebo None (pustit)."""
     if tool == "Monitor":   # spouští příkaz v bashi stejně jako Bash
         tool = "Bash"
-    if tool == "PowerShell":
+    if tool == "PowerShell" or PS.search(cmd):
         if PS.search(cmd) and "slusne.py" not in cmd and not jen_volne(cmd):
             return "PowerShell stahuje z webu mimo brzdu"
         tool = "Bash"   # python a curl.exe v PowerShellu posoudit stejně
