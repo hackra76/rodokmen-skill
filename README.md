@@ -117,6 +117,10 @@ návštevníkom: kto pozná odpoveď, vidí obsah webu. Agent má pokyn písať 
 len meno a rok narodenia a pred zverejnením s vami prejsť, čo o nich web uvádza.
 Ak projekt chcete zálohovať na GitHub, použite **súkromný (private)** repozitár.
 
+## Dokumentácia a Wiki
+Podrobnú dokumentáciu, metodické návody na čítanie starých písiem (kurent, novogotika, maďarčina), zoznam archívov a formát dát nájdete vo [Wiki repozitára](https://github.com/hackra76/rodokmen-skill/wiki).
+Otázky a skúsenosti s bádaním môžete zdieľať v [GitHub Discussions](https://github.com/hackra76/rodokmen-skill/discussions).
+
 ## Spätná väzba a vaše skúsenosti
 Chyby a problémy – AI nesprávne prečítala zápis, spojila nesprávnych ľudí, nejaký krok nefunguje alebo spadol nástroj –
 prosím [založte ako issue na GitHube](https://github.com/hackra76/rodokmen-skill/issues/new).

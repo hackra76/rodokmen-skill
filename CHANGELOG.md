@@ -8,14 +8,17 @@ Projekt založený starší verzí Claude sám nabídne aktualizovat (pozná to 
 
 ## 0.7.0 – 3. 11. 2026
 
-Port pro Google Antigravity se zachováním plné podpory Claude Code.
+Port pre Google Antigravity so zachovaním plnej podpory Claude Code, slovenský preklad a nová dokumentácia.
 
 **Nové**
-- **Podpora pro Google Antigravity:** Přidán manifest `plugin.json` v kořeni repozitáře a pravidla `AGENTS.md`.
-- **Hlídač sítě (lifecycle hooks):** `hlidac_site.py` a `novy_projekt.py` nyní plně podporují systém háčků v Antigravity (`hooks.json` a událost `PreToolUse` pro `run_command`).
-- **Nové projekty:** Šablona projektu vytváří `AGENTS.md`, `hooks.json` a `.vscode/launch.json` pro náhled webu.
-- **Doporučení modelů:** Aktualizována doporučení pro Antigravity (Gemini Pro pro hlavní model, Gemini Flash pro pomocníky).
-- **Testy:** Regresní sada `tests/brzda/test_hlidac.py` rozšířena o testy Antigravity formátu (100% úspěšnost).
+- **Podpora pre Google Antigravity:** Pridaný manifest `plugin.json` v koreni repozitára a pravidlá `AGENTS.md`.
+- **Slovenská lokalizácia:** Kompletný preklad skillu, metodických návodov, šablóny rodinného webu (Astro) a nástrojov.
+- **Slovenské archívy a pramene:** Rozšírená metodika pre FamilySearch (cirkevné knihy do 1895, sčítanie ľudu 1869), štátne archívy a databázy cintorínov na Slovensku.
+- **Strážca siete (lifecycle hooks):** `hlidac_site.py` a `novy_projekt.py` plne podporujú systém háčikov v Antigravity (`hooks.json` a udalosť `PreToolUse` pre `run_command`).
+- **Nové projekty:** Šablóna projektu vytvára `AGENTS.md`, `hooks.json` a `.vscode/launch.json` pre náhľad webu.
+- **Odporúčania modelov:** Aktualizované odporúčania pre Antigravity (Gemini Pro pre hlavný model, Gemini Flash pre pomocníkov).
+- **GitHub Wiki & šablóny:** Pripravená kompletná wiki dokumentácia (`wiki/`), synchronizačný skript (`tools/publish_wiki.py`), issue šablóny a GitHub Actions CI.
+- **Testy:** Regresná sada `tests/brzda/test_hlidac.py` rozšírená o testy Antigravity formátu (100% úspešnosť).
 
 ## 0.6.3 – 3. 11. 2026
 
