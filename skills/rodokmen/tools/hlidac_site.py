@@ -88,6 +88,23 @@ def posoudit(tool, cmd, cwd):
 def main():
     try:
         vstup = json.load(sys.stdin)
+        if "toolCall" in vstup:
+            tc = vstup.get("toolCall") or {}
+            t_name = tc.get("name", "")
+            if t_name == "run_command":
+                cmd = (tc.get("args") or {}).get("CommandLine", "") or ""
+                ws = vstup.get("workspacePaths") or []
+                cwd = ws[0] if ws else os.getcwd()
+                tool = "PowerShell" if os.name == "nt" else "Bash"
+                duvod = posoudit(tool, cmd, cwd)
+                if duvod:
+                    print(json.dumps({"decision": "deny", "reason": f"Hlídač sítě: {duvod}.\n{RADA}"}, ensure_ascii=False))
+                else:
+                    print(json.dumps({"decision": "allow"}))
+            else:
+                print(json.dumps({"decision": "allow"}))
+            return 0
+
         tool = vstup.get("tool_name", "")
         cmd = (vstup.get("tool_input") or {}).get("command", "") or ""
         duvod = posoudit(tool, cmd, vstup.get("cwd") or os.getcwd())

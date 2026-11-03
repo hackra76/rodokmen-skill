@@ -21,7 +21,7 @@ Pravidla (pro každý web zvlášť, společně pro všechny procesy i projekty 
   - MZA Brno (mza.cz, actapublica.eu) skripty nepovoluje: skriptem jen hledání knih (…/actapublica/matrika/hledani…,
     1 dotaz za 4 s), detail knihy a snímky jen v prohlížeči. Jiná adresa MZA nástroj hned ukončí (kód 3).
   - SOA Třeboň (digi.ceskearchivy.cz) nástroj od 2. 11. 2026 odmítá: skripty nic, jen prohlížeč.
-localhost, vlastní web (Netlify), GitHub a npm se nebrzdí. V prohlížeči (Claude in Chrome) brzda neplatí –
+localhost, vlastní web (Netlify), GitHub a npm se nebrzdí. V prohlížeči brzda neplatí –
 tam nejvýš 1 dotaz za 2 s a žádné smyčky fetch / Promise.all.
 Stav je v ~/.cache/rodokmen_slusne/ (Windows %LOCALAPPDATA%\\rodokmen_slusne), jen malé soubory JSON.
 """
@@ -63,7 +63,7 @@ _slozka_zamek = threading.Lock()
 
 
 def _slozka():
-    """Složka stavu. Když do ní nejde psát (sandbox Claude Code), zkusí dočasnou složku systému; když ani to,
+    """Složka stavu. Když do ní nejde psát (sandbox agenta), zkusí dočasnou složku systému; když ani to,
     platí brzda jen uvnitř tohoto procesu (None)."""
     with _slozka_zamek:   # první dotaz z víc vláken najednou: zkouška jen jednou (na Windows by si soubory překážely)
         return _slozka_bez_zamku()

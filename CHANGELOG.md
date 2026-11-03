@@ -6,6 +6,17 @@ dá v repozitáři **Watch → Custom → Releases**.
 
 Projekt založený starší verzí Claude sám nabídne aktualizovat (pozná to podle souboru `VERZE`).
 
+## 0.7.0 – 3. 11. 2026
+
+Port pro Google Antigravity se zachováním plné podpory Claude Code.
+
+**Nové**
+- **Podpora pro Google Antigravity:** Přidán manifest `plugin.json` v kořeni repozitáře a pravidla `AGENTS.md`.
+- **Hlídač sítě (lifecycle hooks):** `hlidac_site.py` a `novy_projekt.py` nyní plně podporují systém háčků v Antigravity (`hooks.json` a událost `PreToolUse` pro `run_command`).
+- **Nové projekty:** Šablona projektu vytváří `AGENTS.md`, `hooks.json` a `.vscode/launch.json` pro náhled webu.
+- **Doporučení modelů:** Aktualizována doporučení pro Antigravity (Gemini Pro pro hlavní model, Gemini Flash pro pomocníky).
+- **Testy:** Regresní sada `tests/brzda/test_hlidac.py` rozšířena o testy Antigravity formátu (100% úspěšnost).
+
 ## 0.6.3 – 3. 11. 2026
 
 Opravy po hlášeních z praxe.

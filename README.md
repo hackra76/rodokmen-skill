@@ -1,19 +1,18 @@
-# Rodokmen – skill pro Claude Code
+# Rodokmen – skill a plugin pro Antigravity & Claude Code
 
 ![Rodokmen z matrik a rodinný web – vějíř předků, mapa a zajímavosti](docs/banner.jpg)
 
-Claude vás provede tvorbou rodokmenu **od rodinných vzpomínek přes digitalizované matriky až k hezkému rodinnému webu**
+Antigravity (i Claude) vás provede tvorbou rodokmenu **od rodinných vzpomínek přes digitalizované matriky až k hezkému rodinnému webu**
 s vějířem předků, mapou, příběhem rodu a výřezy původních zápisů s přepisem a překladem.
-Je určený pro lidi, kteří genealogii nikdy nedělali a neprogramují – technickou práci dělá Claude, vy dodáváte
+Je určený pro lidi, kteří genealogii nikdy nedělali a neprogramují – technickou práci dělá agent, vy dodáváte
 znalost rodiny a rozhodujete.
 
 Vznikl při skutečném hledání předků jedné rodiny.
 
-**Autor a správce:** Jindřich Šaršon ([sarsonj@gmail.com](mailto:sarsonj@gmail.com), [GitHub](https://github.com/sarsonj))
+**Autor původního skillu:** Jindřich Šaršon ([sarsonj@gmail.com](mailto:sarsonj@gmail.com), [GitHub](https://github.com/sarsonj), [původní repozitář](https://github.com/sarsonj/rodokmen-skill))  
+**Port pro Google Antigravity:** Radovan Dvorský ([GitHub](https://github.com/hackra76/rodokmen-skill))
 
-**Aktuální verze: 0.6.0 (listopad 2026).** Skill se průběžně vyvíjí – opravuji chyby a doplňuji postupy pro další archivy
-podle toho, na co narazíte vy. Jak aktualizovat, najdete v části [Instalace](#instalace), seznam změn
-v [historii repozitáře](https://github.com/sarsonj/rodokmen-skill/commits/main).
+**Aktuální verze: 0.7.0 (Antigravity port).** Skill se průběžně vyvíjí – opravují se chyby a doplňují postupy pro další archivy. Seznam změn najdete v [historii repozitáře](https://github.com/hackra76/rodokmen-skill/commits/main).
 
 > **Než začnete**
 >
@@ -47,70 +46,49 @@ mapu, kde předci žili, osm rodů a vějíř předků. Další stránky: rodokm
 s přepisem a překladem, „Co hledáme“ a deník hledání. **[Podívejte se na celou úvodní stránku ukázky →](docs/ukazka-web.png)**
 
 ## Co budete potřebovat
-- **Claude Code** (aplikace pro Mac/Windows nebo příkazová řádka) a placené předplatné Claude. Rodokmen je
-  dlouhá práce – počítejte s několika večery a s tím, že spotřebuje dost kreditů. Nejlevnější tarif **Pro bude
-  nejspíš málo** (stačí na vyzkoušení), na celý rodokmen počítejte aspoň s nejnižším tarifem **Max**.
-  Po dokončení můžete předplatné zase snížit nebo zrušit, web i data vám zůstanou.
+- **Google Antigravity** (nebo Claude Code) a přístup k modelům. Rodokmen je
+  dlouhá a podrobná práce. Doporučený hlavní model je silný uvažovací model (v Antigravity řada Pro, např. Gemini Pro; v Claude Code Claude Opus). Pomocníci na hledání mohou běžet na úspornějších modelech (Flash / Sonnet).
 - **Počítač s macOS nebo Windows** (obojí vyzkoušeno; Windows 11 s Pythonem z python.org a Git Bashem).
-  Linux by měl fungovat, ale vyzkoušený není.
-- Programy **Python 3, Node.js, ImageMagick a git**. Nemusíte je instalovat předem – Claude zkontroluje, co chybí,
+  Linux funguje rovněž.
+- Programy **Python 3, Node.js, ImageMagick a git**. Nemusíte je instalovat předem – agent zkontroluje, co chybí,
   a pomůže s instalací (na Macu přes [Homebrew](https://brew.sh), na Windows přes winget).
-- Pro jižní Čechy a Moravu (SOA Třeboň, MZA Brno, ZA Opava) **prohlížeč pro Clauda** – doplněk Playwright.
-  Tyto archivy stahovací nástroje nepouštějí, Claude proto čte matriky přímo v jejich prohlížeči. Instalace
-  v Claude Code: `/plugin install playwright@claude-plugins-official`, pak restart. Bez něj můžete Claudovi
-  posílat snímky obrazovky sami.
+- Pro jižní Čechy a Moravu (SOA Třeboň, MZA Brno, ZA Opava) **prohlížeč pro agenta** – MCP server Playwright/Puppeteer,
+  či příkaz `/browser`. Tyto archivy stahovací nástroje nepouštějí, agent proto čte matriky přímo v jejich prohlížeči.
+  Bez něj můžete posílat snímky obrazovky sami.
 - Volitelně účet na [Netlify](https://www.netlify.com) (zdarma), pokud chcete web zveřejnit pro rodinu.
 
-## S jakými modely to vzniklo
-AI se vyvíjí rychle a za pár měsíců může skill dávat lepší, nebo jen jiné výsledky. Proto je tu uvedeno, s čím byl
-vyzkoušený.
-
-- **Stav k listopadu 2026 (verze 0.6.3):** Claude Code s hlavním modelem **Claude Opus 5.5**. Pomocníci, kteří hledají
-  a čtou matriky jako první, běží na **Claude Sonnet 5.5**. Každý jejich nález pak hlavní model ověřuje na snímku.
-- Vyzkoušeno na několika skutečných rodokmenech (největší má 243 předků v 11 generacích a 192 matričních zápisů).
-  Výsledek se porovnával s větví, kterou jsme léta dělali ručně.
-
-S jiným nebo slabším modelem počítejte s víc chybami ve čtení starého písma.
+## S jakými modely to funguje
+- **Antigravity:** Hlavní model **Gemini Pro** (či ekvivalentní nejsilnější model). Pomocníci (subagenti) pro čtení a hledání běží na **Gemini Flash**. Hlavní model vždy ověřuje nález na snímku.
+- **Claude Code:** Hlavní model **Claude Opus 5.5**, pomocníci na **Claude Sonnet 5.5**.
 
 ## Instalace
 
-### Varianta A – jako plugin (doporučeno)
-V Claude Code napište:
-```
+### Do Google Antigravity
+1. **Jako globální plugin (doporučeno):**
+   Zkopírujte nebo naklonujte repozitář do složky uživatelských pluginů:
+   - Na Windows: `%USERPROFILE%\.gemini\config\plugins\rodokmen`
+   - Na macOS / Linuxu: `~/.gemini/config/plugins/rodokmen`
+   ```bash
+   git clone https://github.com/hackra76/rodokmen-skill ~/.gemini/config/plugins/rodokmen
+   ```
+2. **Nebo pro konkrétní projekt / workspace:**
+   Zkopírujte složku `skills/rodokmen` do `.agents/skills/rodokmen` ve vašem projektu.
+3. Restartujte Antigravity, aby se nový plugin/skill načetl.
+
+### Do Claude Code
+```bash
 /plugin marketplace add sarsonj/rodokmen-skill
 /plugin install rodokmen@rodokmen-skill
 ```
-Pak Claude Code restartujte (do běžící relace se nový plugin nenačte).
-**Aktualizace.** Claude Code u pluginů od jiných autorů než Anthropic nové verze sám nehlídá. Máte dvě možnosti:
-- **Automaticky (doporučuji):** jednou v `/plugin` na kartě **Marketplaces** vyberte `rodokmen-skill` a zapněte
-  automatické aktualizace (Enable auto-update). Nová verze se pak stáhne při spuštění Claude Code.
-- **Ručně:** v terminálu (nebo v Claude Code s `!` na začátku)
-  ```
-  claude plugin marketplace update rodokmen-skill
-  claude plugin update rodokmen@rodokmen-skill
-  ```
-  O nových verzích se dozvíte přes **Watch → Custom → Releases** na GitHubu.
-
-Po aktualizaci Claude Code restartujte. Rozpracovaný projekt pak Claude při další práci sám nabídne aktualizovat
-na novou verzi (vaše data zůstanou, změněné soubory webu zazálohuje do `pracovni/`).
-
-### Varianta B – ručně
-Stáhněte repozitář (zelené tlačítko **Code → Download ZIP** na GitHubu, nebo `git clone`) a zkopírujte složku
-`skills/rodokmen` do `~/.claude/skills/` (na Windows `C:\Users\<jméno>\.claude\skills\`). Výsledek:
-`~/.claude/skills/rodokmen/SKILL.md`.
-
-Pak Claude Code restartujte.
+Nebo ručně zkopírováním `skills/rodokmen` do `~/.claude/skills/`.
 
 ## První spuštění
-1. Spusťte Claude Code (klidně v domovské složce) a napište třeba:
+1. Spusťte Antigravity (či Claude Code) a napište:
    > Chci udělat rodokmen své rodiny.
-
-   nebo přímo `/rodokmen`.
-2. Claude zkontroluje programy, založí složku projektu (např. `~/Rodokmen`) a začne se ptát na rodinu.
+2. Agent zkontroluje programy, založí složku projektu (např. `~/Rodokmen`) a začne se ptát na rodinu.
    Připravte si, co víte o rodičích, prarodičích a pradědečcích, a rodinné dokumenty (rodné a oddací listy, parte,
    fotky, kroniky) – stačí vyfotit mobilem.
-3. **Příště otevírejte Claude Code přímo ve složce projektu** (`cd ~/Rodokmen && claude`, nebo v aplikaci
-   vyberte tuto složku). Claude si přečte, kde jste skončili, a naváže.
+3. **Příště otevírejte Antigravity přímo ve složce projektu** (např. složka `~/Rodokmen`). Agent načte pravidla z `AGENTS.md` a `data/STAV.md`, zjistí, kde jste skončili, a naváže.
 
 Chcete nejdřív vidět, jak web vypadá? Řekněte: *„Ukaž mi ukázkový web.“* Claude založí ukázkový projekt
 s vymyšlenou rodinou a spustí náhled.

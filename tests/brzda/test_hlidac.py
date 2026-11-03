@@ -142,6 +142,32 @@ for shell, argv in SHELLY.items():
     vse_ok &= spravne == len(PRIPADY)
     print(f"== hlídač přes {shell}: {spravne} z {len(PRIPADY)} správně")
     print("\n".join(chyby))
+
+    spravne_agy, chyby_agy = 0, []
+    for nastroj, prikaz, cekam in PRIPADY:
+        vstup_agy = json.dumps({"toolCall": {"name": "run_command", "args": {"CommandLine": prikaz}},
+                                "workspacePaths": [SKILL]}, ensure_ascii=False).encode("utf-8")
+        r = subprocess.run(argv, input=vstup_agy, capture_output=True, env={**os.environ, "CLAUDE_PROJECT_DIR": SKILL})
+        try:
+            out, utf8 = r.stdout.decode("utf-8"), True
+        except UnicodeDecodeError:
+            out, utf8 = r.stdout.decode("cp1250", "replace"), False
+        try:
+            rozhodnuti = json.loads(out).get("decision") if out.strip() else "allow"
+        except (ValueError, KeyError):
+            rozhodnuti = "?"
+        vysl = Z if rozhodnuti == "deny" else P
+        ok = vysl == cekam and (utf8 or vysl == P) and r.returncode in (0, 2)
+        spravne_agy += ok
+        if not ok:
+            pozn = [f"kód {r.returncode}"] if r.returncode not in (0, 2) else []
+            if not utf8:
+                pozn.append("odpověď není UTF-8")
+            chyby_agy.append(f"  [CHYBA AGY] {nastroj:10} čekám {cekam}, je {vysl}: {prikaz.splitlines()[0][:70]}"
+                             + (f"  ({'; '.join(pozn)})" if pozn else ""))
+    vse_ok &= spravne_agy == len(PRIPADY)
+    print(f"== hlídač (Antigravity formát) přes {shell}: {spravne_agy} z {len(PRIPADY)} správně")
+    print("\n".join(chyby_agy))
 if not SHELLY:
     print("Nenašel jsem bash ani pwsh – nic netestováno.")
 sys.exit(0 if vse_ok and SHELLY else 1)

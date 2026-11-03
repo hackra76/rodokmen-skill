@@ -75,7 +75,8 @@ def hook_hlidace():
 
 
 def nastaveni(dst, hlidac):
-    """Doplní do .claude/settings.json zákaz curl/wget; hlidac=True/False zapne/vypne hook, None nechá, jak je."""
+    """Doplní do .claude/settings.json a hooks.json zákaz curl/wget; hlidac=True/False zapne/vypne hook, None nechá, jak je."""
+    # 1. Claude settings (.claude/settings.json)
     path = os.path.join(dst, ".claude", "settings.json")
     data = {}
     if os.path.exists(path):
@@ -83,28 +84,67 @@ def nastaveni(dst, hlidac):
             data = json.load(open(path, encoding="utf-8"))
         except ValueError:
             print(f"POZOR: {path} není platný JSON – nastavení brzdy jsem nedoplnil. Oprav ho a spusť znovu.")
-            return
-    puvodni = json.dumps(data, sort_keys=True)
-    deny = data.setdefault("permissions", {}).setdefault("deny", [])
-    deny += [r for r in SIT_ZAKAZ if r not in deny]
-    pre = data.setdefault("hooks", {}).setdefault("PreToolUse", [])
-    nase = [h for h in pre if "hlidac_site.py" in json.dumps(h)]
-    for h in nase:   # aktualizace projektu: hook obnovit (cesta k Pythonu i tvar se mohly změnit)
-        h["matcher"] = MATCHER
-        h["hooks"] = [hook_hlidace()]
-    if hlidac is True and not nase:
-        pre.append({"matcher": MATCHER, "hooks": [hook_hlidace()]})
-    elif hlidac is False:
-        pre[:] = [h for h in pre if h not in nase]
-    if not pre:
-        del data["hooks"]["PreToolUse"]
-    if not data["hooks"]:
-        del data["hooks"]
-    if json.dumps(data, sort_keys=True) != puvodni:
-        with open(path, "w", encoding="utf-8", newline="\n") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
-            f.write("\n")
-    zapnuty = any("hlidac_site.py" in json.dumps(h) for h in data.get("hooks", {}).get("PreToolUse", []))
+            data = None
+    if data is not None:
+        puvodni = json.dumps(data, sort_keys=True)
+        deny = data.setdefault("permissions", {}).setdefault("deny", [])
+        deny += [r for r in SIT_ZAKAZ if r not in deny]
+        pre = data.setdefault("hooks", {}).setdefault("PreToolUse", [])
+        nase = [h for h in pre if "hlidac_site.py" in json.dumps(h)]
+        for h in nase:   # aktualizace projektu: hook obnovit (cesta k Pythonu i tvar se mohly změnit)
+            h["matcher"] = MATCHER
+            h["hooks"] = [hook_hlidace()]
+        if hlidac is True and not nase:
+            pre.append({"matcher": MATCHER, "hooks": [hook_hlidace()]})
+        elif hlidac is False:
+            pre[:] = [h for h in pre if h not in nase]
+        if not pre and "PreToolUse" in data.get("hooks", {}):
+            del data["hooks"]["PreToolUse"]
+        if not data.get("hooks"):
+            data.pop("hooks", None)
+        if json.dumps(data, sort_keys=True) != puvodni:
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            with open(path, "w", encoding="utf-8", newline="\n") as f:
+                json.dump(data, f, ensure_ascii=False, indent=2)
+                f.write("\n")
+
+    # 2. Antigravity hooks (hooks.json)
+    py_cmd = f'"{_python_windows()}" -I -X utf8 tools/hlidac_site.py' if os.name == "nt" else 'python3 -I tools/hlidac_site.py'
+    hook_entry = {
+        "matcher": "run_command",
+        "hooks": [
+            {
+                "type": "command",
+                "command": py_cmd,
+                "timeout": 10
+            }
+        ]
+    }
+    for rel_path in ("hooks.json", os.path.join(".agents", "hooks.json")):
+        hpath = os.path.join(dst, rel_path)
+        hdata = {}
+        if os.path.exists(hpath):
+            try:
+                hdata = json.load(open(hpath, encoding="utf-8"))
+            except ValueError:
+                continue
+        if hlidac is True:
+            hdata.setdefault("hlidac-site", {})["PreToolUse"] = [hook_entry]
+            os.makedirs(os.path.dirname(hpath) or ".", exist_ok=True)
+            with open(hpath, "w", encoding="utf-8", newline="\n") as f:
+                json.dump(hdata, f, ensure_ascii=False, indent=2)
+                f.write("\n")
+        elif hlidac is False and "hlidac-site" in hdata:
+            del hdata["hlidac-site"]
+            if hdata:
+                with open(hpath, "w", encoding="utf-8", newline="\n") as f:
+                    json.dump(hdata, f, ensure_ascii=False, indent=2)
+                    f.write("\n")
+            elif os.path.exists(hpath):
+                os.remove(hpath)
+
+    zapnuty = (data and any("hlidac_site.py" in json.dumps(h) for h in data.get("hooks", {}).get("PreToolUse", []))) or \
+              os.path.exists(os.path.join(dst, "hooks.json"))
     print("Hlídač sítě:", "zapnutý" if zapnuty else "vypnutý (zapnout: --hlidac)")
 
 
@@ -136,10 +176,13 @@ def main():
     for d in ("vyrezy", "zdroje", "dokumenty", "pracovni"):
         os.makedirs(os.path.join(dst, d), exist_ok=True)
     os.makedirs(os.path.join(dst, ".claude"), exist_ok=True)
-    for name in ("CLAUDE.md", ".gitignore", ".gitattributes", "poznamky_pro_skill.md", os.path.join(".claude", "launch.json")):
+    os.makedirs(os.path.join(dst, ".vscode"), exist_ok=True)
+    for name in ("AGENTS.md", "CLAUDE.md", ".gitignore", ".gitattributes", "poznamky_pro_skill.md",
+                 os.path.join(".claude", "launch.json"), os.path.join(".vscode", "launch.json")):
         out = os.path.join(dst, name)
-        if not os.path.lexists(out):
-            copy(os.path.join(SKILL, "template", name), out)
+        src = os.path.join(SKILL, "template", name)
+        if os.path.lexists(src) and not os.path.lexists(out):
+            copy(src, out)
     nastaveni(dst, True if "--hlidac" in sys.argv else False if "--bez-hlidace" in sys.argv else None)
     with open(os.path.join(dst, ".skill_verze"), "w", encoding="utf-8") as f:   # SKILL.md podle něj nabídne aktualizaci
         f.write(open(os.path.join(SKILL, "VERZE"), encoding="utf-8").read())
