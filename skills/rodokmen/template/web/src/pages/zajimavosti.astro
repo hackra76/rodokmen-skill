@@ -3,13 +3,13 @@ import Base from '../layouts/Base.astro';
 import { Content } from '../generated/zajimavosti.md';
 import { lines, linesTitle } from '../lib/data.js';
 ---
-<Base title="Zajímavosti">
-  <h1>Zajímavosti z rodokmenu</h1>
-  <p class="lead">Co nás při hledání nejvíc překvapilo – nejstarší předek, spojené větve, řemesla a osudy.</p>
+<Base title="Zaujímavosti">
+  <h1>Zaujímavosti z rodokmeňa</h1>
+  <p class="lead">Čo nás pri hľadaní najviac prekvapilo – najstarší predok, spojené vetvy, remeslá a osudy.</p>
   <div class="prose"><Content /></div>
 
   <div class="next-step">
-    <p><strong>Ponořte se hlouběji:</strong> projděte si jednotlivé rody, podívejte se na mapě, kde předci žili, nebo najděte kohokoli ve vějíři všech předků.</p>
-    <p><a class="btn" href="/rody/">{linesTitle(Object.keys(lines).length)} →</a> <a class="btn" href="/mapa/">Mapa →</a> <a class="btn" href="/vejir/">Vějíř předků →</a></p>
+    <p><strong>Ponorte sa hlbšie:</strong> prejdite si jednotlivé rody, pozrite sa na mape, kde predkovia žili, alebo nájdite kohokoľvek vo vejári všetkých predkov.</p>
+    <p><a class="btn" href="/rody/">{linesTitle(Object.keys(lines).length)} →</a> <a class="btn" href="/mapa/">Mapa →</a> <a class="btn" href="/vejir/">Vejár predkov →</a></p>
   </div>
 </Base>

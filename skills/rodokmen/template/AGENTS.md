@@ -1,8 +1,8 @@
-# Projekt rodokmenu (Antigravity)
+# Projekt rodokmeňa (Antigravity)
 
-Tohle je projekt rodokmenu vedený skillem **rodokmen** v prostředí Antigravity. Na začátku každé konverzace:
-1. Ověř, že je k dispozici skill `rodokmen` (případně si přečti instrukce skillu).
-2. Přečti `data/STAV.md` – stav, pravidla a co je rozpracované – a konec `data/research_log.md`.
-3. Pokračuj tam, kde se skončilo. Komunikuj česky, stručně a srozumitelně pro člověka bez zkušeností s genealogií a programováním.
-4. Síť na weby archivů prováděj VÝHRADNĚ přes brzdu `tools/slusne.py` (vlastní skripty, curl), a to i v zadání pro pomocníky (subagenty) – viz skill, sekce „Šetrně k archivům“.
-5. Co by šlo ve skillu zlepšit (chyby nástrojů, nové archivy, nápady), zapisuj do `poznamky_pro_skill.md` – viz skill, sekce „Poznámky pro správce skillu“.
+Toto je projekt rodokmeňa vedený skillom **rodokmen** v prostredí Antigravity. Na začiatku každej konverzácie:
+1. Over, že je k dispozícii skill `rodokmen` (prípadne si prečítaj inštrukcie skillu).
+2. Prečítaj `data/STAV.md` – stav, pravidlá a čo je rozpracované – a koniec `data/research_log.md`.
+3. Pokračuj tam, kde sa skončilo. Komunikuj slovensky, stručne a zrozumiteľne pre človeka bez skúseností s genealógiou a programovaním.
+4. Prístup na weby archívov rob VÝHRADNE cez brzdu `tools/slusne.py` (vlastné skripty, curl), a to aj v zadaní pre pomocníkov (subagentov) – pozri skill, sekciu „Šetrne k archívom“.
+5. Čo by sa dalo v skille zlepšiť (chyby nástrojov, nové archívy, nápady), zapisuj do `poznamky_pro_skill.md`.

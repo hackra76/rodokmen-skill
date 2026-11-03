@@ -9,9 +9,9 @@ const cols = [0, 1, 2, 3].map((d) => {
 });
 const depth = (kk) => (byK[2 * kk] || byK[2 * kk + 1] ? 1 + Math.max(depth(2 * kk), depth(2 * kk + 1)) : 0);
 const known = (kk) => (byK[kk] ? 1 + known(2 * kk) + known(2 * kk + 1) : 0);
-const genWord = (n) => (n === 1 ? 'generace' : n < 5 ? 'generace' : 'generací');
+const genWord = (n) => (n === 1 ? 'generácia' : n < 5 ? 'generácie' : 'generácií');
 ---
-<div class="pedigree" role="list" aria-label="Rodokmen tři generace nazpět">
+<div class="pedigree" role="list" aria-label="Rodokmeň tri generácie dozadu">
   {cols.map((col, c) =>
     col.map(({ k: kk, span, row }) => {
       const p = byK[kk];
@@ -19,9 +19,9 @@ const genWord = (n) => (n === 1 ? 'generace' : n < 5 ? 'generace' : 'generací')
       const more = c === 3 && p ? depth(kk) : 0;
       return p ? (
         <a role="listitem" class={`box ${c === 0 ? 'self' : ''} ${more ? 'has-more' : ''}`} style={style} href={href.person(p.slug)}
-          title={more ? `Rodokmen pokračuje: ${known(kk) - 1} dalších předků` : undefined}>
+          title={more ? `Rodokmeň pokračuje: ${known(kk) - 1} ďalších predkov` : undefined}>
           {p.name}<span class="y">{p.years || ' '}</span>
-          {more > 0 && <span class="more">a dál {more} {genWord(more)} →</span>}
+          {more > 0 && <span class="more">a ďalej {more} {genWord(more)} →</span>}
         </a>
       ) : (
         <span role="listitem" class="box empty" style={style}>?</span>

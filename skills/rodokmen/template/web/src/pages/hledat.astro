@@ -1,18 +1,18 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="Hledat">
-  <h1>Hledat</h1>
-  <p class="lead">Jména, místa, čísla domů, povolání – hledá se ve všech stránkách webu.</p>
+<Base title="Hľadať">
+  <h1>Hľadať</h1>
+  <p class="lead">Mená, miesta, súpisné čísla domov, povolania – vyhľadáva sa vo všetkých stránkach webu.</p>
   <link href="/pagefind/pagefind-ui.css" rel="stylesheet" />
   <div id="search"></div>
   <script is:inline src="/pagefind/pagefind-ui.js"></script>
   <script is:inline>
     window.addEventListener('DOMContentLoaded', () => {
       if (window.PagefindUI) {
-        new PagefindUI({ element: '#search', showSubResults: true, translations: { placeholder: 'Hledat jméno, místo…', zero_results: 'Nic nenalezeno pro [SEARCH_TERM]' } });
+        new PagefindUI({ element: '#search', showSubResults: true, translations: { placeholder: 'Hľadať meno, miesto…', zero_results: 'Nič sa nenašlo pre [SEARCH_TERM]' } });
       } else {
-        document.getElementById('search').textContent = 'Vyhledávání je dostupné až po sestavení webu (npm run build).';
+        document.getElementById('search').textContent = 'Vyhľadávanie je dostupné až po zostavení webu (npm run build).';
       }
     });
   </script>

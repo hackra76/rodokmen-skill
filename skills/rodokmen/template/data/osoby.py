@@ -1,45 +1,47 @@
-# Přímí předci podle Kekulého čísel: 1 = výchozí osoba (ten, pro koho rodokmen děláme),
-# otec osoby n má číslo 2n, matka 2n+1. Tedy 2 = otec, 3 = matka, 4–7 prarodiče, 8–15 pradědečci a prababičky…
+# Priami predkovia podľa Kekulého čísiel: 1 = východisková osoba (ten, pre koho rodokmeň robíme),
+# otec osoby n má číslo 2n, matka 2n+1. Teda 2 = otec, 3 = matka, 4–7 starí rodičia, 8–15 prastarí rodičia…
 #
-# Každá osoba:  číslo: dict(n="Jméno Příjmení", y="1850–1910", st="doc", f=[...], r=[...], note="...")
-#   n    jméno; ženy rodným příjmením („Anna Dvořáková“), u nejistého čtení otazník („Marie Špalková (?)“)
-#   y    roky života pro přehledy: "* 1931" (žije / úmrtí neznámé), "1850–1910", "asi 1720–1785", "1680 – před 1740"
-#   st   stav doložení:  doc  = doloženo matrikou (čteno přímo ze snímku)
-#                        prob = pravděpodobné (shoda údajů, ale ne přímý doklad)
+# Každá osoba:  číslo: dict(n="Meno Priezvisko", y="1850–1910", st="doc", f=[...], r=[...], note="...")
+#   n    meno; ženy za slobodna („Anna Dvořáková“), pri neistom čítaní otáznik („Mária Špalková (?)“)
+#   y    roky života pre prehľady: "* 1931" (žije / úmrtie neznáme), "1850–1910", "asi 1720–1785", "1680 – pred 1740"
+#   st   stav doloženia: doc  = doložené matrikou (čítané priamo zo snímky)
+#                        prob = pravdepodobné (zhoda údajov, ale nie priamy doklad)
 #                        fam  = údaj od rodiny / z rodinného dokumentu
-#                        mh   = jen z cizího rodokmenu na internetu (MyHeritage, Geni…) – neověřeno
-#                        unk  = neznámé (jen místo v rodokmenu)
-#   f    fakta jako krátké věty: "* 12. 3. 1873 Hořice čp. 477", "kovář", "× 28. 1. 1897 Anna Stejskalová", "† 14. 5. 1902"
-#        (* narození, × sňatek, † úmrtí – podle těchto značek web pozná sňatky a místa pro mapu)
-#   r    klíče zápisů z data/zaznamy.json, které osobu dokládají
-#   note poznámka: proč je údaj nejistý, rozpory, odkud se vzal
-#   sex  jen u osoby 1: "M" nebo "F" (u ostatních plyne z čísla)
-# Žijící lidé: jen jméno a rok narození (soukromí), note="Žijící – údaje jen základní."
-# Neznámý otec nemanželského dítěte: dict(n="otec neuveden", st="unk", f=[], note="…")
+#                        mh   = len z cudzieho rodokmeňa na internete (MyHeritage, Geni…) – neoverené
+#                        unk  = neznáme (len miesto v rodokmeni)
+#   f    fakty ako krátke vety: "* 12. 3. 1873 Bardejov s.č. 477", "kováč", "× 28. 1. 1897 Anna Stejskalová", "† 14. 5. 1902"
+#        (* narodenie, × sobáš, † úmrtie – podľa týchto značiek web rozpozná sobáše a miesta pre mapu)
+#   r    kľúče zápisov z data/zaznamy.json, ktoré osobu dokladajú
+#   note poznámka: prečo je údaj neistý, rozpory, odkiaľ sa vzal
+#   sex  len pri osobe 1: "M" alebo "F" (pri ostatných vyplýva z čísla)
+# Žijúci ľudia: len meno a rok narodenia (súkromie), note="Žijúci – údaje len základné."
+# Neznámy otec nemanželského dieťaťa: dict(n="otec neuvedený", st="unk", f=[], note="…")
 
 P = {
 }
 
-# Rody = osm větví podle pradědečků a prababiček (čísla 8–15). Doplňte, jakmile je znáte:
-# 8: ("Novákové", "Jedna věta, kdo to byli a odkud – ukáže se na webu u rodu."),
+# Rody = osem vetiev podľa prastarých rodičov (čísla 8–15). Doplňte, hneď ako ich poznáte:
+# 8: ("Dvorskí", "Jedna veta, kto to bol a odkiaľ – zobrazí sa na webe pri rode."),
 LINES = {
 }
 
-# Příbuzní mimo přímou linii (sourozenci, strýcové…): k = číslo předka, ke kterému patří.
-# dict(k=16, n="Josef Novák (1865–1920)", t="Bratr Jana. Kovář v …", r=["klic_zapisu"])
+# Príbuzní mimo priamej línie (súrodenci, strýkovia…): k = číslo predka, ku ktorému patria.
+# dict(k=16, n="Jozef Dvorský (1865–1920)", t="Brat Jána. Kováč v …", r=["klic_zapisu"])
 SIDE = [
 ]
 
-# Rozpory a otevřené otázky (na web do „Co hledáme“) jako dvojice (otázka, odpověď). Odpověď začněte
-# „Vyřešeno: …“ (na webu se skryje), „Hypotéza: …“ nebo „Otevřené: …“. Jde na web – nic citlivého.
-# ("Kdy se narodil Jan Novák?", "Otevřené: rodina říká 1850, v Holicích 1848–1852 nenalezen.")
+# Rozpory a otvorené otázky (na web do „Čo hľadáme“) ako dvojice (otázka, odpoveď). Odpoveď začnite
+# „Vyriešené: …“ (na webe sa skryje), „Hypotéza: …“ alebo „Otvorené: …“. Ide na web – nič citlivé.
+# ("Kedy sa narodil Ján Dvorský?", "Otvorené: rodina hovorí 1850, v matrike 1848–1852 nenájdený.")
 ISSUES = [
 ]
 
-# Hypotézy o původu rodu nad rámec doložené linie (zobrazí se na stránce rodu):
-# dict(rod=8, nadpis="Hypotéza: Novákové z Lhoty", text="…", polozky=[("Jan Novák", "kmotr 1681…")], zaznamy=["klic"])
+# Hypotézy o pôvode rodu nad rámec doloženej línie (zobrazia sa na stránke rodu):
+# dict(rod=8, nadpis="Hypotéza: Dvorskí z Lhôtky", text="…", polozky=[("Ján Dvorský", "krstný otec 1681…")], zaznamy=["klic"])
 HYPOTEZY = [
 ]
 
-# Předek v rodokmenu vícekrát (příbuzní rodiče): {alias: hlavní číslo}, např. {350: 140}
-SAME = {}
+# Príbuzenské sobáše (pedigree collapse): keď je rovnaká osoba predkom cez viac vetiev.
+# dict(cislo=24, je_tiez=38, dovod="Anna bola prababičkou z otcovej aj matkinej strany")
+SAME = [
+]

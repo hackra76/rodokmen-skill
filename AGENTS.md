@@ -1,25 +1,25 @@
-# Správa repozitáře rodokmen-skill (Antigravity port)
+# Správa repozitára rodokmen-skill (Antigravity port)
 
-Tento repozitář obsahuje plugin a skill **rodokmen** přizpůsobený pro prostředí Antigravity (se zpětnou kompatibilitou pro Claude Code).
+Tento repozitár obsahuje plugin a skill **rodokmen** prispôsobený pre prostredie Antigravity (so spätnou kompatibilitou pre Claude Code).
 
-## Struktura repozitáře
-- `skills/rodokmen/SKILL.md`: Hlavní definice skillu a instrukce pro práci s rodokmenem.
-- `skills/rodokmen/tools/`: Pomocné nástroje v Pythonu a bashi (stahování matrik, výřezy, kontrola, export na web).
-- `skills/rodokmen/template/`: Šablona nového projektu (data, Astro web, `AGENTS.md`, `hooks.json`, `.vscode/launch.json`).
-- `plugin.json`: Manifest pluginu pro Antigravity.
-- `tests/brzda/`: Regresní testy brzdy a hlídače sítě.
+## Štruktúra repozitára
+- `skills/rodokmen/SKILL.md`: Hlavná definícia skillu a inštrukcie pre prácu s rodokmeňom.
+- `skills/rodokmen/tools/`: Pomocné nástroje v Pythone a bashi (sťahovanie matrík, výrezy, kontrola, export na web).
+- `skills/rodokmen/template/`: Šablóna nového projektu (dáta, Astro web, `AGENTS.md`, `hooks.json`, `.vscode/launch.json`).
+- `plugin.json`: Manifest pluginu pre Antigravity.
+- `tests/brzda/`: Regresné testy brzdy a strážcu siete.
 
-## Spouštění testů
+## Spúšťanie testov
 ```bash
 python -I -X utf8 skills/rodokmen/tools/slusne.py tests/brzda/test_hlidac.py skills/rodokmen
 ```
 
-## Vydání nové verze
-Zvedni číslo verze najednou v:
+## Vydanie novej verzie
+Zvýš číslo verzie naraz v:
 - `plugin.json` (`version`)
 - `.claude-plugin/plugin.json` (`version`)
 - `skills/rodokmen/VERZE`
 - `README.md`
 
-Do `CHANGELOG.md` přidej sekci `## X.Y.Z – D. M. RRRR`.
-Mění-li se formát mezi `tools/` a `template/web/`, otestuj aktualizaci projektu založeného předchozí verzí (`novy_projekt.py`).
+Do `CHANGELOG.md` pridaj sekciu `## X.Y.Z – D. M. RRRR`.
+Ak sa mení formát medzi `tools/` a `template/web/`, otestuj aktualizáciu projektu založeného predchádzajúcou verziou (`novy_projekt.py`).

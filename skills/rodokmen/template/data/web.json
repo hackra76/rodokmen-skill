@@ -1,10 +1,10 @@
 {
  "nazev": "",
  "popis": "",
- "zapati": "Dohledáno v digitalizovaných matrikách státních oblastních archivů",
+ "zapati": "Dohľadané v digitalizovaných cirkevných a štátnych matrikách",
  "kontakt": {"jmeno": "", "email": ""},
  "prihlaseni": {
-  "uvod": "Tenhle web je jen pro rodinu a příbuzné.",
+  "uvod": "Tento web je určený len pre rodinu a príbuzných.",
   "otazka": "",
   "odpoved": ""
  },

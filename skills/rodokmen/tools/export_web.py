@@ -22,9 +22,9 @@ ZDROJE = os.path.join(ROOT, "zdroje")      # tytéž výřezy v plném rozlišen
 
 LINE_COLORS = {8: "#EFB45F", 9: "#F09A78", 10: "#E58AA6", 11: "#B99AE0",
                12: "#86B8E8", 13: "#6FCBB9", 14: "#9CD17A", 15: "#D3D46A"}
-STATUS = {"doc": "doloženo matrikou", "prob": "pravděpodobné", "fam": "údaj od rodiny",
-          "mh": "jen z cizího rodokmenu", "unk": "neznámé"}
-KINDS = {"N": "křest / narození", "O": "sňatek", "Z": "úmrtí", "I": "rejstřík", "S": "sčítání lidu", "J": "jiný pramen"}
+STATUS = {"doc": "doložené matrikou", "prob": "pravdepodobné", "fam": "údaj od rodiny",
+          "mh": "len z cudzieho rodokmeňa", "unk": "neznáme"}
+KINDS = {"N": "krst / narodenie", "O": "sobáš", "Z": "úmrtie", "I": "register / index", "S": "sčítanie ľudu", "J": "iný prameň"}
 
 
 def jload(name, default):
@@ -105,17 +105,23 @@ def gen(k):
 def relation(k):
     g, male = gen(k), (k % 2 == 0)
     if g == 0:
-        return "výchozí osoba rodokmenu"
+        return "východisková osoba rodokmeňa"
     if g == 1:
         return "otec" if male else "matka"
-    base = "dědeček" if male else "babička"
-    if g <= 5:
-        return "pra" * (g - 2) + base
-    return f"{'předek' if male else 'předkyně'} v {g}. generaci ({'pra' * (g - 2)}{base})"
+    if g == 2:
+        return "starý otec" if male else "stará mama"
+    if g == 3:
+        return "prastarý otec" if male else "prastará mama"
+    if g == 4:
+        return "praprastarý otec" if male else "praprastará mama"
+    if g == 5:
+        return "prapraprastarý otec" if male else "prapraprastará mama"
+    base = "starý otec" if male else "stará mama"
+    return f"{'predok' if male else 'predkyňa'} v {g}. generácii ({'pra' * (g - 2)}{base})"
 
 
 def placeholder(p):
-    return p["n"].startswith(("otec neuveden", "matka neuvedena")) or p["n"] in ("", "?")
+    return p["n"].startswith(("otec neuveden", "otec neuvedený", "matka neuvedena", "matka neuvedená")) or p["n"] in ("", "?")
 
 
 def magick_bin():   # ImageMagick 7 (magick), jinak 6 (convert) – ten ale ne na Windows, tam je convert.exe jiný program
@@ -372,8 +378,8 @@ def main():
                 continue
             shutil.copy2(src, dst)
             copied += 1
-    print(f"{len(people)} osob, {len(families)} rodin, {len(records)} zápisů, {len(lines)} rodů, {len(places)} míst; "
-          f"zkopírováno {copied} obrázků; přihlášení {'zapnuté' if gated else 'VYPNUTÉ (web je otevřený)'}")
+    print(f"{len(people)} osôb, {len(families)} rodín, {len(records)} zápisov, {len(lines)} rodov, {len(places)} miest; "
+          f"skopírovaných {copied} obrázkov; prihlásenie {'zapnuté' if gated else 'VYPNUTÉ (web je otvorený)'}")
 
     # odkazy v textech, které nikam nevedou (adresa osoby se změní třeba doplněním roku narození: jan-novak → jan-novak-1798)
     targets = dict(osoba=people, zdroj=recs, rod=lines, rodina=families)

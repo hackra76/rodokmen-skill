@@ -1,11 +1,11 @@
 <!doctype html>
-<!-- Šablona přihlašovací stránky. Vyplňuje ji tools/export_web.py z data/web.json do public/prihlaseni.html. -->
-<html lang="cs">
+<!-- Šablóna prihlasovacej stránky. Vypĺňa ju tools/export_web.py z data/web.json do public/prihlaseni.html. -->
+<html lang="sk">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
-  <title>Přihlášení · {{NAZEV}}</title>
+  <title>Prihlásenie · {{NAZEV}}</title>
   <style>
     :root { --bg: #fbf8f2; --ink: #2b2620; --muted: #6e6153; --line: #e4ddd1; --accent: #8a5a2b; }
     * { box-sizing: border-box; }
@@ -32,34 +32,32 @@
     <form id="f">
       <label for="a">{{OTAZKA}}</label>
       <input id="a" name="a" autocomplete="off" autofocus required />
-      <button type="submit">Vstoupit</button>
+      <button type="submit">Vstúpiť</button>
       <p class="err" id="err" role="alert"></p>
     </form>
     <p class="small">{{NAPOVEDA}}</p>
   </main>
   <script>
     if (new URLSearchParams(location.search).has('spatne')) {
-      document.getElementById('err').textContent = 'To není ono – zkuste to znovu.';
+      document.getElementById('err').textContent = 'To nie je správne – skúste to znova.';
     }
     document.getElementById('f').addEventListener('submit', function (e) {
       e.preventDefault();
       var v = document.getElementById('a').value.normalize('NFD').replace(/[̀-ͯ]/g, '')
         .toLowerCase().replace(/[^a-z0-9]/g, '');
-      if (!window.crypto || !crypto.subtle) {   // jen přes https (nebo localhost)
-        document.getElementById('err').textContent = 'Přihlášení funguje jen přes zabezpečené spojení (https).';
+      if (!window.crypto || !crypto.subtle) {   // len cez https (alebo localhost)
+        document.getElementById('err').textContent = 'Prihlásenie funguje len cez zabezpečené spojenie (https).';
         return;
       }
-      // Do cookie jde jen otisk odpovědi (SHA-256), ne odpověď samotná – stejný otisk má server.
       crypto.subtle.digest('SHA-256', new TextEncoder().encode('rodokmen:' + v)).then(function (buf) {
         var hash = Array.from(new Uint8Array(buf)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
         var secure = location.protocol === 'https:' ? '; Secure' : '';
         document.cookie = 'rodokmen=' + hash + '; Max-Age=31536000; Path=/; SameSite=Lax' + secure;
-        // úvodní lomítka sloučit: z adresy „https://web//cizi.web“ by jinak „//cizi.web“ přesměrovalo na cizí web
         var path = location.pathname.replace(/^[\/\\]+/, '/');
         var back = path === '/prihlaseni.html' ? '/' : path + location.search;
         return fetch(back, { credentials: 'same-origin', cache: 'no-store' }).then(function (r) {
           if (r.status === 401) {
-            document.getElementById('err').textContent = 'To není ono – zkuste to znovu.';
+            document.getElementById('err').textContent = 'To nie je správne – skúste to znova.';
           } else {
             location.replace(back);
           }

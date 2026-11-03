@@ -11,14 +11,14 @@ const uvod = config.uvod ?? {};
 const cards = config.zajimavosti_na_uvodu ?? [];
 ---
 <Base title="" wide>
-  <h1>{config.nazev || 'Rodokmen'}</h1>
+  <h1>{config.nazev || 'Rodokmeň'}</h1>
 
   {!!(uvod.nadpis || uvod.odstavce?.length) && (
     <section class="teaser">
       <div>
         {uvod.nadpis && <h2>{uvod.nadpis}</h2>}
         {(uvod.odstavce ?? []).map((t) => <p>{t}</p>)}
-        {config.maPribeh && <a class="btn" href="/pribehy/">{config.pribeh?.tlacitko || `Přečíst: ${pribeh.title}`} →</a>}
+        {config.maPribeh && <a class="btn" href="/pribehy/">{config.pribeh?.tlacitko || `Prečítať: ${pribeh.title}`} →</a>}
       </div>
       {uvod.foto && (
         <a href={config.maPribeh ? '/pribehy/' : `/img/${uvod.foto}.jpg`}><img src={`/img/${uvod.foto}.jpg`} alt={uvod.foto_popis || ''} /></a>
@@ -31,35 +31,35 @@ const cards = config.zajimavosti_na_uvodu ?? [];
       <div>
         <h2>{pribeh.title}</h2>
         {pribeh.lead && <p>{pribeh.lead}</p>}
-        <a class="btn" href="/pribehy/">{config.pribeh?.tlacitko || 'Přečíst příběh'} →</a>
+        <a class="btn" href="/pribehy/">{config.pribeh?.tlacitko || 'Prečítať príbeh'} →</a>
       </div>
     </section>
   )}
 
   <div class="stats">
-    <div><strong>{stats.ancestors}</strong>známých předků</div>
-    <div><strong>{stats.documented}</strong>doloženo matrikou</div>
-    <div><strong>{stats.generations}</strong>generací</div>
-    <div><strong>{stats.records}</strong>matričních zápisů</div>
+    <div><strong>{stats.ancestors}</strong>známych predkov</div>
+    <div><strong>{stats.documented}</strong>doložených matrikou</div>
+    <div><strong>{stats.generations}</strong>generácií</div>
+    <div><strong>{stats.records}</strong>matričných zápisov</div>
   </div>
 
   {cards.length > 0 && (
     <>
-      <h2>Zajímavosti</h2>
+      <h2>Zaujímavosti</h2>
       <div class="grid2">
         {cards.map((c) => (
           <a class="card card-link" href="/zajimavosti/"><h3>{c.nadpis}</h3><p class="small muted">{c.text}</p></a>
         ))}
       </div>
-      <p><a href="/zajimavosti/">Všechny zajímavosti →</a></p>
+      <p><a href="/zajimavosti/">Všetky zaujímavosti →</a></p>
     </>
   )}
 
   {site.places.length > 0 && (
     <>
-      <h2>Kde žili naši předci</h2>
+      <h2>Kde žili naši predkovia</h2>
       <FamilyMap height="420px" compact />
-      <p><a href="/mapa/">Celá mapa se jmény a filtrem rodů →</a></p>
+      <p><a href="/mapa/">Celá mapa s menami a filtrom rodov →</a></p>
     </>
   )}
 
@@ -77,10 +77,10 @@ const cards = config.zajimavosti_na_uvodu ?? [];
     </>
   )}
 
-  <h2>Rodokmen</h2>
+  <h2>Rodokmeň</h2>
   <div class="only-mobile">
     <MobileTree k={1} />
   </div>
-  <div class="fan-preview only-desktop"><a class="cover" href="/vejir/" aria-label="Otevřít vějíř předků přes celou obrazovku"></a><Fragment set:html={fan} /></div>
-  <p><a class="btn" href="/vejir/">Otevřít vějíř předků přes celou obrazovku →</a> <a href="/predci/" style="margin-left:1rem">nebo seznam všech předků</a></p>
+  <div class="fan-preview only-desktop"><a class="cover" href="/vejir/" aria-label="Otvoriť vejár predkov na celú obrazovku"></a><Fragment set:html={fan} /></div>
+  <p><a class="btn" href="/vejir/">Otvoriť vejár predkov na celú obrazovku →</a> <a href="/predci/" style="margin-left:1rem">alebo zoznam všetkých predkov</a></p>
 </Base>

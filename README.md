@@ -1,190 +1,136 @@
-# Rodokmen – skill a plugin pro Antigravity & Claude Code
+# Rodokmeň – skill a plugin pre Antigravity & Claude Code
 
-![Rodokmen z matrik a rodinný web – vějíř předků, mapa a zajímavosti](docs/banner.jpg)
+![Rodokmeň z matrík a rodinný web – vejár predkov, mapa a zaujímavosti](docs/banner.jpg)
 
-Antigravity (i Claude) vás provede tvorbou rodokmenu **od rodinných vzpomínek přes digitalizované matriky až k hezkému rodinnému webu**
-s vějířem předků, mapou, příběhem rodu a výřezy původních zápisů s přepisem a překladem.
-Je určený pro lidi, kteří genealogii nikdy nedělali a neprogramují – technickou práci dělá agent, vy dodáváte
-znalost rodiny a rozhodujete.
+Antigravity (aj Claude) vás prevedie tvorbou rodokmeňa **od rodinných spomienok cez digitalizované matriky až po pekný rodinný web**
+s vejárom predkov, mapou, príbehom rodu a výrezmi pôvodných zápisov s prepisom a prekladom.
+Je určený pre ľudí, ktorí genealógiu nikdy nerobili a neprogramujú – technickú prácu robí agent, vy dodávate
+znalosť rodiny a rozhodujete.
 
-Vznikl při skutečném hledání předků jedné rodiny.
+Vznikol pri skutočnom hľadaní predkov.
 
-**Autor původního skillu:** Jindřich Šaršon ([sarsonj@gmail.com](mailto:sarsonj@gmail.com), [GitHub](https://github.com/sarsonj), [původní repozitář](https://github.com/sarsonj/rodokmen-skill))  
-**Port pro Google Antigravity:** Radovan Dvorský ([GitHub](https://github.com/hackra76/rodokmen-skill))
+**Autor pôvodného skillu:** Jindřich Šaršon ([sarsonj@gmail.com](mailto:sarsonj@gmail.com), [GitHub](https://github.com/sarsonj), [pôvodný repozitár](https://github.com/sarsonj/rodokmen-skill))  
+**Port pre Google Antigravity & slovenský preklad:** Radovan Dvorský ([GitHub](https://github.com/hackra76/rodokmen-skill))
 
-**Aktuální verze: 0.7.0 (Antigravity port).** Skill se průběžně vyvíjí – opravují se chyby a doplňují postupy pro další archivy. Seznam změn najdete v [historii repozitáře](https://github.com/hackra76/rodokmen-skill/commits/main).
+**Aktuálna verzia: 0.7.0 (Antigravity port).** Zoznam zmien nájdete v [histórii repozitára](https://github.com/hackra76/rodokmen-skill/commits/main).
 
-> **Než začnete**
+> **Kým začnete**
 >
-> Tento skill **nenahrazuje genealoga** ani zkušeného badatele. Je to pomůcka, která umí rychle projít hodně matrik.
-> Umělá inteligence ale dělá chyby: špatně přečte jméno, splete si dva Jany ze stejné vsi nebo spojí rodiny, které
-> k sobě nepatří. Skill se tomu snaží bránit – u každého údaje je zdroj a výřez původního zápisu, údaje se navzájem
-> kontrolují a nejisté věci jsou označené. Za správnost rodokmenu ale ručíte vy. Používáte ho na vlastní odpovědnost.
+> Tento skill **nenahrádza profesionálneho genealóga** ani skúseného bádateľa. Je to pomôcka, ktorá dokáže rýchlo prejsť veľké množstvo matrík.
+> Umelá inteligencia však robí chyby: zle prečíta meno, pomýli si dve osoby s rovnakým menom z tej istej dediny alebo spojí rodiny, ktoré
+> k sebe nepatria. Skill sa tomu snaží brániť – pri každom údaji je zdroj a výrez pôvodného zápisu, údaje sa navzájom
+> kontrolujú a neisté veci sú označené. Za správnosť rodokmeňa však ručíte vy. Používate ho na vlastnú zodpovednosť.
 >
-> Projekt vznikl i jako **test toho, kam současná AI dosáhne**. Chtěl jsem zkusit úkol, který je opravdu těžký:
-> kurrent, latina, zkratky farářů, stejná jména a dlouhé řetězce závěrů. Výsledky mě překvapily, ale nejsou to
-> výsledky profesionála.
+> Projekt vznikol aj ako **test toho, kam súčasná AI dosiahne**. Staré písmo (kurent, novogotika), latinčina, maďarčina, skratky farárov,
+> rovnaké mená a dlhé reťazce hypotéz predstavujú náročnú výzvu.
 >
-> Kdo potřebuje rodokmen, na který se dá spolehnout (dědictví, publikace, sporné případy), nebo se zasekne na místě,
-> kam matriky nestačí, ať se obrátí na genealoga. Začít můžete u
-> [České genealogické a heraldické společnosti](https://www.genealogie.cz) (Praha a pobočky po Čechách) nebo
-> u [Moravské genealogické a heraldické společnosti](https://www.mghs.cz) (Brno). Obě pořádají kurzy a přednášky
-> a mají knihovnu. Rodokmen ze skillu, kde je u každého údaje zdroj a snímek, může genealogovi posloužit jako dobrý
-> podklad.
->
-> **Jste genealog nebo zkušený badatel?** Budu rád za kritiku. Když uvidíte chybu v postupu, ve čtení nebo v tom,
-> co skill radí, [založte issue](https://github.com/sarsonj/rodokmen-skill/issues) nebo mi napište. Vaše zkušenost
-> je přesně to, co AI chybí.
+> Kto potrebuje rodokmeň, na ktorý sa dá právne spoľahnúť (dedičstvo, publikácie, sporné prípady), alebo sa zasekne na mieste,
+> kam matriky nestačia, odporúčame obrátiť sa na odborníkov (napr. Slovenská genealogicko-heraldická spoločnosť pri MS v Martine,
+> Česká genealogická a heraldická spoločnosť v Prahe, Moravská genealogická a heraldická spoločnosť v Brne).
 
-**Přečetla AI něco špatně, něco nefunguje nebo jste narazili na jiný problém?**
-[Založte prosím issue na GitHubu →](https://github.com/sarsonj/rodokmen-skill/issues/new)
-(víc v části [Zpětná vazba](#zpětná-vazba-a-vaše-zkušenosti)).
+## Ako vyzerá web
+Ukážkový web s vymyslenou rodinou (260 predkov v 11 generáciách) má na úvodnej stránke príbeh rodu, zaujímavosti,
+mapu, kde predkovia žili, osem rodov a vejár predkov. Ďalšie stránky: rodokmeň po rodinách, karty osôb, výrezy zápisov
+s prepisom a prekladom, „Čo hľadáme“ a denník hľadania. **[Pozrite si celú úvodnú stránku ukážky →](docs/ukazka-web.png)**
 
-## Jak vypadá web
-Ukázkový web s vymyšlenou rodinou Novákových (260 předků v 11 generacích) má na úvodní stránce příběh rodu, zajímavosti,
-mapu, kde předci žili, osm rodů a vějíř předků. Další stránky: rodokmen po rodinách, karty osob, výřezy zápisů
-s přepisem a překladem, „Co hledáme“ a deník hledání. **[Podívejte se na celou úvodní stránku ukázky →](docs/ukazka-web.png)**
+## Čo budete potrebovať
+- **Google Antigravity** (alebo Claude Code) a prístup k modelom. Rodokmeň je
+  dlhá a podrobná práca. Odporúčaný hlavný model je silný uvažovací model (v Antigravity rad Pro, napr. Gemini Pro; v Claude Code Claude Opus). Pomocníci na hľadanie môžu bežať na úspornejších modeloch (Flash / Sonnet).
+- **Počítač s Windows, macOS alebo Linuxom** (Windows 11 s Pythonom z python.org a Git Bashom).
+- Programy **Python 3, Node.js, ImageMagick a git**. Nemusíte ich inštalovať vopred – agent skontroluje, čo chýba,
+  a pomôže s inštaláciou (na Windows cez winget, na Macu cez Homebrew).
+- Pre vybrané archívy (SOA Třeboň, MZA Brno, ZA Opava) **prehliadač pre agenta** – príkaz `/browser` alebo MCP server Playwright/Puppeteer. Tieto archívy sťahovacie nástroje nepúšťajú, agent preto číta matriky priamo v ich prehliadači.
+- Voliteľne bezplatný účet na [Netlify](https://www.netlify.com), ak chcete web zverejniť pre rodinu.
 
-## Co budete potřebovat
-- **Google Antigravity** (nebo Claude Code) a přístup k modelům. Rodokmen je
-  dlouhá a podrobná práce. Doporučený hlavní model je silný uvažovací model (v Antigravity řada Pro, např. Gemini Pro; v Claude Code Claude Opus). Pomocníci na hledání mohou běžet na úspornějších modelech (Flash / Sonnet).
-- **Počítač s macOS nebo Windows** (obojí vyzkoušeno; Windows 11 s Pythonem z python.org a Git Bashem).
-  Linux funguje rovněž.
-- Programy **Python 3, Node.js, ImageMagick a git**. Nemusíte je instalovat předem – agent zkontroluje, co chybí,
-  a pomůže s instalací (na Macu přes [Homebrew](https://brew.sh), na Windows přes winget).
-- Pro jižní Čechy a Moravu (SOA Třeboň, MZA Brno, ZA Opava) **prohlížeč pro agenta** – MCP server Playwright/Puppeteer,
-  či příkaz `/browser`. Tyto archivy stahovací nástroje nepouštějí, agent proto čte matriky přímo v jejich prohlížeči.
-  Bez něj můžete posílat snímky obrazovky sami.
-- Volitelně účet na [Netlify](https://www.netlify.com) (zdarma), pokud chcete web zveřejnit pro rodinu.
+## S akými modelmi to funguje
+- **Antigravity:** Hlavný model **Gemini Pro** (či ekvivalentný najsilnejší model). Pomocníci (subagenti) pre čítanie a hľadanie bežia na **Gemini Flash**. Hlavný model vždy overuje nález na snímke.
+- **Claude Code:** Hlavný model **Claude Opus 5.5**, pomocníci na **Claude Sonnet 5.5**.
 
-## S jakými modely to funguje
-- **Antigravity:** Hlavní model **Gemini Pro** (či ekvivalentní nejsilnější model). Pomocníci (subagenti) pro čtení a hledání běží na **Gemini Flash**. Hlavní model vždy ověřuje nález na snímku.
-- **Claude Code:** Hlavní model **Claude Opus 5.5**, pomocníci na **Claude Sonnet 5.5**.
-
-## Instalace
+## Inštalácia
 
 ### Do Google Antigravity
-1. **Jako globální plugin (doporučeno):**
-   Zkopírujte nebo naklonujte repozitář do složky uživatelských pluginů:
+1. **Ako globálny plugin (odporúčané):**
+   Skopírujte alebo naklonujte repozitár do priečinka používateľských pluginov:
    - Na Windows: `%USERPROFILE%\.gemini\config\plugins\rodokmen`
-   - Na macOS / Linuxu: `~/.gemini/config/plugins/rodokmen`
+   - Na macOS / Linuxe: `~/.gemini/config/plugins/rodokmen`
    ```bash
    git clone https://github.com/hackra76/rodokmen-skill ~/.gemini/config/plugins/rodokmen
    ```
-2. **Nebo pro konkrétní projekt / workspace:**
-   Zkopírujte složku `skills/rodokmen` do `.agents/skills/rodokmen` ve vašem projektu.
-3. Restartujte Antigravity, aby se nový plugin/skill načetl.
+2. **Alebo pre konkrétny projekt / workspace:**
+   Skopírujte priečinok `skills/rodokmen` do `.agents/skills/rodokmen` vo vašom projekte.
+3. Reštartujte Antigravity, aby sa nový plugin/skill načítal.
 
 ### Do Claude Code
 ```bash
-/plugin marketplace add sarsonj/rodokmen-skill
+/plugin marketplace add hackra76/rodokmen-skill
 /plugin install rodokmen@rodokmen-skill
 ```
-Nebo ručně zkopírováním `skills/rodokmen` do `~/.claude/skills/`.
+Alebo ručne skopírovaním `skills/rodokmen` do `~/.claude/skills/`.
 
-## První spuštění
-1. Spusťte Antigravity (či Claude Code) a napište:
-   > Chci udělat rodokmen své rodiny.
-2. Agent zkontroluje programy, založí složku projektu (např. `~/Rodokmen`) a začne se ptát na rodinu.
-   Připravte si, co víte o rodičích, prarodičích a pradědečcích, a rodinné dokumenty (rodné a oddací listy, parte,
-   fotky, kroniky) – stačí vyfotit mobilem.
-3. **Příště otevírejte Antigravity přímo ve složce projektu** (např. složka `~/Rodokmen`). Agent načte pravidla z `AGENTS.md` a `data/STAV.md`, zjistí, kde jste skončili, a naváže.
+## Prvé spustenie
+1. Spustite Antigravity (či Claude Code) a napíšte:
+   > Chcem urobiť rodokmeň svojej rodiny.
+2. Agent skontroluje programy, založí priečinok projektu (napr. `~/Rodokmen`) a začne sa pýtať na rodinu.
+   Pripravte si, čo viete o rodičoch, starých rodičoch a prastarých rodičoch, a rodinné dokumenty (rodné a sobášne listy, úmrtné listy, parte,
+   fotografie, rodinné zápisky) – stačí odfotiť mobilom.
+3. **Nabudúce otvárajte Antigravity priamo v priečinku projektu** (napr. `~/Rodokmen`). Agent načíta pravidlá z `AGENTS.md` a `data/STAV.md`, zistí, kde ste skončili, a nadviaže.
 
-Chcete nejdřív vidět, jak web vypadá? Řekněte: *„Ukaž mi ukázkový web.“* Claude založí ukázkový projekt
-s vymyšlenou rodinou a spustí náhled.
+Chcete najprv vidieť, ako web vyzerá? Povedzte: *„Ukáž mi ukážkový web.“* Agent založí ukážkový projekt s vymyslenou rodinou a spustí náhľad.
 
-## Jak to probíhá
-| Fáze | Co děláte vy | Co dělá Claude |
+## Ako to prebieha
+| Fáza | Čo robíte vy | Čo robí agent |
 |---|---|---|
-| 0. Příprava | potvrdíte instalaci programů | založí projekt |
-| 1. Rozhovor | vyprávíte, dodáte dokumenty, zeptáte se příbuzných | zapisuje, čte dokumenty, navrhuje otázky |
-| 2. Matriky | rozhodujete sporná místa | hledá svazky, stahuje a čte zápisy, dělá výřezy, přepisy a překlady, vede deník hledání |
-| 3. Příběhy | doplníte rodinné historky, schválíte texty | průběžně sbírá zajímavosti, napíše „Příběh <vašeho rodu>“ |
-| 4. Web | díváte se a říkáte, co upravit | staví web a ukazuje náhled |
-| 5. Zveřejnění | založíte účet na Netlify, schválíte obsah | nasadí web s přihlášením rodinnou otázkou |
+| 0. Príprava | potvrdíte inštaláciu programov | založí projekt |
+| 1. Rozhovor | rozprávate, dodáte dokumenty, opýtate sa príbuzných | zapisuje, číta dokumenty, navrhuje otázky |
+| 2. Matriky | rozhodujete sporné miesta | hľadá zväzky, sťahuje a číta zápisy, robí výrezy, prepisy a preklady, vedie denník hľadania |
+| 3. Príbehy | doplníte rodinné historky, schválite texty | priebežne zbiera zaujímavosti, napíše „Príbeh <vášho rodu>“ |
+| 4. Web | pozeráte sa a hovoríte, čo upraviť | stavia web a ukazuje náhľad |
+| 5. Zverejnenie | založíte účet na Netlify, schválite obsah | nasadí web s prihlásením rodinnou otázkou |
 
-Matriky jsou online jen do určitého data: narození starší než 100 let, sňatky 75 a úmrtí 30 let.
-O mladší údaje se žádá na matričním úřadě. Claude vám řekne, kdy to je potřeba.
+Matriky sú online len do určitého dátumu: na Slovensku prechádzajú cirkevné a štátne matriky do archívu po 100 rokoch od posledného zápisu. V Česku je to 100 rokov pri narodeniach, 75 pri sobášoch a 30 pri úmrtiach. O mladšie údaje sa žiada na matričnom úrade. Agent vám povie, kedy je to potrebné.
 
-## Co je v repozitáři
+## Čo je v repozitári
 ```
 skills/rodokmen/
-  SKILL.md           průvodce pro Clauda (fáze, pravidla)
-  reference/         podrobné návody: čtení matrik, portály archivů, formát dat, web, soukromí,
-                     metodická příručka (playbook, anglicky)
-  tools/             nástroje v Pythonu (ARON, výřezy, rámečky, mapa, kontrola dat, export do webu, vějíř)
-  template/          šablona projektu: prázdná data, ukázková rodina, web (Astro)
-.claude-plugin/      instalace jako plugin
+  SKILL.md           sprievodca pre agenta (fázy, pravidlá)
+  reference/         podrobné návody: čítanie matrík, portály archívov (SK, CZ, AT), formát dát, web, súkromie,
+                     metodická príručka (playbook, anglicky)
+  tools/             nástroje v Pythone (ARON, výrezy, rámčeky, mapa, kontrola dát, export do webu, vejár)
+  template/          šablóna projektu: prázdne dáta, ukážková rodina, web (Astro)
+plugin.json          manifest pluginu pre Antigravity
+.claude-plugin/      inštalácia ako plugin pre Claude Code
 ```
 
-## Co umí a co ne
-- **Hotové nástroje** (bez prohlížeče) mají: východní Čechy (SOA Zámrsk, ARON), západní Čechy (SOA Plzeň,
-  Porta fontium), střední Čechy (SOA Praha, eBadatelna – i urbáře a gruntovní knihy) a Prahu (AHMP a policejní
-  přihlášky 1850–1914). Pro severní Čechy (SOA Litoměřice) stahuje snímky nástrojem, knihu ale najde přes prohlížeč.
-  Pro Rakousko je postup přes Matriculu.
-- **Jen přes prohlížeč:** jižní Čechy (SOA Třeboň) a Morava (MZA Brno) – oba archivy od listopadu 2026 stahovací
-  nástroje odmítají, Claude proto zápis přiblíží v jejich prohlížeči a uloží snímek obrazovky. Opava taky přes
-  prohlížeč. Funguje to, ale je to pomalejší.
-- U úředníků, vojáků a lékařů hledá i v **dobových novinách** (ANNO, Kramerius) – kariéra, vyznamenání, parte.
-- Umí načíst **rodinný strom z MyHeritage** a dalších služeb (export GEDCOM, z MyHeritage i zálohu stromu z programu
-  Family Tree Builder) a udělat z něj plán hledání.
-- Průběžně sbírá **zajímavosti** (svatby na poslední chvíli, rod sto let v jednom domě…) a s vámi napíše
-  **Příběh vašeho rodu** – hlavní článek webu.
-- Claude čte staré písmo dobře, ale ne bezchybně. Proto ke každému zápisu ukládá výřez s vyznačeným místem,
-  aby se to dalo zkontrolovat, a nejistá místa označuje otazníkem.
-- Placené služby (MyHeritage, Ancestry) Claude hromadně neprochází – vede to k zablokování účtu.
+## Podpora archívov a prameňov
+- **Slovensko:** Cirkevné matriky do roku 1895 (rímskokatolícke, gréckokatolícke, evanjelické, reformované, židovské) sú dostupné na **FamilySearch** v zbierke *Slovakia Church and Synagogue Books, 1592-1935*. Obrovská časť je indexovaná a vyhľadateľná podľa mena a obce. Sčítanie ľudu 1869 (*Slovakia Census 1869*) je na FamilySearch s indexom. Cintoríny pokrývajú portály `cintoriny.sk` a `virtualnycintorin.sk`. Urbáre a mapy sú na portáli `hungaricana.hu`.
+- **Česko:** Východné Čechy (SOA Zámrsk / ARON), západné Čechy (SOA Plzeň / Porta fontium), stredné Čechy (SOA Praha / eBadatelna), Praha (AHMP), južné Čechy (SOA Třeboň) a Morava (MZA Brno, ZA Opava).
+- **Rakúsko a Nemecko:** Portál Matricula Online (cirkevné matriky) a rakúske dobové noviny ANNO (ÖNB).
+- Pri úradníkoch, vojakoch a učiteľoch hľadá aj v **dobových novinách** (Kramerius, ANNO) – kariéra, vyznamenania, parte.
+- Dokáže načítať **rodinný strom z MyHeritage** a ďalších služieb (export GEDCOM) a urobiť z neho plán výskumu.
+- Priebežne zbiera **zaujímavosti** (svadby na poslednú chvíľu, rod sto rokov v jednom dome…) a s vami napíše **Príbeh vášho rodu** – hlavný článok webu.
+- Ku každému zápisu ukladá výrez s vyznačeným miestom, aby sa dal overiť, a neisté miesta označuje otáznikom.
 
-## Soukromí
-Projekt obsahuje osobní údaje vaší rodiny. Zůstává na vašem počítači. Web je chráněný rodinnou otázkou
-a není indexovaný vyhledávači; bez nastavené otázky ho nástroj nenasadí. Je to lehká ochrana proti náhodným
-návštěvníkům, ne trezor: kdo zná odpověď, vidí všechno, co na web dáte. Claude má pokyn psát o žijících lidech
-jen jméno a rok narození a před zveřejněním s vámi projít, co o nich web říká – kód to ale nevynucuje,
-rozhodnutí je na vás.
-Pokud projekt chcete zálohovat na GitHub, použijte **soukromý** repozitář.
+## Súkromie
+Projekt obsahuje osobné údaje vašej rodiny. Zostáva na vašom počítači. Web je chránený rodinnou otázkou
+a nie je indexovaný vyhľadávačmi; bez nastavenej otázky ho nástroj nenasadí. Je to ochrana proti náhodným
+návštevníkom: kto pozná odpoveď, vidí obsah webu. Agent má pokyn písať o žijúcich ľuďoch
+len meno a rok narodenia a pred zverejnením s vami prejsť, čo o nich web uvádza.
+Ak projekt chcete zálohovať na GitHub, použite **súkromný (private)** repozitár.
 
-## Zpětná vazba a vaše zkušenosti
-Děkuji všem, kdo mi poslali připomínky – jen verze 0.5.0 zapracovala přes čtyřicet podnětů od šesti lidí (podpora
-Windows a staršího ImageMagicku, postupy pro MZA Brno a ZA Opava, bezpečná úprava dat a další). Každou připomínku čtu
-a průběžně zapracovávám – ne každou hned a ne každou doslova, aby skill zůstal jednoduchý pro všechny.
+## Spätná väzba a vaše skúsenosti
+Chyby a problémy – AI nesprávne prečítala zápis, spojila nesprávnych ľudí, nejaký krok nefunguje alebo spadol nástroj –
+prosím [založte ako issue na GitHube](https://github.com/hackra76/rodokmen-skill/issues/new).
+Popíšte, čo sa stalo, a ak ide o čítanie zápisu, pridajte odkaz na snímku v archíve. Issues sú verejné, preto
+do nich nepíšte údaje o žijúcich ľuďoch.
 
-**Chyby a problémy** – AI špatně přečetla zápis, spojila nesprávné lidi, nějaký krok nefunguje nebo spadl nástroj –
-prosím [založte jako issue na GitHubu](https://github.com/sarsonj/rodokmen-skill/issues/new) (stačí bezplatný účet).
-Popište, co se stalo, a pokud jde o čtení zápisu, přidejte odkaz na snímek v archivu. Issues jsou veřejné, proto
-do nich nepište údaje o žijících lidech.
+## Bezpečnosť
+Skill tvorí návod pre agenta a pomocné skripty v Pythone.
+- **Žiadny automaticky spúšťaný kód bez kontroly.** Nástroje spúšťa agent pri práci podľa potreby.
+- **Strážca siete (`hlidac_site.py`):** Projekt obsahuje voliteľný lifecycle hook (`hooks.json`), ktorý pred každým príkazom skontroluje, či agent nepristupuje na archívny web mimo brzdy.
+- **Brzda proti zablokovaniu archívom:** Archívy blokujú IP adresu pri sérii rýchlych dopytov. Nástroje preto používajú brzdu (`tools/slusne.py`).
+- **Kam skripty siahajú:** zapisujú do priečinka projektu rodokmeňa (stiahnuté snímky, medzivýsledky, web). Mimo projektu nič nemažú ani neprepisujú.
+- **Na ktoré servery pristupujú:** archívne portály (FamilySearch, ARON, Porta fontium, eBadatelna, AHMP, Matricula), dobová tlač, OpenStreetMap (mapa a súradnice obcí) a pri inštalácii webu register npm.
 
-Budu rád i za další zkušenosti. Napište mi na **sarsonj@gmail.com**, co fungovalo, co ne, jaký archiv jste použili, co vám na webu chybělo.
-Užitečné změny rád zapracuji do skillu, aby je měli k dispozici i ostatní. Další verze tak bude lepší pro každého,
-kdo hledá své předky.
-
-Nemusíte nic sepisovat sami. Claude si během práce zapisuje do `poznamky_pro_skill.md` (v projektu), co by šlo zlepšit:
-chyby, nové archivy, postupy a nápady, bez údajů o vaší rodině. Občas vám je nabídne k odeslání. Nic se neposílá samo:
-když budete chtít, zkopírujte je do e-mailu.
-
-## Bezpečnost
-Skill je obyčejný text (návod pro Clauda) a pár skriptů v Pythonu. Všechno si můžete před instalací prohlédnout
-tady v repozitáři.
-- **Žádný automaticky spouštěný kód.** Plugin nemá hooky ani MCP servery. Skripty spouští jen Claude, když je
-  při práci potřebuje, a Claude Code se vás na ně zeptá.
-  Jediná výjimka je volitelný **hlídač sítě**. Claude se na něj zeptá při zakládání projektu a bez vašeho souhlasu
-  se nezapne. Je to malý skript v projektu (`tools/hlidac_site.py`, hook v `.claude/settings.json` projektu). Před
-  každým příkazem zkontroluje, jestli nejde na web archivu mimo brzdu, a takový příkaz zamítne. Sám nic nestahuje
-  ani nikam neposílá. Vypnete ho příkazem `novy_projekt.py <projekt> --bez-hlidace`.
-- **Brzda proti zablokování archivem.** Archivy blokují IP adresu po sérii rychlých dotazů. Nástroje proto mají
-  společný limit pro každý web (`tools/slusne.py`) a po varování archivu se na 30 minut zastaví. Projekt má
-  v `.claude/settings.json` zakázané přímé `curl` a `wget`, stahuje se jen přes brzdu.
-- **Kam skripty sahají:** zapisují do složky projektu rodokmenu (stažené snímky, mezivýsledky, web).
-  Výjimkou jsou dočasné soubory systému, stav brzdy (pár malých souborů v `~/.cache/rodokmen_slusne`, na Windows
-  v `%LOCALAPPDATA%`), npm při instalaci webu a přihlášení nástroje pro nasazení (Netlify, CapRover), pokud web
-  zveřejňujete. Mimo projekt nic nemažou ani nepřepisují.
-- **Na které servery chodí:** archivní portály (ARON SOA Zámrsk, SOA Třeboň, SOA Plzeň – Porta fontium, SOA Praha –
-  eBadatelna, AHMP, Národní archiv, SOA Litoměřice, Matricula), noviny (ANNO, Kramerius), OpenStreetMap (mapa
-  a souřadnice obcí) a při instalaci webu registr npm.
-  Na Netlify jen tehdy, když web sami zveřejníte. Nikam jinam nic neposílají, ani vaše data, ani poznámky.
-- **Doporučení:** nechte v Claude Code zapnuté schvalování příkazů, aspoň dokud si nezvyknete, co Claude dělá.
-  Obecně instalujte skilly a pluginy jen od lidí, kterým věříte. Skill nikdo předem nekontroluje a Claude se
-  jeho návodem řídí.
-
-## Licence
-Skill je pod licencí [MIT](LICENSE): smíte ho volně používat, upravovat a šířit dál, jen zachovejte uvedení autora (Jindřich Šaršon).
-Výjimkou je metodická příručka `skills/rodokmen/reference/playbook.md`. Je to převzatá rešeršní zpráva bez uvedeného
-autora, licence MIT se na ni nevztahuje (podrobnosti na začátku souboru).
+## Licencia
+Skill je pod licenciou [MIT](LICENSE): smiete ho voľne používať, upravovať a šíriť ďalej, so zachovaním uvedenia pôvodného autora (Jindřich Šaršon).
+Výnimkou je metodická príručka `skills/rodokmen/reference/playbook.md`, na ktorú sa licencia MIT nevzťahuje (podrobnosti na začiatku súboru).

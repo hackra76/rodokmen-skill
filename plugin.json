@@ -1,23 +1,24 @@
 {
   "name": "rodokmen",
-  "displayName": "Rodokmen",
+  "displayName": "Rodokmeň",
   "version": "0.7.0",
-  "description": "Průvodce tvorbou rodokmenu z českých matrik a rodinného webu pro lidi bez zkušeností s genealogií i programováním (Antigravity).",
+  "description": "Sprievodca tvorbou rodokmeňa z matrík a rodinného webu pre ľudí bez predchádzajúcich skúseností s genealógiou a programovaním (Antigravity).",
   "author": {
-    "name": "Jindřich Šaršon"
+    "name": "Jindřich Šaršon, port a slovenský preklad: Radovan Dvorský"
   },
   "repository": "https://github.com/hackra76/rodokmen-skill",
   "license": "MIT",
   "keywords": [
-    "genealogie",
+    "genealogia",
     "rodokmen",
     "matriky",
     "family-tree",
-    "aron"
+    "slovensko",
+    "familysearch"
   ],
   "suggestedPrompts": [
-    "Chci založit nový rodokmen své rodiny.",
-    "Pomoz mi vyhledat předky v digitalizovaných matrikách.",
-    "Zkontroluj rodokmen a připrav rodinný web."
+    "Chcem založiť nový rodokmeň mojej rodiny.",
+    "Pomôž mi vyhľadať predkov v digitalizovaných matrikách.",
+    "Skontroluj rodokmeň a priprav rodinný web."
   ]
 }

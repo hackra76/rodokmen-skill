@@ -5,15 +5,15 @@ import { recordList, dateKey, href } from '../lib/data.js';
 const list = [...recordList].sort((a, b) => dateKey(a.date) - dateKey(b.date));
 const kinds = [...new Set(list.map((r) => r.kindName))];
 ---
-<Base title="Zápisy z matrik">
-  <h1>Zápisy z matrik</h1>
-  <p class="lead">Všech {list.length} zápisů, na kterých rodokmen stojí – chronologicky. U každého je výřez snímku s vyznačeným místem, plné rozlišení a odkaz do archivu. Co v matrikách zatím chybí nebo si odporuje, najdete v přehledu <a href="/hledame/">co ještě hledáme</a>.</p>
+<Base title="Zápisy z matrík">
+  <h1>Zápisy z matrík</h1>
+  <p class="lead">Všetkých {list.length} zápisov, na ktorých rodokmeň stojí – chronologicky. Pri každom je výrez snímky s vyznačeným miestom, plné rozlíšenie a odkaz do archívu. Čo v matrikách zatiaľ chýba alebo si odporuje, nájdete v prehľade <a href="/hledame/">čo ešte hľadáme</a>.</p>
   <p class="chips">
-    <button class="chip" data-k="" type="button">vše</button>
+    <button class="chip" data-k="" type="button">všetko</button>
     {kinds.map((k) => <button class="chip" data-k={k} type="button">{k}</button>)}
   </p>
   <div class="table-box"><table>
-    <thead><tr><th>Datum</th><th>Druh</th><th>Zápis</th><th>Týká se</th></tr></thead>
+    <thead><tr><th>Dátum</th><th>Druh</th><th>Zápis</th><th>Týka sa</th></tr></thead>
     <tbody>
       {list.map((r) => (
         <tr data-kind={r.kindName}>
@@ -22,8 +22,8 @@ const kinds = [...new Set(list.map((r) => r.kindName))];
           <td><a href={href.record(r.key)}>{r.title}</a><div class="small muted">{r.volume || r.vdesc}</div>
             {r.orig && (
               <details class="transcript">
-                <summary>Text z matriky a překlad</summary>
-                <div class="tr-grid"><div><h4>Přepis originálu</h4><p class="tr-orig">{r.orig}</p></div><div><h4>Překlad</h4><p class="tr-cs">{r.cs}</p></div></div>
+                <summary>Text z matriky a preklad</summary>
+                <div class="tr-grid"><div><h4>Prepis originálu</h4><p class="tr-orig">{r.orig}</p></div><div><h4>Preklad</h4><p class="tr-cs">{r.cs}</p></div></div>
               </details>
             )}
           </td>

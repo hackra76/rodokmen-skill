@@ -1,18 +1,17 @@
 #!/usr/bin/env python3
-"""Založí nový projekt rodokmenu ze šablony skillu.
+"""Založí nový projekt rodokmeňa zo šablóny skillu.
 
-Použití: python3 <skill>/tools/novy_projekt.py <cílová složka> [--ukazka] [--hlidac | --bez-hlidace]
-  --ukazka        nakopíruje i vymyšlená ukázková data (rodina Novákových), aby šel web hned vyzkoušet
-  --hlidac        zapne hlídač sítě (hook v .claude/settings.json, tools/hlidac_site.py): zamítne příkazy,
-                  které jdou na web archivu mimo brzdu tools/slusne.py; --bez-hlidace ho vypne
+Použitie: python <skill>/tools/novy_projekt.py <cieľový priečinok> [--ukazka] [--hlidac | --bez-hlidace]
+  --ukazka        nakopíruje aj vymyslené ukážkové dáta (rodina Novákovcov), aby sa dal web hneď vyskúšať
+  --hlidac        zapne strážcu siete (hooks.json pre Antigravity a hook v .claude/settings.json, tools/hlidac_site.py):
+                  zamietne príkazy, ktoré idú na web archívu mimo brzdy tools/slusne.py; --bez-hlidace ho vypne
 
-Vytvoří: data/ (prázdné kostry nebo ukázka), web/ (Astro web), tools/ (kopie nástrojů),
-vyrezy/, zdroje/, dokumenty/, pracovni/, CLAUDE.md, .gitignore, .gitattributes (konce řádků LF i na Windows)
-a .claude/launch.json (náhled v Claude desktop). Do .claude/settings.json doplní zákaz přímého curl/wget
-(stahování z archivů jde přes brzdu tools/slusne.py); ostatní nastavení v souboru nechá beze změny.
-Existující data nepřepisuje.
-Aktualizace staršího projektu (znovu spustit na stejnou složku): tools/ se přepíše vždy a soubory webu,
-které se liší od nové šablony, taky – jejich staré verze se nejdřív uloží do pracovni/zaloha_web_<datum>/.
+Vytvorí: data/ (prázdne kostry alebo ukážka), web/ (Astro web), tools/ (kópia nástrojov),
+vyrezy/, zdroje/, dokumenty/, pracovni/, AGENTS.md, CLAUDE.md, hooks.json, .gitignore, .gitattributes
+a .vscode/launch.json (.claude/launch.json pre Claude desktop).
+Existujúce dáta neprepisuje.
+Aktualizácia staršieho projektu: tools/ sa prepíše vždy a súbory webu, ktoré sa líšia od novej šablóny,
+tiež – ich staré verzie sa uložia do pracovni/zaloha_web_<datum>/.
 """
 import filecmp, json, os, shutil, sys, time
 for _s in (sys.stdout, sys.stderr):   # UTF-8 výstup i na Windows bez -X utf8 (cp1250 neumí třeba „→“)
@@ -83,7 +82,7 @@ def nastaveni(dst, hlidac):
         try:
             data = json.load(open(path, encoding="utf-8"))
         except ValueError:
-            print(f"POZOR: {path} není platný JSON – nastavení brzdy jsem nedoplnil. Oprav ho a spusť znovu.")
+            print(f"POZOR: {path} nie je platný JSON – nastavenie brzdy som nedoplnil. Opravte ho a spustite znova.")
             data = None
     if data is not None:
         puvodni = json.dumps(data, sort_keys=True)
@@ -145,7 +144,7 @@ def nastaveni(dst, hlidac):
 
     zapnuty = (data and any("hlidac_site.py" in json.dumps(h) for h in data.get("hooks", {}).get("PreToolUse", []))) or \
               os.path.exists(os.path.join(dst, "hooks.json"))
-    print("Hlídač sítě:", "zapnutý" if zapnuty else "vypnutý (zapnout: --hlidac)")
+    print("Strážca siete:", "zapnutý" if zapnuty else "vypnutý (zapnúť: --hlidac)")
 
 
 def main():
@@ -186,12 +185,12 @@ def main():
     nastaveni(dst, True if "--hlidac" in sys.argv else False if "--bez-hlidace" in sys.argv else None)
     with open(os.path.join(dst, ".skill_verze"), "w", encoding="utf-8") as f:   # SKILL.md podle něj nabídne aktualizaci
         f.write(open(os.path.join(SKILL, "VERZE"), encoding="utf-8").read())
-    print("Projekt připraven:", dst)
+    print("Projekt pripravený:", dst)
     if changed:
-        print(f"Web aktualizován na novou šablonu ({len(changed)} souborů). Původní verze jsou v {backup}:")
+        print(f"Web aktualizovaný na novú šablónu ({len(changed)} súborov). Pôvodné verzie sú v {backup}:")
         for f in changed:
             print("  web/" + f)
-        print("Pokud jste vzhled webu upravovali, převezměte úpravy ze zálohy. Pak `npm install` a `npm run data` ve web/.")
+        print("Pokiaľ ste vzhľad webu upravovali, prevezmite úpravy zo zálohy. Potom `npm install` a `npm run data` vo web/.")
 
 
 if __name__ == "__main__":

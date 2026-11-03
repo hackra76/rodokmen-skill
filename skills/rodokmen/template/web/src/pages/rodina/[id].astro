@@ -12,7 +12,7 @@ const father = f.father ? people[f.father] : null;
 const mother = f.mother ? people[f.mother] : null;
 const children = f.children.map((s) => people[s]);
 const line = f.line ? lineByK[f.line] : null;
-const title = [father?.name ?? (f.fatherUnknown ? 'otec neuveden' : 'neznámý otec'), mother?.name ?? 'neznámá matka'].join(' a ');
+const title = [father?.name ?? (f.fatherUnknown ? 'otec neuvedený' : 'neznámy otec'), mother?.name ?? 'neznáma matka'].join(' a ');
 ---
 <Base title={`Rodina: ${title}`}>
   <p class="crumbs">Rodina{line && <> · <a href={href.line(line.slug)}>rod {line.name}</a></>}</p>
@@ -26,28 +26,28 @@ const title = [father?.name ?? (f.fatherUnknown ? 'otec neuveden' : 'neznámý o
           <>
             <p><PersonLink slug={p.slug} /><br /><span class="small muted">{p.rel}</span></p>
             {p.facts.length > 0 && <ul class="facts small">{p.facts.map((x) => <li>{x}</li>)}</ul>}
-            {p.family && <p class="small"><a href={href.family(p.family)}>Rodina, ze které pochází →</a></p>}
+            {p.family && <p class="small"><a href={href.family(p.family)}>Rodina, z ktorej pochádza →</a></p>}
           </>
-        ) : <p class="muted">{i === 0 && f.fatherUnknown ? 'V zápisech neuveden – dítě se narodilo jako nemanželské.' : 'Zatím neznámá osoba.'}</p>}
+        ) : <p class="muted">{i === 0 && f.fatherUnknown ? 'V zápisoch neuvedený – dieťa sa narodilo ako nemanželské.' : 'Zatiaľ neznáma osoba.'}</p>}
       </div>
     ))}
   </div>
 
   {f.marriage.length > 0 && (
     <>
-      <h2>Sňatek</h2>
+      <h2>Sobáš</h2>
       <ul class="facts">{f.marriage.map((m) => <li>{m.replace(/^×\s*/, '')}</li>)}</ul>
     </>
   )}
 
-  <h2>Děti</h2>
+  <h2>Deti</h2>
   <ul class="facts">
-    {children.map((c) => <li><PersonLink slug={c.slug} /> – přímý předek ({c.rel})</li>)}
+    {children.map((c) => <li><PersonLink slug={c.slug} /> – priamy predok ({c.rel})</li>)}
   </ul>
   {f.side.length > 0 && (
     <div class="grid2">{f.side.map((s) => <div class="card"><h3>{s.name}</h3><p class="small">{s.text}</p></div>)}</div>
   )}
-  <p class="small muted">Další sourozence zatím systematicky nehledáme – tady jsou jen ti, na které jsme narazili.</p>
+  <p class="small muted">Ďalších súrodencov zatiaľ systematicky nehľadáme – tu sú len tí, na ktorých sme narazili.</p>
 
   {f.records.length > 0 && (
     <>

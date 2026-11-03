@@ -3,19 +3,19 @@ import Base from '../layouts/Base.astro';
 import { issues, config } from '../lib/data.js';
 import { Content as Dotazy } from '../generated/dotazy.md';
 ---
-<Base title="Co hledáme">
-  <h1>Co ještě hledáme</h1>
-  <p class="lead">Otevřené otázky a hypotézy. Pokud o něčem z toho víte z rodinné paměti nebo dokumentů, ozvěte se{config.kontakt?.email ? <> na <a href={`mailto:${config.kontakt.email}`}>{config.kontakt.email}</a></> : ' autorovi rodokmenu'}.</p>
-  <h2>Otevřené otázky</h2>
+<Base title="Čo hľadáme">
+  <h1>Čo ešte hľadáme</h1>
+  <p class="lead">Otvorené otázky a hypotézy. Ak o niečom z toho viete z rodinnej pamäti alebo dokumentov, ozvite sa{config.kontakt?.email ? <> na <a href={`mailto:${config.kontakt.email}`}>{config.kontakt.email}</a></> : ' autorovi rodokmeňa'}.</p>
+  <h2>Otvorené otázky</h2>
   <div class="grid2">
-    {issues.filter((i) => !i.text.startsWith('Vyřešeno')).map((i) => (
+    {issues.filter((i) => !i.text.startsWith('Vyriešené') && !i.text.startsWith('Vyřešeno')).map((i) => (
       <div class="card">
         <h3>{i.title}</h3>
-        <p class="small"><span class={`chip ${i.text.startsWith('Vyřešeno') ? 'st-doc' : i.text.startsWith('Hypotéza') ? 'st-prob' : 'st-unk'}`}>{i.text.split(':')[0]}</span> {i.text.slice(i.text.indexOf(':') + 1)}</p>
+        <p class="small"><span class={`chip ${(i.text.startsWith('Vyriešené') || i.text.startsWith('Vyřešeno')) ? 'st-doc' : i.text.startsWith('Hypotéza') ? 'st-prob' : 'st-unk'}`}>{i.text.split(':')[0]}</span> {i.text.slice(i.text.indexOf(':') + 1)}</p>
       </div>
     ))}
   </div>
-  <h2>Prameny mimo online matriky</h2>
+  <h2>Pramene mimo online matrík</h2>
   <div class="prose small"><Dotazy /></div>
-  <p><a href="/denik/">Výzkumný deník – všechna hledání včetně neúspěšných →</a></p>
+  <p><a href="/denik/">Výskumný denník – všetky hľadania vrátane neúspešných →</a></p>
 </Base>

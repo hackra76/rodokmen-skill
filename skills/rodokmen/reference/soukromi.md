@@ -1,33 +1,30 @@
-# Soukromí, etika a cizí služby
+# Súkromie, etika a cudzie služby
 
-## Žijící lidé
-- Na webu jen jméno a rok narození (`note="Žijící – údaje jen základní."`). Žádné adresy, telefony, rodná čísla,
-  zdravotní údaje, rozvody, nemanželské děti u žijících či nedávno zemřelých bez souhlasu rodiny.
-- Citlivé věci z nedávné minulosti (sebevraždy, věznění, nemoci) – zeptej se uživatele, jestli a jak je zmínit.
-- Matriční údaje starší než lhůty jsou veřejné, ale ohleduplnost platí i pro ně (zbytečně nezesměšňovat).
+## Žijúci ľudia
+- Na webe uvádzaj len meno a rok narodenia (`note="Žijúci – údaje len základné."`). Žiadne adresy, telefóny, rodné čísla,
+  zdravotné údaje, rozvody, nemanželské deti u žijúcich či nedávno zosnulých bez výslovného súhlasu rodiny.
+- Citlivé témy z nedávnej minulosti (samovraždy, väznenie, vážne choroby) – opýtaj sa používateľa, či a ako ich spomenúť.
+- Matričné údaje staršie ako archívne lehoty sú verejné, ale ohľaduplnosť platí aj pre ne (zbytočne nezosmiešňovať).
 
-## Před zveřejněním webu projdi s uživatelem
-`python3 -I tools/kontrola.py` hlásí `CITLIVÉ` u textů z posledních ~100 let (sebevražda, nemoc, rozvod, dluhy, nemanželské
-dítě…), které jdou na web – v poznámkách osob, ve „Co hledáme“ (`ISSUES`), u bočních příbuzných, v zajímavostech a v příběhu.
-Co uživatel na webu schválí, zapiš úryvkem do `web.json` → `citlive_schvaleno` (`web.md`).
-Údaje z rodinného stromu (GEDCOM) a od rodiny bývají právě takové – pro výzkum ano, na web jen se souhlasem.
-1. Seznam žijících osob na webu a co o nich web říká.
-2. Rodinné fotky a dokumenty – souhlasí ti, kdo jsou na nich (nebo jejich rodina)?
-3. Přihlašovací otázka a odpověď (`web.json`) – nastavená a dost těžká?
-4. Kontakt na webu – chce tam uživatel svůj e-mail?
-Teprve pak `npm run nasadit`.
+## Pred zverejnením webu prejdi s používateľom
+`python -I -X utf8 tools/kontrola.py` hlási `CITLIVÉ` pri textoch z posledných ~100 rokov (samovražda, choroba, rozvod, dlhy, nemanželské
+dieťa…), ktoré idú na web – v poznámkach osôb, v „Čo hľadáme“ (`ISSUES`), pri bočných príbuzných, v zaujímavostiach a v príbehu.
+Čo používateľ na webe schváli, zapíš úryvkom do `web.json` → `citlive_schvaleno` (`web.md`).
+Údaje z rodinného stromu (GEDCOM) a od rodiny bývajú práve také – pre výskum áno, na web len so súhlasom.
+1. Zoznam žijúcich osôb na webe a čo o nich web hovorí.
+2. Rodinné fotky a dokumenty – súhlasia tí, ktorí sú na nich (alebo ich rodina)?
+3. Prihlasovacia otázka a odpoveď (`web.json`) – nastavená a dostatočne ťažká pre cudzích?
+4. Kontakt na webe – chce tam používateľ svoj e-mail?
+Až potom `npm run nasadit`.
 
-## Placené a cizí služby (MyHeritage, Ancestry, Geni, FamilySearch)
-- Přihlášení, platby a předplatné řeší **jen uživatel**. Zkušební verze se po skončení automaticky platí – připomeň,
-  kdy končí a kde ji zrušit.
-- **Žádné hromadné procházení ani stahování.** Skutečná zkušenost: automatické stažení ~180 záznamů z MyHeritage vedlo
-  k zablokování účtu „kvůli možnému zneužití“ – uprostřed placené zkušební doby. Čti jen jednotlivé záznamy,
-  které jsou potřeba, tempem člověka; raději požádej uživatele o export (GEDCOM) nebo o konkrétní stránky.
-- Údaje odtud jsou stav `mh` a vždy se ověřují v matrikách.
+## Platené a cudzie služby (MyHeritage, Ancestry, Geni, FamilySearch)
+- Prihlásenie, platby a predplatné rieši **len používateľ**. Skúšobná verzia sa po skončení automaticky platí – pripomeň,
+  kedy končí a kde ju zrušiť.
+- **Žiadne hromadné prechádzanie ani sťahovanie.** Automatické sťahovanie záznamov z MyHeritage vedie k zablokovaniu účtu. Čítaj len jednotlivé záznamy, ktoré sú potrebné, ľudským tempom; radšej požiadaj používateľa o export (GEDCOM) alebo o konkrétne snímky.
+- Údaje odtiaľ majú stav `mh` a vždy sa overujú v matrikách.
 
-## Archivní portály
-Jsou zdarma a veřejné, ale servery mají omezené síly: stahuj jen snímky, které opravdu čteš, žádné celé svazky naráz,
-paralelně maximálně pár požadavků. Citace vždy až na úroveň snímku (aby to šlo zkontrolovat).
+## Archívne portály
+Sú bezplatné a verejné, ale servery majú obmedzené kapacity: sťahuj len snímky, ktoré skutočne čítaš, žiadne celé zväzky naraz, paralelne maximálne niekoľko požiadaviek. Citácie uvádzaj vždy až na úroveň konkrétnej snímky.
 
-## Data v gitu a sdílení
-Projekt obsahuje osobní údaje rodiny. Když ho uživatel chce mít na GitHubu, pak **jen jako soukromé (private) repo**.
+## Dáta v gite a zdieľanie
+Projekt obsahuje osobné údaje rodiny. Ak ho používateľ chce mať na GitHube, potom **len ako súkromné (private) úložisko**.

@@ -16,19 +16,19 @@ const partnerLine = lineByK[l.k ^ 1];
   <p class="crumbs"><a href="/rody/">Rody</a></p>
   <h1><span style={`display:inline-block;width:.8em;height:.8em;border-radius:50%;background:${l.color};margin-right:.3em`}></span>{l.name}</h1>
   <p class="lead">{l.desc}</p>
-  <p>Rod začíná u <PersonLink slug={l.root} /> ({people[l.root].rel}).
+  <p>Rod začína u <PersonLink slug={l.root} /> ({people[l.root].rel}).
     {partnerLine && people[l.root].spouse && (
-      <>{people[l.root].sex === 'M' ? ' Jeho manželka ' : ' Její manžel '}<PersonLink slug={people[l.root].spouse} /> je výchozí osobou
-        sousedního rodu <a href={href.line(partnerLine.slug)}>{partnerLine.name}</a>; jejich {people[people[l.root].child].sex === 'M' ? 'syn' : 'dcera'} <PersonLink slug={people[l.root].child} />.</>
+      <>{people[l.root].sex === 'M' ? ' Jeho manželka ' : ' Jej manžel '}<PersonLink slug={people[l.root].spouse} /> je východiskovou osobou
+        susedného rodu <a href={href.line(partnerLine.slug)}>{partnerLine.name}</a>; ich {people[people[l.root].child].sex === 'M' ? 'syn' : 'dcéra'} <PersonLink slug={people[l.root].child} />.</>
     )}
   </p>
-  <p class="small muted">Rodokmen je rozdělený do osmi rodů podle osmi pradědečků a prababiček – každý manželský pár proto patří do dvou sousedních rodů.</p>
+  <p class="small muted">Rodokmeň je rozdelený do ôsmich rodov podľa ôsmich prastarých rodičov – každý manželský pár preto patrí do dvoch susedných rodov.</p>
 
   {gens.map((g) => (
     <>
       <h2>{genName(g)}</h2>
       <div class="table-box"><table>
-        <thead><tr><th>Jméno</th><th>Život</th><th>Údaje</th><th>Stav</th></tr></thead>
+        <thead><tr><th>Meno</th><th>Život</th><th>Údaje</th><th>Stav</th></tr></thead>
         <tbody>
           {members.filter((p) => p.gen === g).map((p) => (
             <tr>
@@ -50,5 +50,5 @@ const partnerLine = lineByK[l.k ^ 1];
       {h.items.length > 0 && <ul class="facts">{h.items.map((o) => <li><strong>{o.name}</strong> – {o.text}</li>)}</ul>}
       <div class="recs">{h.records.map((r) => <Record id={r} />)}</div>
     </>
-  ))}
+  )}
 </Base>

@@ -1,74 +1,69 @@
-# Zajímavosti a příběh rodu
+# Zaujímavosti a príbeh rodu
 
-Kvůli tomuhle rodina web čte. Tabulka jmen a dat nikoho nechytí, ale „prapradědeček se narodil 267 dní po svatbě“
-nebo „rod žil sto let v jednom domě“ ano. Nečekej s tím až na konec výzkumu.
+Pre toto rodina web skutočne číta. Tabuľka mien a dátumov málokoho zaujme, ale „prapradedo sa narodil 267 dní po svadbe“
+alebo „rod žil sto rokov v jednom dome“ áno. Nečakaj s tým až na koniec výskumu.
 
-## Zajímavosti („fun facts“) – sbírej průběžně
-Kdykoli při čtení zápisu narazíš na něco neobvyklého, **hned** to napiš do `data/zajimavosti.md` jako krátký odstavec
-a řekni to uživateli jako příběh. Po každém větším kole spusť `python3 -I tools/napady.py`. Nástroj projde data
-a vypíše náměty (svatby krátce před porodem, rod v jednom domě, sňatky příbuzných, dlouhověkost, epidemie…).
-Každý námět si ověř v zápisu, než ho napíšeš.
+## Zaujímavosti („fun facts“) – zbieraj priebežne
+Kedykoľvek pri čítaní zápisu narazíš na niečo nezvyčajné, **hneď** to zapíš do `data/zajimavosti.md` ako krátky odsek
+a povedz to používateľovi ako príbeh. Po každom väčšom kole spusti `python -I -X utf8 tools/napady.py`. Nástroj prejde dáta
+a vypíše námety (svadby krátko pred pôrodom, rod v jednom dome, sobáše príbuzných, dlhovekosť, epidémie…).
+Každý námet si over v zápise predtým, než ho zapíšeš.
 
-Co bývá zajímavé (všechno z jednoho skutečného rodokmenu):
-| Typ | Příklad, jak to napsat |
+Čo býva zaujímavé:
+| Typ | Príklad, ako to napísať |
 |---|---|
-| Svatby na poslední chvíli | tabulka: svatba – dítě – za kolik dní (spočítej přesně); „přesná trefa“: narozen 267 dní po svatbě – počat nejspíš o svatební noci |
-| Nemanželské děti, legitimace | „Jméno přežilo díky svobodné matce“ – příjmení se dědilo po matce; poznámka o legitimaci na okraji zápisu |
-| Sto let v jednom domě | stejné číslo popisné přes 3–5 generací, kdo se v něm narodil a zemřel |
-| Předek v rodokmenu vícekrát | děda a babička byli vzdálení příbuzní (`SAME`) – kde se větve potkaly |
-| Neobvyklá jména | křestní jméno po světici (a jak se jméno v matrikách zkomolilo) |
-| Významní svědci a kmotři | radní, rychtář, farář, vrchnostenský úředník na svatbě obyčejného řemeslníka |
-| Dispense | svatba s povolením od biskupa (příbuzenství, zákaz ohlášek, adventní doba) |
-| Řemesla v rodě | krejčí, puškaři, ranhojič, sládek… jako jeden odstavec přes všechny rody |
-| Osudy žen | dvakrát vdova během deseti let; služka, která si vzala o 25 let staršího vdovce |
-| Děti, které brzy přišly o rodiče | matka zemřela po porodu, otec v epidemii – kdo děti vychoval |
-| Epidemie a války | cholera 1831/1855/1866, prusko-rakouská válka 1866, španělská chřipka 1918 (příčina úmrtí v zápisu!) |
-| Moderní doba | civilní sňatek na úřadě a povolení soudu pro nezletilou nevěstu; přestěhování do pohraničí po 1945 |
-| Rodinné vyprávění vs. matrika | „rodina říkala Marie, ve skutečnosti Anna“; potvrzená rodinná pověst („babička byla ze statku“) |
-| Ztracený začátek | kde linie končí a proč (shořelé knihy, nemanželské dítě bez otce) |
-| Noviny | výstřižek o jmenování, vyznamenání, penzi, parte – přidej obrázek do `dokumenty.json` |
+| Svadby na poslednú chvíľu | tabuľka: svadba – dieťa – o koľko dní; „presná trefa“: narodený 267 dní po svadbe – počatý zrejme počas svadobnej noci |
+| Nemanželské deti, legitimácia | „Meno prežilo vďaka slobodnej matke“ – priezvisko sa dedilo po matke; poznámka o legitimácii na okraji zápisu |
+| Sto rokov v jednom dome | rovnaké číslo domu cez 3–5 generácií, kto sa v ňom narodil a zomrel |
+| Predok v rodokmeni viackrát | dedo a babka boli vzdialení príbuzní (`SAME`) – kde sa vetvy spojili |
+| Neobvyklé mená | krstné meno po svätici (a ako sa meno v matrikách skomolilo) |
+| Významní svedkovia a krstní rodičia | richtár, farár, panský úradník na svadbe remeselníka |
+| Dišpenz | svadba s povolením od biskupa (príbuzenstvo, zákaz ohlášok, adventné obdobie) |
+| Remeslá v rode | kováči, krajčíri, mlynári, kolári… ako jeden ucelený odsek |
+| Osudy žien | dvakrát vdova v priebehu desiatich rokov; slúžka, ktorá si vzala o 25 rokov staršieho vdovca |
+| Deti, ktoré skoro osireli | matka zomrela po pôrode, otec počas epidémie – kto deti vychoval |
+| Epidémie a vojny | cholera 1831/1855/1866, prvá svetová vojna, španielska chrípka 1918 (príčina úmrtia v zápise!) |
+| Moderná doba | civilný sobáš na úrade; presťahovanie po roku 1945 |
+| Rodinné rozprávanie vs. matrika | „rodina hovorila Mária, v skutočnosti Anna“; potvrdená rodinná povesť |
+| Stratený začiatok | kde línia končí a prečo (vyhorené matriky, nemanželské dieťa bez otca) |
+| Noviny | výstrižok o menovaní, vyznamenaní, parte – pridaj obrázok do `dokumenty.json` |
 
-Styl: nadpis `## Krátký a zvědavý`, 2–5 vět, konkrétní data a místa, odkazy na osoby `[Jméno](/osoba/<slug>/)`.
-Nejlepší 2–4 dej i na úvod webu (`web.json` → `zajimavosti_na_uvodu`).
-Citlivé věci z 20. století (sebevraždy, nemoci, rozvody, nemanželské děti u nedávno žijících) piš jen se souhlasem
-uživatele (`reference/soukromi.md`). `kontrola.py` je hlídá.
+Štýl: nadpis `## Krátky a pútavý`, 2–5 viet, konkrétne dátumy a miesta, odkazy na osoby `[Meno](/osoba/<slug>/)`.
+Najlepšie 2–4 daj aj na úvod webu (`web.json` → `zajimavosti_na_uvodu`).
+Citlivé veci z 20. storočia (samovraždy, choroby, rozvody, nemanželské deti) píš len so súhlasom používateľa (`reference/soukromi.md`). `kontrola.py` ich stráži.
 
-## Příběh hlavního rodu
-**Hlavní rod** je rod výchozí osoby (rodné příjmení, většinou rod č. 8 v `LINES`). Když uživatel chce jiný, nastav
-`web.json` → `pribeh.rod`. Příběh se jmenuje **„Příběh <rodu ve 2. pádě>“** (Příběh Novákových, Příběh Dvořáků).
-Má vlastní položku v menu a je hlavní věcí na úvodní stránce.
+## Príbeh hlavného rodu
+**Hlavný rod** je rod východiskovej osoby (rodné priezvisko, zvyčajne rod č. 8 v `LINES`). Ak používateľ chce iný, nastav
+`web.json` → `pribeh.rod`. Príbeh sa volá **„Príbeh <rodu v genitíve>“** (Príbeh Novákovcov, Príbeh Dvorských).
+Má vlastnú položku v menu a tvorí hlavný obsah na úvodnej stránke.
 
-**Kdy psát:** jakmile má hlavní rod zhruba 5 generací doložených matrikou. Nečekej, až bude „hotovo“, protože příběh
-jde později doplnit. `kontrola.py` na to upozorní. Uživateli to nabídni, i když dřív řekl „až bude víc dat“.
+**Kedy písať:** len čo má hlavný rod zhruba 5 generácií doložených matrikou. Nečakaj, kým bude „hotovo“, pretože príbeh
+sa dá neskôr kedykoľvek doplniť. `kontrola.py` na to upozorní.
 
 **Postup:**
-1. Sesbírej materiál: fakta a poznámky osob hlavního rodu, `SIDE`, zajímavosti, `udaje_od_rodiny.md`,
-   rodinné paměti a dokumenty, novinové výstřižky.
-2. Napiš **koncept do chatu** a nech si ho schválit (délka, tón, co ano/ne). Pod koncept připiš, co je z matrik
-   a co od rodiny, a co jsi vynechal jako citlivé. Teprve po schválení ho ulož.
+1. Zozbieraj materiál: fakty a poznámky osôb hlavného rodu, `SIDE`, zaujímavosti, `udaje_od_rodiny.md`,
+   rodinné spomienky a dokumenty, novinové výstrižky.
+2. Napíš **koncept do chatu** a nechaj si ho schváliť používateľom (dĺžka, tón, čo uviesť a čo vynechať). Pod koncept pripíš, čo je z matrík a čo od rodiny. Až po schválení ho ulož.
 3. Ulož do `data/pribeh.md`:
    ```markdown
    ---
-   title: Příběh Novákových
-   lead: Jedna věta, která chytí – od koho k komu příběh vede.
+   title: Príbeh Dvorských
+   lead: Jedna pútavá veta – od koho ku komu príbeh vedie.
    ---
 
-   ## Prolog v mlze (1700–1750)
+   ## Prológ v hmle (1700–1750)
    …
-   ## Kováři z čísla 112 (1777–1874)
+   ## Kováči z čísla 112 (1777–1874)
    …
    ```
-4. Nastav `web.json` → `"pribeh": {"menu": "Příběh Novákových", "rod": 8, "tlacitko": "Přečíst příběh Novákových"}`
-   a úvod (`uvod.nadpis`, 2–3 odstavce lákadla, fotka). Bez úvodu se na úvodní stránce ukáže aspoň název a `lead` příběhu.
+4. Nastav `web.json` → `"pribeh": {"menu": "Príbeh Dvorských", "rod": 8, "tlacitko": "Prečítať príbeh Dvorských"}`
+   a úvod (`uvod.nadpis`, 2–3 odseky, fotografia).
 
-**Jak má vypadat** (osvědčený tvar, asi 800–1500 slov):
-- Kapitoly po generacích, od nejstaršího předka k dnešku. Nadpis = člověk nebo jeho role + roky
-  („Krejčí z Holic (asi 1756–1812)“, „Služka, která zachránila jméno“).
-- Každá kapitola 1–3 krátké odstavce: kde žil, čím se živil, svatba, děti, něco lidského (zápis, svědek, nehoda, stěhování).
-- Konkrétně: data, místa, čísla domů, citace ze zápisu v uvozovkách. Odkazy na osoby `[Jméno](/osoba/<slug>/)`
-  (slugy ve `web/src/data/site.json`).
-- Názvy obcí: archiv a OpenStreetMap píší třeba „Veliš“, rodina a dnešní úřední podoba „Velíš“. Zeptej se, jakou podobu
-  rodina používá, a drž ji v celém textu.
-- Poctivě: co nevíme, napiš jako otázku nebo domněnku („nejspíš“, „podle rodiny“). Nic nevymýšlej kvůli plynulosti.
-- Na konci kapitola o dnešku: jen jména a vztahy žijících, bez podrobností.
-- Ostatní rody dostanou svůj prostor na stránkách rodů (popis v `LINES`, `HYPOTEZY`) a v zajímavostech.
+**Ako má vyzerať** (rozsah cca 800–1500 slov):
+- Kapitoly po generáciách, od najstaršieho predka k dnešku. Nadpis = človek alebo jeho rola + roky
+  („Kováč z Holíc (asi 1756–1812)“, „Slúžka, ktorá zachránila meno“).
+- Každá kapitola 1–3 krátke odseky: kde žil, čím sa živil, svadba, deti, niečo ľudské zo zápisov.
+- Konkrétne: dátumy, miesta, čísla domov, citácie zo zápisu v úvodzovkách. Odkazy na osoby `[Meno](/osoba/<slug>/)`.
+- Poctivo: čo nevieme s istotou, napíš ako otázku alebo domnienku („zrejme“, „podľa rodiny“). Nič nevymýšľaj kvôli plynulosti.
+- Na konci kapitola o dnešku: len mená a vzťahy žijúcich, bez podrobností a citlivých údajov.
+- Ostatné rody dostanú svoj priestor na stránkach rodov (popis v `LINES`, `HYPOTEZY`) a v zaujímavostiach.

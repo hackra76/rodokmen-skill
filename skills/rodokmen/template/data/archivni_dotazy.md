@@ -1,3 +1,3 @@
-# Prameny mimo online matriky
+# Pramene mimo online matrík
 
-Co by šlo zjistit jen v badatelně archivu nebo na matričním úřadě (a proč). Doplňujte průběžně.
+Čo by sa dalo zistiť len v bádateľni archívu alebo na matričnom úrade (a prečo). Doplňujte priebežne.

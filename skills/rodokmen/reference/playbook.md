@@ -1,10 +1,7 @@
-<!-- Metodická příručka (anglicky): rešeršní zpráva „Professional Genealogy in the Czech Lands & Central Europe —
-Operating Playbook“, stav 2026-10-09. Autor ve zprávě není uveden. Podle stylu (štítky [FACT]/[INFERENCE], „this run“,
-„via subagent“) jde nejspíš o výstup výzkumného nástroje s umělou inteligencí. Do skillu je zařazena jako pracovní
-podklad, beze změn obsahu a bez nároku na autorství. Licence MIT repozitáře se na tento soubor nevztahuje.
-Jste-li autor a nesouhlasíte se zařazením, ozvěte se prosím na sarsonj@gmail.com – soubor upravíme nebo odstraníme.
-Pozor: jde o rešerši k datu 2026-10-09 – adresy, lhůty a ceny ověř, než se na ně spolehneš.
-Čti po částech podle potřeby (obsah: §0 opravy, §1 hlavní zjištění, §2 prameny po zemích, §3 časová osa, §4 lhůty, §5 metoda a šablony, §6+ nástroje a ceny). -->
+<!-- Metodická príručka (anglicky): rešeršná správa „Professional Genealogy in the Czech Lands & Central Europe —
+Operating Playbook“, stav 2026-10-09. Autor v správe nie je uvedený. Zaradená ako pracovný podklad.
+Pozor: ide o rešerš k dátumu 2026-10-09 – adresy, lehoty a ceny over, než sa na ne spoľahneš.
+Čítaj po častiach podľa potreby (obsah: §0 opravy, §1 hlavné zistenia, §2 pramene podľa krajín, §3 časová os, §4 lehoty, §5 metóda a šablóny, §6+ nástroje a ceny). -->
 
 # Professional Genealogy in the Czech Lands & Central Europe — Operating Playbook, State of 2026-10-09
 

@@ -1,8 +1,8 @@
-# Projekt rodokmenu
+# Projekt rodokmeňa
 
-Tohle je projekt rodokmenu vedený skillem **rodokmen**. Na začátku každé konverzace:
-1. Načti skill `rodokmen` (pokud ještě není načtený).
-2. Přečti `data/STAV.md` – stav, pravidla a co je rozpracované – a konec `data/research_log.md`.
-3. Pokračuj tam, kde se skončilo. Komunikuj česky, stručně a srozumitelně pro člověka bez zkušeností s genealogií a programováním.
-4. Síť na weby archivů jen přes brzdu `tools/slusne.py` (vlastní skripty, curl), i v zadání pomocníků – viz skill, „Šetrně k archivům“.
-5. Co by šlo ve skillu zlepšit (chyby nástrojů, nové archivy, nápady), zapisuj do `poznamky_pro_skill.md` – viz skill, sekce „Poznámky pro správce skillu“.
+Toto je projekt rodokmeňa vedený skillom **rodokmen**. Na začiatku každej konverzácie:
+1. Načítaj skill `rodokmen` (ak ešte nie je načítaný).
+2. Prečítaj `data/STAV.md` – stav, pravidlá a čo je rozpracované – a koniec `data/research_log.md`.
+3. Pokračuj tam, kde sa skončilo. Komunikuj slovensky, stručne a zrozumiteľne pre človeka bez skúseností s genealógiou a programovaním.
+4. Prístup na weby archívov len cez brzdu `tools/slusne.py` (vlastné skripty, curl), aj v zadaní pomocníkov.
+5. Čo by sa dalo v skille zlepšiť (chyby nástrojov, nové archívy, nápady), zapisuj do `poznamky_pro_skill.md`.

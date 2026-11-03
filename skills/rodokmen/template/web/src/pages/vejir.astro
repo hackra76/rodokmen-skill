@@ -2,22 +2,22 @@
 import Base from '../layouts/Base.astro';
 import fan from '../generated/fan.svg?raw';
 import { people } from '../lib/data.js';
-const names = [...new Set(Object.values(people).filter((p) => p.k > 1).map((p) => p.name))].sort((a, b) => a.localeCompare(b, 'cs'));
+const names = [...new Set(Object.values(people).filter((p) => p.k > 1).map((p) => p.name))].sort((a, b) => a.localeCompare(b, 'sk'));
 ---
-<Base title="Vějíř předků" full>
+<Base title="Vejár predkov" full>
   <div class="fan-bar">
-    <strong>Vějíř předků</strong>
+    <strong>Vejár predkov</strong>
     <form class="fan-search" autocomplete="off">
-      <input list="fan-names" placeholder="Najít předka…" aria-label="Najít předka" />
+      <input list="fan-names" placeholder="Nájsť predka…" aria-label="Nájsť predka" />
       <datalist id="fan-names">{names.map((n) => <option value={n} />)}</datalist>
-      <button type="submit">Najít</button>
+      <button type="submit">Nájsť</button>
     </form>
     <span class="fan-btns">
-      <button type="button" data-z="1.5" aria-label="Přiblížit">+</button>
-      <button type="button" data-z="0.667" aria-label="Oddálit">−</button>
+      <button type="button" data-z="1.5" aria-label="Priblížiť">+</button>
+      <button type="button" data-z="0.667" aria-label="Oddialiť">−</button>
       <button type="button" data-z="0">Celý</button>
     </span>
-    <span class="small muted fan-hint">Kolečkem myši přibližujte, tažením posouvejte, klepnutím na jméno otevřete stránku.</span>
+    <span class="small muted fan-hint">Kolieskom myši približujte, ťahaním posúvajte, kliknutím na meno otvoríte stránku.</span>
   </div>
   <div class="fan-stage" set:html={fan} />
 
