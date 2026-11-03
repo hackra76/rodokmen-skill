@@ -42,6 +42,6 @@ HYPOTEZY = [
 ]
 
 # Príbuzenské sobáše (pedigree collapse): keď je rovnaká osoba predkom cez viac vetiev.
-# dict(cislo=24, je_tiez=38, dovod="Anna bola prababičkou z otcovej aj matkinej strany")
-SAME = [
-]
+# SAME = {350: 140}  # alias -> hlavné číslo
+SAME = {
+}
