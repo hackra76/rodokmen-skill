@@ -37,10 +37,16 @@ def main():
     os.makedirs(os.path.dirname(full), exist_ok=True)
     os.makedirs(os.path.dirname(small), exist_ok=True)
     cmd = [MAGICK, src, "-auto-orient"]   # fotky z mobilu: otočit podle EXIF (EXIF i s GPS pak smaže +profile, barevný profil ICC zůstane)
-    if len(sys.argv) > 3:
-        x0, y0, x1, y1 = (float(v) for v in sys.argv[3].split(","))
+    if len(sys.argv) >= 7:   # PowerShell bez úvodzoviek rozdelí x0,y0,x1,y1 na 4 argumenty
+        coords = sys.argv[3:7]
+    elif len(sys.argv) > 3:
+        coords = sys.argv[3].split(",")
+    else:
+        coords = None
+    if coords:
+        x0, y0, x1, y1 = (float(v) for v in coords)
         if not (0 <= x0 < x1 <= 1 and 0 <= y0 < y1 <= 1):   # pixely by ImageMagick jen varoval a uložil celou stránku
-            sys.exit(f"Oblast {sys.argv[3]} musí být zlomky 0..1 (x0 < x1, y0 < y1), ne pixely – "
+            sys.exit(f"Oblast {coords} musí být zlomky 0..1 (x0 < x1, y0 < y1), ne pixely – "
                      "např. 0.1,0.25,0.9,0.6 = od 10 % do 90 % šířky a od 25 % do 60 % výšky.")
         w, h = (int(v) for v in subprocess.run([MAGICK, src + "[0]", "-auto-orient", "-format", "%w %h", "info:"],
                                                 capture_output=True, text=True, check=True).stdout.split())

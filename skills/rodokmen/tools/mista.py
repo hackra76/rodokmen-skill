@@ -37,7 +37,11 @@ def main():
     cache = json.load(open(OUT, encoding="utf-8")) if os.path.exists(OUT) else {}
     if len(sys.argv) > 2 and sys.argv[1] == "pridej":
         name = sys.argv[2]
-        stem = re.escape(name.split()[0][:5]) if len(name.split()) == 1 else re.escape(name)
+        if len(name.split()) == 1:
+            stem = re.escape(name.split()[0][:5])
+        else:
+            # Pre viacslovné obce (napr. Moravský Písek, Ostrožská Lhota) skráti každé slovo pre české aj slovenské skloňovanie
+            stem = r"\b" + r"\w*\s+".join(re.escape(w[:max(3, len(w) - 2)]) for w in name.split()) + r"\w*"
         cache[name] = dict(cache.get(name, {}), re=sys.argv[3] if len(sys.argv) > 3 and sys.argv[3] else stem,
                            dotaz=sys.argv[4] if len(sys.argv) > 4 else f"{name}, Česko")
     for name, e in cache.items():

@@ -111,18 +111,19 @@ def nastaveni(dst, hlidac):
     py = _python_windows()
     if " " in py and not py.startswith('"'):
         py = f'"{py}"'
-    py_cmd = f'{py} -I -X utf8 tools/hlidac_site.py' if os.name == "nt" else 'python3 -I tools/hlidac_site.py'
-    hook_entry = {
-        "matcher": "run_command",
-        "hooks": [
-            {
-                "type": "command",
-                "command": py_cmd,
-                "timeout": 10
-            }
-        ]
-    }
     for rel_path in ("hooks.json", os.path.join(".agents", "hooks.json")):
+        tools_path = "../tools/hlidac_site.py" if rel_path.startswith(".agents") else "tools/hlidac_site.py"
+        py_cmd = f'{py} -I -X utf8 {tools_path}' if os.name == "nt" else f'python3 -I {tools_path}'
+        hook_entry = {
+            "matcher": "run_command",
+            "hooks": [
+                {
+                    "type": "command",
+                    "command": py_cmd,
+                    "timeout": 10
+                }
+            ]
+        }
         hpath = os.path.join(dst, rel_path)
         hdata = {}
         if os.path.exists(hpath):

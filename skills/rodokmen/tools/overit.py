@@ -9,7 +9,17 @@ def magick():  # když ImageMagick chybí, skončí hned (před stahováním) sr
     if not m: sys.exit("Chýba ImageMagick (príkaz magick). Nainštaluj ho (macOS: brew install imagemagick, Windows: winget install ImageMagick.ImageMagick a reštartuj Antigravity / terminál) a spusť nástroj znovu.")
     return m
 MAGICK=magick()
-f,box,pre=sys.argv[1:4]; mode=sys.argv[4] if len(sys.argv)>4 else 'h'
+if len(sys.argv) < 4 and not (len(sys.argv) >= 7):
+    sys.exit("Použitie: overit.py <snímek.jpg> x0,y0,x1,y1 <prefix> [v]")
+f = sys.argv[1]
+if len(sys.argv) >= 7:  # PowerShell bez úvodzoviek rozdelí x0,y0,x1,y1 na 4 argumenty: f x0 y0 x1 y1 pre [mode]
+    box = ",".join(sys.argv[2:6])
+    pre = sys.argv[6]
+    mode = sys.argv[7] if len(sys.argv) > 7 else 'h'
+else:
+    box = sys.argv[2]
+    pre = sys.argv[3]
+    mode = sys.argv[4] if len(sys.argv) > 4 else 'h'
 W,H=map(int,subprocess.run([MAGICK,f+'[0]','-format','%w %h','info:'],capture_output=True,text=True).stdout.split())
 x0,y0,x1,y1=map(float,box.split(','))
 if not (0<=x0<x1<=1 and 0<=y0<y1<=1): sys.exit(f'Oblast {box} musí být zlomky 0..1 (x0 < x1, y0 < y1), ne pixely.')

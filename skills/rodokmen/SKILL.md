@@ -115,11 +115,11 @@ Základná slučka pre každú osobu:
 5. **Zapíš nález** (vždy všetkých 6 krokov):
    1. zväzok do `data/svazky.json`,
    2. zápis do `data/zaznamy.json` (kľúč = popisný názov, napr. `bardejov_krst_jan_dvorsky_1890`; odkaz na snímku) cez `tools/zapis.py`,
-   3. výrez: `python -I -X utf8 tools/vyrez.py pracovni/<stranka>.jpg <kľúč> x0,y0,x1,y1` (veľkoryso – celý zápis so záhlavím stĺpcov),
-   4. rámček čítaného miesta: `python -I -X utf8 tools/ramecek.py <kľúč> x0,y0,x1,y1` a **prehliadni si** `pracovni/ramecek_<kľúč>.jpg`,
+   3. výrez: `python -I -X utf8 tools/vyrez.py pracovni/<stranka>.jpg <kľúč> "x0,y0,x1,y1"` (veľkoryso – celý zápis so záhlavím stĺpcov; v PowerShelli vždy v úvodzovkách),
+   4. rámček čítaného miesta: `python -I -X utf8 tools/ramecek.py <kľúč> "x0,y0,x1,y1"` a **prehliadni si** `pracovni/ramecek_<kľúč>.jpg`,
    5. prepis originálu (latinčina/maďarčina/kurent/slovenčina) a preklad do `data/prepisy.json`,
    6. osobu/osoby do `data/osoby.py` (`f` fakty, `r` kľúč zápisu, `st="doc"`), súrodencov a krstných rodičov do `SIDE`.
-   Nová obec predkov → `tools/mista.py pridej "Obec"` (mapa), nový pradedo alebo prababka (8–15) → rod do `LINES`.
+   Nová obec predkov → `tools/mista.py pridej "Obec"` (mapa; pri viacslovných či skloňovaných názvoch ako *Moravský Písek* / *v Moravskom Písku* nástroj pripraví regex pokrývajúci skloňovanie), nový pradedo alebo prababka (8–15) → rod do `LINES`.
 6. **Zapíš hľadanie do denníka** `data/research_log.md` – aj neúspešné, s rozsahom (ktoré roky/snímky si prešiel).
 7. Spusti `python -I -X utf8 tools/kontrola.py` a oprav prípadné chyby.
 

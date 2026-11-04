@@ -160,7 +160,7 @@ Portály často opakovane sťahujú rovnaké dáta. Na úsporu siete a ochranu p
    }
    ```
 3. Zápis do `data/zaznamy.json` pomocou `tools/zapis.py`.
-4. Výrez zápisu: `python -I -X utf8 tools/vyrez.py pracovni/<stranka>.jpg <kluc> x0,y0,x1,y1`.
-5. Rámček čítaného riadku: `python -I -X utf8 tools/ramecek.py <kluc> x0,y0,x1,y1`.
+4. Výrez zápisu: `python -I -X utf8 tools/vyrez.py pracovni/<stranka>.jpg <kluc> "x0,y0,x1,y1"`.
+5. Rámček čítaného riadku: `python -I -X utf8 tools/ramecek.py <kluc> "x0,y0,x1,y1"`.
 6. Prepis a preklad do `data/prepisy.json`.
 7. Doplnenie údajov osoby do `data/osoby.py`.

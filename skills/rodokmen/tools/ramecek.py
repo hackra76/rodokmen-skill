@@ -55,6 +55,10 @@ def main():
         i = args.index("--pozn")
         note = args[i + 1]
         args = args[:i] + args[i + 2:]
+    if len(args) == 4 and all("," not in a for a in args):
+        args = [",".join(args)]
+    elif len(args) > 4 and len(args) % 4 == 0 and all("," not in a for a in args):
+        args = [",".join(args[i:i + 4]) for i in range(0, len(args), 4)]
     boxes = [[round(float(v), 3) for v in a.split(",")] for a in args]
     for b in boxes:
         if len(b) != 4 or not (0 <= b[0] < b[2] <= 1 and 0 <= b[1] < b[3] <= 1):
