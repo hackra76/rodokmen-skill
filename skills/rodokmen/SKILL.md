@@ -57,7 +57,7 @@ Nájdeš v ňom `tools/` (nástroje), `template/` (šablóna projektu a webu) a 
    do PATH sa dostane až po reštarte Antigravity / terminálu. **Nikdy `convert`** (to je systémový nástroj Windows), vždy `magick`.
    Skripty `.sh` spúšťaj cez Git Bash (`bash tools/…`). Dlhšie jednorazové skripty v Pythone nepíš ako heredoc (`python - <<EOF`), v Git Bashi
    občas spadnú na „unexpected EOF“ – zapíš ich do súboru v `pracovni/` a spusti. Tieto pravidlá zapíš hneď po založení projektu do jeho `AGENTS.md`, nech platia aj nabudúce.
-   **Prehliadač pre agenta** potrebuješ pre archívy a portály, ktoré nástroje nepúšťajú (FamilySearch za prihlásením, MZA Brno, SOA Třeboň, ZA Opava).
+   **Prehliadač pre agenta** potrebuješ pre archívy a portály, ktoré nástroje nepúšťajú (SOA Praha / eBadatelna, MZA Brno, SOA Třeboň, ZA Opava, FamilySearch za prihlásením).
    V Antigravity použi nástroje prehliadača (napr. `/browser`, browser plugin / Playwright MCP server, alebo požiadaj používateľa o snímku obrazovky).
 2. Spýtaj sa, kde má projekt byť (navrhni `~/Rodokmen` alebo priečinok v scratchi), a založ ho:
    `python -I -X utf8 SKILL_DIR/tools/novy_projekt.py <priečinok>`
@@ -107,11 +107,10 @@ Základná slučka pre každú osobu:
    - **Slovensko:** Hlavným zdrojom je **FamilySearch** (zbierka *Slovakia Church and Synagogue Books, 1592-1935* – rímskokatolícke, gréckokatolícke, evanjelické a.v. a židovské matriky), kde je veľká časť indexovaná a vyhľadateľná podľa mena! Ďalej sčítanie ľudu 1869 (Slovakia Census 1869).
    - **Východné Čechy:** ARON (SOA Zámrsk): `python -I -X utf8 tools/aron_search.py "Obec"`.
    - **Západné Čechy:** SOA Plzeň: `tools/portafontium.py`.
-   - **Stredné Čechy:** SOA Praha: `tools/ebadatelna.py`.
+   - **Stredné Čechy, Morava a južné Čechy:** SOA Praha (eBadatelna), MZA Brno a SOA Třeboň len v prehliadači, ZA Opava cez `tools/soal_zoomify.py`.
    - **Praha:** AHMP `tools/ahmp_search.sh` a policajné prihlášky `tools/policie_prihlasky.py`.
-   - **Morava a južné Čechy:** MZA Brno a SOA Třeboň cez prehliadač, ZA Opava cez `tools/soal_zoomify.py`.
    - **Rakúsko a Nemecko:** Matricula (`tools/matricula_dl.sh`).
-4. **Stiahni snímku** do `pracovni/<zvazok>/` a nechaj ju tam – pred ďalším stiahnutím sa pozri, či ju už nemáš.
+4. **Stiahni snímku** do `pracovni/<zvazok>/` a nechaj ju tam – pred ďalším stiahnutím sa pozri, či ju už nemáš. Snímky z ARON, Porta fontium a eBadatelny sú v zdieľanej medzipamäti (`tools/cache.py`).
    Nájdi zápis, **prečítaj ho sám zo snímky** (priblíž si výrez v plnom rozlíšení).
 5. **Zapíš nález** (vždy všetkých 6 krokov):
    1. zväzok do `data/svazky.json`,
@@ -120,6 +119,7 @@ Základná slučka pre každú osobu:
    4. rámček čítaného miesta: `python -I -X utf8 tools/ramecek.py <kľúč> x0,y0,x1,y1` a **prehliadni si** `pracovni/ramecek_<kľúč>.jpg`,
    5. prepis originálu (latinčina/maďarčina/kurent/slovenčina) a preklad do `data/prepisy.json`,
    6. osobu/osoby do `data/osoby.py` (`f` fakty, `r` kľúč zápisu, `st="doc"`), súrodencov a krstných rodičov do `SIDE`.
+   Nová obec predkov → `tools/mista.py pridej "Obec"` (mapa), nový pradedo alebo prababka (8–15) → rod do `LINES`.
 6. **Zapíš hľadanie do denníka** `data/research_log.md` – aj neúspešné, s rozsahom (ktoré roky/snímky si prešiel).
 7. Spusti `python -I -X utf8 tools/kontrola.py` a oprav prípadné chyby.
 
@@ -137,7 +137,12 @@ pre každý web pre všetky procesy na počítači.
   `python -I -X utf8 tools/slusne.py curl …`. Priame `curl`/`wget` má projekt zakázané (`hooks.json` / `AGENTS.md`).
 - **Hláška „slusne: … je zastavený“ (kód 3)** = archív dal najavo preťaženie (429/503/403). Neobchádzaj to, povedz to používateľovi
   a rob inú prácu. Stav: `python -I -X utf8 tools/slusne.py stav`.
-- **V prehliadači brzda neplatí:** najviac 1 dopyt za 2 sekundy, žiadne zbesilé slučky.
+- **V prehliadači brzda neplatí, stráž sa sám:** pri cielenom hľadaní (konkrétna snímka, register) aspoň 5 s medzi
+  stránkami, pri listovaní stránku po stránke 10 s. Na jednom archíve len jeden prehliadač, žiadne slučky `fetch` ani `Promise.all`.
+- **Archív môže zablokovať aj prehliadač** (403 po stovkách snímok za deň). Keď sa snímka nenačíta alebo hlási chybu,
+  pri 403, 429 alebo 503 hneď skonči, zapíš to brzde (`python -I -X utf8 tools/slusne.py zastav <web> "HTTP 403 v prehliadači"` – zastaví aj skripty),
+  povedz to používateľovi a na danom archíve v ten deň nepokračuj.
+- **Keď nejde ani prehliadač:** požiadaj používateľa, nech snímku otvorí sám a uloží snímku obrazovky do `pracovni/`.
 
 ### Pomocníci (subagenti) – šetrne
 Na veľké kolo (napr. „prejdi 5 zväzkov a nájdi všetkých nositeľov priezviska Dvorský“) môžeš pustiť 2–4 pomocníkov paralelne.

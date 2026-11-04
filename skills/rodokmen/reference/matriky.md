@@ -33,6 +33,15 @@ Mladšie knihy sú na príslušnom matričnom úrade – výpis dostane len pria
    V krstnom zápise dieťaťa býva (koncom 19. stor.) pripísaný dátum a miesto sobáša rodičov – over ho v oddaných.
 7. **Rodina v katolíckej matrike chýba? Skús evanjelickú, reformovanú alebo židovskú.**
    Na Slovensku aj v Česku po tolerančnom patente (1781) viedli vlastné matriky evanjelické zbory (a. v. aj h. v.), pričom jeden zbor pokrýval desiatky obcí. Židovské matriky pozri v `portaly.md`.
+   **Zmiešané manželstvá:** od roku 1868 šli synovia po otcovi a dcéry po matke, ak sa rodičia nedohodli inak. Pred rokom 1868 boli pri katolíckom otcovi katolícke všetky deti. Dcéru evanjelika a katolíčky preto hľadaj najprv v katolíckej matrike, syna v evanjelickej.
+
+## Knihy radené po obciach (časté 1784–1900, všetky archívy)
+Dedinské farnosti viedli knihu často **po obciach**: každá obec má vlastný oddiel s vlastným stránkovaním (foliáciou) a roky bežia len vnútri oddielu. Oddiely nejdú podľa rokov, pokračujú vzadu („ad pag. 70“, „vide reliquos pag.“) a oddiel jednej dediny býva až na konci knihy. Odhad snímky podľa roku potom zlyhá a „zápis tam nie je“ býva omyl (skutočné chyby: prešiel sa len oddiel obce a sobáš bol v oddieli mestečka; obec mala oddiel až na snímkach 380–405).
+1. **Popis knihy ako prvý:** eBadatelna „Všeobecný popis“ (rozvrhnutie strán po dedinách), MZA „Časti matriky“, ARON „územný rozsah“, Porta fontium `info`. Prechody obcí medzi farami mávajú medzery – zápis z medzery hľadaj v oboch farách.
+2. **Register fary:** uvádza obec (písmenom alebo „tom“ = kniha obce, nie poradie zväzku) a **stranu vnútri oddielu**, nie celej knihy. Snímka ≈ začiatok oddielu + strana/2 (fólio/2), dolaď podľa čísla na snímke. Vnútri písmena ide register podľa rokov. Kľúč písmeno/tom → obec zistíš zo záhlavia stránok; zostav si tabuľku do denníka.
+3. **Mapa knihy:** z každej 5.–30. snímky len horný pás (názov obce, rok) v malom rozlíšení, zlepiť pod seba s číslom snímky → stavba celej knihy na jednom obrázku: `python -I -X utf8 tools/mapa_knihy.py aron|pf|ahmp <kniha> <od> <do> [krok]` (pri archívoch len v prehliadači z uložených snímok obrazovky: `mapa_knihy.py soubory pracovni/x_*.png`). Potom v plnom rozlíšení len oddiel hľadanej obce. Mapu oddielov zapíš do denníka.
+4. **Montáž stĺpcov:** vnútri oddielu vyrež stĺpec s menami (ženích/nevesta, dieťa, obec na okraji – aspoň 35 % šírky strany, užší odsekne mená) zo 4–8 snímok a zlep vedľa seba (`mapa_knihy.py … <od> <do> 1 --vedle --ostre --vyrez x0,y0,x1,y1`); celý zápis čítaj len pri kandidátoch. Pri vyblednutých knihách sa zápisy ľahko prehliadnu – tam radšej celé strany.
+5. **Pasce:** sobáš býva v oddieli obce nevesty, ale niektoré fary radili podľa ženícha; staršie knihy majú narodených, oddaných a zomrelých preložených a bez obsahu; čísla strán v samostatnom registri nemusia sedieť so stránkovaním knihy. Kým napíšeš „nenájdené“, zmapuj **všetky** oddiely.
 
 ## Čítanie písma a jazyky
 - **Jazyky na Slovensku (Uhorsko):** do cca 1840/1850 najmä latinčina, v rokoch 1840–1918 často maďarčina, v evanjelických matrikách bibličtina (slovakizovaná čeština) alebo nemčina, po roku 1918 slovenčina.
@@ -77,6 +86,8 @@ Mladšie knihy sú na príslušnom matričnom úrade – výpis dostane len pria
 ## Typické nástrahy
 - Pisár pomýlil meno starého otca (Jozef namiesto Václava) – rozhodne viac zápisov tej istej rodiny.
 - Dieťa zapísané pod iným krstným menom, ako ho volala rodina.
+- Predok v dospelosti „Ján“ bol pokrstený ako Václav: starší Václav zomrel a mladšie dieťa dostalo jeho meno, v dospelosti ho volali inak. V registri preto hľadaj **všetky deti rodičov** (podľa priezviska a domu), nie len hľadané meno.
+- Register ukazuje „nesprávne“ krstné meno v správnej rodine alebo dome? Otvor zápis – farár mohol meno v matrike opraviť (prečiarknuté Ján → František) a do registra sa odpísalo to pôvodné.
 - Svadba pár mesiacov pred pôrodom alebo po ňom – bežná situácia; zaujímavosť pre web.
 - Nemanželské dieťa nesie priezvisko matky; otec chýba alebo je dopísaný neskôr (legitimácia na okraji).
 - Ten istý predok dvakrát v rodokmeni (vzdialení príbuzní sa vzali) – v dátach `SAME`.

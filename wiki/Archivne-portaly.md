@@ -32,28 +32,40 @@ Prehľad zdrojov a digitálnych archívov podporovaných v projekte **Rodokmeň*
 | Archív | Oblasť | Portál | Spôsob prístupu v skille |
 |---|---|---|---|
 | **SOA Zámrsk** | východné Čechy | ARON | Priame sťahovanie (`aron_search.py`, `aron_img.py`) |
-| **SOA Praha** | stredné Čechy | eBadatelna | Sťahovanie cez `ebadatelna.py` |
-| **SOA Plzeň** | západné Čechy | Porta fontium | Sťahovanie cez `portafontium.py` |
+| **SOA Praha** | stredné Čechy | eBadatelna | Prehliadač + lokálna medzipamäť (`cache.py`, `ebadatelna.py`) |
+| **SOA Plzeň** | západné Čechy | Porta fontium | Sťahovanie cez `portafontium.py` s medzipamäťou |
 | **SOA Litoměřice** | severné Čechy | Digitální badatelna | Sťahovanie Zoomify (`soal_zoomify.py`) |
 | **AHMP** | Praha | Pragapublica | Nástroje `ahmp_search.sh`, `ahmp_scan.py` |
 | **SOA Třeboň** | južné Čechy | digi.ceskearchivy.cz | Vstavaný prehliadač archívu (Playwright) |
-| **MZA Brno** | južná Morava | Acta Publica | Vstavaný prehliadač archívu |
-| **ZA Opava** | severná Morava a Sliezsko | Digitální badatelna | Zoomify sťahovanie / prehliadač |
+| **MZA Brno** | južná Morava | Acta Publica | Prehliadač (`mza.cz/actapublica`), skriptom iba hľadanie kníh |
+| **ZA Opava** | severná Morava a Sliezsko | Digitální badatelna | Zoomify sťahovanie / prehliadač (CAPTCHA používateľ) |
+| **Národní archiv** | ČR / Praha | digi.nacr.cz / VadeMeCum | Policajné prihlášky (`policie_prihlasky.py`), židovské matriky |
 
 ---
 
-## 3. Zahraničie
+## 3. Zdieľaná medzipamäť snímok (`tools/cache.py`)
 
-- **Rakúsko a Bavorsko – Matricula Online (`matricula-online.eu`):** Cirkevné matriky Viedne a priľahlých diecéz dostupné bezplatne a bez registrácie.
+Na zníženie zaťaženia archívov a zrýchlenie práce skill využíva zdieľanú diskovú vyrovnávaciu pamäť (cache):
+- Uložená v `~/.cache/rodokmen_snimky/` (Windows: `%LOCALAPPDATA%\rodokmen_snimky`).
+- Kapacita: 5 GB s automatickým vymazávaním najstarších nepoužitých súborov (LRU).
+- Umožňuje jednorazové stiahnutie snímky (napr. z eBadatelny, Porta fontium alebo manuálneho screenshotu) a opakované vytváranie náhľadov a výrezov bez zaťaženia archívneho servera.
+- Príkazy: `cache.py najdi`, `cache.py uloz`, `cache.py orez`, `cache.py stats`.
+
+---
+
+## 4. Zahraničie
+
+- **Rakúsko a Bavorsko – Matricula Online (`matricula-online.eu`):** Cirkevné matriky Viedne a priľahlých diecéz dostupné bezplatne a bez registrácie (`tools/matricula_dl.sh`).
+- **Poľsko – Geneteka (`geneteka.genealodzy.pl`):** Dobrovoľnícke indexy narodení, sobášov a úmrtí.
 - **Historická tlač – ANNO (Rakúska národná knižnica):** Noviny a úradné vestníky Rakúsko-Uhorska z rokov 1700–1950 (`tools/anno.py`).
 - **Česká a slovenská periodiká – Kramerius:** Digitalizovaná dobová tlač pre úradníkov, vojakov, učiteľov a mešťanov (`tools/kramerius.py`).
 
 ---
 
-## 4. Ochrana archívov (`tools/slusne.py`)
+## 5. Ochrana archívov (`tools/slusne.py`)
 
 Digitálne archívy sú verejnou službou s obmedzenou kapacitou serverov:
-- Skill využíva nástroj `slusne.py`, ktorý zabezpečuje prísne pauzy medzi požiadavkami.
+- Skill využíva nástroj `slusne.py`, ktorý zabezpečuje prísne pauzy medzi požiadavkami (2 až 4 sekundy, pri prehliadaní v prehliadači 5 až 10 sekúnd).
 - Archívy neprechádzame hromadne naslepo – sťahujú sa iba konkrétne snímky, ktoré sa práve čítajú.
-- Zabudovaný strážca siete (`hlidac_site.py`) zabraňuje neriadeným dopytom a chráni vašu IP pred banom.
-
+- Zabudovaný strážca siete (`hlidac_site.py`) zabraňuje neriadeným dopytom a chráni vašu IP adresu pred banom.
+- V prípade dočasného výpadku alebo správy o blokovaní je možné web manuálne pozastaviť: `python -I -X utf8 tools/slusne.py zastav <adresa>`.

@@ -86,7 +86,27 @@ def main():
         if k not in cited:
             warn.append(f"zápis {k}: necituje ho žádná osoba (doplnit do 'r' u osoby nebo bočního příbuzného)")
 
-    for name, e in jload("mista.json", {}).items():
+    znamy = [k for k in range(8, 16) if P.get(k, {}).get("st") in ("doc", "prob")]
+    chybi = [f"{k} ({P[k].get('n', '?')})" for k in znamy if k not in LINES]
+    if chybi:   # bez LINES web neukáže rody ani barvy ve vějíři
+        warn.append(f"LINES: chybí rod pro {', '.join(chybi)}"
+                    " – jakmile znáš pradědečky a prababičky (8–15), vyplň v data/osoby.py LINES (reference/data.md)")
+
+    mista = jload("mista.json", {})
+    vzory = []
+    for n, e in mista.items():
+        try:
+            vzory += [re.compile(e.get("re") or re.escape(n))] if "lat" in e else []
+        except re.error:   # špatný výraz hlásí kontrola míst níž
+            pass
+    bez_mista = [k for k, p in sorted(P.items()) if isinstance(k, int) and p.get("st") == "doc" and p.get("f")
+                 and not any(rx.search(" ".join(p["f"])) for rx in vzory)]
+    if bez_mista:   # mapa na webu ukáže jen obce z data/mista.json
+        ukazka = ", ".join(f"{k} {P[k].get('n', '?')}" for k in bez_mista[:3])
+        warn.append(f"mapa: {len(bez_mista)} doložených předků nemá v údajích žádnou obec z data/mista.json (např. {ukazka})"
+                    " – přidej jejich obce: tools/mista.py pridej \"Obec\", pak tools/mista.py")
+
+    for name, e in mista.items():
         if "lat" not in e:
             warn.append(f"místo {name}: nemá souřadnice (spusťte tools/mista.py)")
         try:
@@ -106,8 +126,13 @@ def main():
 
     hranice = datetime.date.today().year - 100   # posledních ~100 let; staré matriční údaje (nemanželské dítě v 18. stol.) nevadí
 
-    def recent(text):
+    def recent(text):   # datum v závorce („Dovětek (3. 11. 2026)“) je datum zápisu poznámky, ne události
+        text = re.sub(r"\(\s*\d{1,2}\.\s*\d{1,2}\.\s*\d{4}\s*\)", "", text)
         return any(int(y) >= hranice for y in re.findall(r"\b(19\d\d|20\d\d)\b", text))
+
+    def popreno(text, m):   # „nejsou dluhy“, „bez dluhů“, „nebyl rozveden“ – slovo je popřené
+        return re.search(r"(?:^|\s)(?:bez|žádn\w*|nejsou|nebyl\w*|neměl\w*|nemá\w*|není)\s+(?:\w+\s+)?$",
+                         text[max(0, m.start() - 30):m.start()], re.I)
     schvaleno = [s for s in (cfg.get("citlive_schvaleno") if isinstance(cfg.get("citlive_schvaleno"), list) else [])
                  if isinstance(s, str) and len(s.strip()) >= 3]
 
@@ -127,21 +152,26 @@ def main():
     texty += [(f"boční příbuzný {s.get('n')}", s.get("n", "") + " " + s.get("t", "")) for s in SIDE]
     for f in ("zajimavosti.md", "pribeh.md"):
         if os.path.exists(os.path.join(DATA, f)):
-            texty += [(f, odst) for odst in open(os.path.join(DATA, f), encoding="utf-8").read().split("\n\n")]
+            obsah = open(os.path.join(DATA, f), encoding="utf-8").read()
+            texty += [(f, odst) for odst in re.split(r"\n\s*\n|\n(?=#)", obsah)]   # odstavce i oddíly „## …“
     for kde, text in texty:
         if not recent(text):
             continue
-        m = next((m for m in citlive.finditer(text) if not schvalene(text, m)), None)
+        m = next((m for m in citlive.finditer(text) if not schvalene(text, m) and not popreno(text, m)), None)
         if m:
             warn.append(f"CITLIVÉ ({kde}): „…{text[max(0, m.start() - 40):m.end() + 40].strip()}…“ – jde na web; "
                         f"zeptej se uživatele, jestli to tam smí být (reference/soukromi.md); když ano, "
                         f"přidej úryvek textu s tím slovem do web.json „citlive_schvaleno“")
 
-    if not os.path.exists(os.path.join(DATA, "pribeh.md")) and LINES:
-        hlavni = min(LINES)
-        n = max((k.bit_length() for k in P if k >= 8 and k >> (k.bit_length() - 4) == hlavni), default=0)
+    if not os.path.exists(os.path.join(DATA, "pribeh.md")):
+        hlavni = min(LINES) if LINES else 8   # bez LINES rod po meči (otec otce otce)
+        jmeno = (LINES[hlavni][0] if LINES else
+                 (P.get(8) or P.get(1) or {}).get("n", "").split()[-1:] or ["po meči"])
+        jmeno = jmeno if isinstance(jmeno, str) else jmeno[0]
+        n = max((k.bit_length() for k in P if isinstance(k, int) and k >= 8 and k >> (k.bit_length() - 4) == hlavni),
+                default=0)
         if n >= 6:
-            warn.append(f"rod {LINES[hlavni][0]} má už {n} generací – je čas napsat příběh rodu "
+            warn.append(f"rod {jmeno} má už {n} generací – je čas napsat příběh rodu "
                         f"(data/pribeh.md, reference/pribehy.md); koncept nejdřív ukaž uživateli v chatu")
 
     log = os.path.join(DATA, "research_log.md")

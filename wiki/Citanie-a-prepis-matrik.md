@@ -22,6 +22,30 @@ Metodický návod na prácu s historickými matrikami, písmom a jazykmi.
 
 ---
 
+## Knihy radené po obciach a mapa knihy (`tools/mapa_knihy.py`)
+
+Staršie matričné knihy (najmä pred rokom 1784 alebo rozsiahle farnosti s viacerými obcami) nebývajú písané striktne chronologicky za celú farnosť naraz, ale **po jednotlivých obciach**:
+- Kniha môže byť rozdelená na samostatné bloky strán pre každú dedinu (napr. strany 1–40 Obec A, 41–80 Obec B...), pričom každá obec môže mať dokonca vlastné číslovanie strán od 1.
+- V takýchto knihách nie je možné odhadnúť číslo snímky len podľa roku!
+- Pre vizualizáciu rozdelenia knihy a rýchlu orientáciu slúži nástroj:
+  ```bash
+  python -I -X utf8 tools/mapa_knihy.py pracovni/kniha/ --obce "Bardejov,Kurov,Tarnov" --vystup pracovni/mapa.png
+  ```
+- Nástroj vytvorí prehľadnú montáž záhlaví strán, vďaka čomu presne vidno prechody medzi jednotlivými dedinami bez úmorného listovania po jednotlivých stranách.
+
+---
+
+## Zmiešané manželstvá (Náboženstvo detí)
+
+Pri zmiešaných manželstvách (najmä rímskokatolícke a evanjelické v Uhorsku a Rakúsku) platili zákonné pravidlá určujúce, v ktorej matrike dieťa hľadať:
+- **Sobáš:** Takmer bez výnimky sa konal vo farnosti a podľa rítu **nevesty**.
+- **Deti (rakúske a uhorské právo):**
+  - Podľa cisárskeho nariadenia a neskorších dohôd: **synovia dedili náboženstvo otca, dcéry náboženstvo matky**.
+  - Zápis o krste sa preto často nachádza v matrike podľa vyznania príslušného rodiča (chlapec u evanjelikov, dievča u katolíkov), hoci sa narodili v tom istom dome.
+  - V uhorskom zákone o zmiešaných manželstvách (1868) bolo umožnené uzatvárať reverzy; v roku 1894 bola zavedená povinná občianska forma sobáša.
+
+---
+
 ## Archívne lehoty prístupu
 
 - **Slovensko:** Podľa zákona o matrikách prechádzajú knihy do štátnych archívov po uplynutí **100 rokov od posledného zápisu v knihe** (platí pre N, O aj Z). Mladšie záznamy sú na matričných úradoch a prístup k nim má len priamy potomok.
@@ -71,4 +95,3 @@ V Čechách a na Morave (od konca 18. storočia do cca 1860) boli zápisy písan
 | *agricola, rusticus* | *Bauer* | *földműves, gazda* | roľník, gazda |
 | *inquilinus* | *Inwohner, Taglöhner* | *zsellér* | želiar, nádenník |
 | *casarius* | *Häusler* | *házas zsellér* | domkár |
-

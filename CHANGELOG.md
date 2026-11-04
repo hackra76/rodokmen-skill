@@ -6,6 +6,26 @@ dá v repozitáři **Watch → Custom → Releases**.
 
 Projekt založený starší verzí Claude sám nabídne aktualizovat (pozná to podle souboru `VERZE`).
 
+## 0.8.0 – 4. 11. 2026
+
+Zdieľaná disková medzipamäť snímok, mapa knihy, aktualizácie archívov a opravy nástrojov.
+
+**Nové**
+- **Zdieľaná disková medzipamäť snímok (`tools/cache.py`):** Spoločná lokálna cache pre stiahnuté a zosnímané strany (`~/.cache/rodokmen_snimky/`, do 5 GB, LRU). Umožňuje opakované náhľady a výrezy bez opätovného zaťažovania archívnych serverov.
+- **Knihy radené po obciach a mapa knihy (`tools/mapa_knihy.py`):** Vizualizácia rozdelenia knihy na dediny a stĺpcová montáž záhlaví pre rýchlu orientáciu v matrikách členených podľa dedín.
+- **Manuálna stopka archívu v brzde:** Príkaz `slusne.py zastav <web|adresa>` pre okamžité pozastavenie požiadaviek pri blokovaní či výpadku v prehliadači.
+- **Dokumentácia a Wiki:** Rozšírená metodika pre knihy po obciach, zmiešané manželstvá (náboženstvo detí), podrobné postupy pre SOA Praha (eBadatelna), SOA Třeboň a MZA Brno v prehliadači.
+
+**Vylepšenia a opravy**
+- **SOA Praha (eBadatelna):** Prechod na prácu v prehliadači s automatickým ukladaním snímok do diskovej cache (`cache.py uloz` a `cache.py najdi`) v súlade s pravidlami archívu.
+- **SOA Plzeň (Porta fontium):** Plná integrácia s diskovou cache (`cache.py`) pri sťahovaní snímok a orezov.
+- **SOA Zámrsk (ARON):** Paralelné sťahovanie dlaždíc (4 vlákna) a robustné opakovanie pri sieťových chybách.
+- **Vejár predkov (`fan_chart.py`):** Správne zobrazenie straty predkov (pedigree collapse) na oboch vetvách rodokmeňa a ošetrenie timeoutu pri generovaní SVG.
+- **Kontrola rodokmeňa (`kontrola.py`):** Detekcia chýbajúcich `LINES` v rodokmeni, kontrola GPS súradníc v `data/mista.json` a filtrácia falošných hlásení ("nie sú dlhy").
+- **Import GEDCOM (`ged_import.py`):** Oprava spájania viacbajtových UTF-8 znakov rozdelených na hrane `CONC` riadkov (z exportov MyHeritage).
+- **Policajné prihlášky (`policie_prihlasky.py`):** Prísnejšie overenie zhodnosti hľadaného mena a priezviska vo výsledkoch.
+- **Strážca siete (`hlidac_site.py`):** Vylepšená detekcia heredoc zápisov pri zachovaní spätnej kompatibility s Antigravity `run_command` a PowerShellom.
+
 ## 0.7.0 – 3. 11. 2026
 
 Port pre Google Antigravity so zachovaním plnej podpory Claude Code, slovenský preklad a nová dokumentácia.
