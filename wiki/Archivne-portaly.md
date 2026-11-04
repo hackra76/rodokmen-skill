@@ -56,3 +56,4 @@ Digitálne archívy sú verejnou službou s obmedzenou kapacitou serverov:
 - Skill využíva nástroj `slusne.py`, ktorý zabezpečuje prísne pauzy medzi požiadavkami.
 - Archívy neprechádzame hromadne naslepo – sťahujú sa iba konkrétne snímky, ktoré sa práve čítajú.
 - Zabudovaný strážca siete (`hlidac_site.py`) zabraňuje neriadeným dopytom a chráni vašu IP pred banom.
+

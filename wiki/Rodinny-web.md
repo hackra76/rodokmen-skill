@@ -61,3 +61,4 @@ Konfigurácia sa nachádza v súbore `data/web.json`:
    npm run nasadit
    ```
 Web bude dostupný na privátnej adrese typu `https://rodokmen-dvorsky.netlify.app`.
+

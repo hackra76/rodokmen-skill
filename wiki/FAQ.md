@@ -31,3 +31,4 @@
 ### 5. Kde nahlásiť chybu alebo poslať návrh na zlepšenie?
 - Návrhy a hlásenia chýb môžete vložiť do [GitHub Issues](https://github.com/hackra76/rodokmen-skill/issues).
 - Diskusie a otázky o genealógii sú vítané v [GitHub Discussions](https://github.com/hackra76/rodokmen-skill/discussions).
+

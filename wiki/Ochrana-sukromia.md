@@ -33,3 +33,4 @@ Pred každým zverejnením webu nástroj `tools/kontrola.py` skontroluje celú d
 
 - Pri používaní portálov ako FamilySearch, MyHeritage alebo štátnych archívov asistent dodržiava ľudské tempo bádania.
 - Nepoužíva agresívny scraping – sťahuje len konkrétne snímky potrebné na overenie príbuzenstva.
+

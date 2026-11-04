@@ -14,3 +14,4 @@ Prečo je táto funkcia užitočná pre výskum predkov? Ktoré oblasti alebo ma
 
 ### Možné riešenie
 Máte predstavu o spôsobe implementácie, odkaze na API archívu alebo štruktúru URL?
+

@@ -60,3 +60,4 @@ Genealogický výskum je komplexná úloha zahŕňajúca čítanie starých text
 | **Claude Code** | **Claude Opus 5.5** | **Claude Sonnet 5.5** |
 
 > ⚠️ **Dôležité:** Hlavný model vždy vykonáva finálne overenie zápisu priamo na výreze originálnej snímky matrika. Pomocné modely (Flash) slúžia len na orientačné indexovanie a prechádzanie stránok.
+

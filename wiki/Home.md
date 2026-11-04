@@ -47,3 +47,4 @@ Asistent skontroluje potrebné programy (Python 3, Node.js, ImageMagick, Git), z
 1. **Dáta zostávajú u vás:** Celý projekt sa ukladá lokálne na vašom disku. Web je predvolene zabezpečený kontrolnou rodinnou otázkou a vyhľadávače ho neindexujú (`noindex`).
 2. **Overovanie každého zápisu:** Každý fakt v rodokmeni má presnú citáciu a výrez originálneho matričného zápisu. Neisté údaje sa označujú otáznikom.
 3. **Ochrana archívov (slusne.py):** Integrovaná sieťová brzda chráni servery archívov pred preťažením a vás pred zablokovaním IP adresy.
+

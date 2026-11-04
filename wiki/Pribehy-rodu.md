@@ -23,3 +23,4 @@ Výsledkom výskumu je ucelený článok **„Príbeh vášho rodu“**, ktorý 
 4. **Zaujímavosti:** Boxy so štatistikami a kuriozitami (napr. priemerný vek, najčastejšie krstné mená v rode).
 
 Pred zverejnením asistent prejde s používateľom všetky spomínané rodinné vetvy, aby sa zaistila úplná spokojnosť rodiny s textom.
+

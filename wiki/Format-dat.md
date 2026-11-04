@@ -99,3 +99,4 @@ Skript skontroluje:
 - Logiku dátumov (narodenie pred smrťou, vek matky pri pôrode 14–50 rokov).
 - Prepojenie kľúčov medzi `osoby.py`, `zaznamy.json` a výrezmi vo `vyrezy/`.
 - Citlivé údaje u žijúcich osôb pred publikáciou na web.
+

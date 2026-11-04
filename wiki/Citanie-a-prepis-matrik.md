@@ -71,3 +71,4 @@ V Čechách a na Morave (od konca 18. storočia do cca 1860) boli zápisy písan
 | *agricola, rusticus* | *Bauer* | *földműves, gazda* | roľník, gazda |
 | *inquilinus* | *Inwohner, Taglöhner* | *zsellér* | želiar, nádenník |
 | *casarius* | *Häusler* | *házas zsellér* | domkár |
+

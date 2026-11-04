@@ -27,3 +27,4 @@ Sem vložte chybovú hlášku alebo výstup z terminálu
 
 ### Očakávané správanie
 Čo malo nastať namiesto chyby.
+

@@ -22,3 +22,4 @@ Popíšte, čo AI prečítala alebo vyhodnotila nesprávne (napr. zámena dvoch 
 Uveďte akékoľvek ďalšie indície (napr. krstní rodičia, číslo domu, povolanie otca).
 
 > ⚠️ **Upozornenie:** Issues sú verejné. Neuvádzajte údaje o žijúcich osobách.
+

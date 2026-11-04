@@ -19,3 +19,4 @@
 [Nahlásiť problém](https://github.com/hackra76/rodokmen-skill/issues)  
 [Diskusia](https://github.com/hackra76/rodokmen-skill/discussions)  
 [Hlavný repozitár](https://github.com/hackra76/rodokmen-skill)
+

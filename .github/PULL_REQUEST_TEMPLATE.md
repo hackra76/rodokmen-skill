@@ -11,3 +11,4 @@ Stručný súhrn toho, čo tento Pull Request prináša (nový archív, oprava �
 - [ ] Regresné testy prešli (`python -I -X utf8 skills/rodokmen/tools/slusne.py tests/brzda/test_hlidac.py skills/rodokmen`)
 - [ ] V súboroch nie sú citlivé osobné údaje žijúcich osôb
 - [ ] Kód rešpektuje pravidlá siete a brzdy (`slusne.py`)
+
