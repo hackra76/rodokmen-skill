@@ -108,7 +108,10 @@ def nastaveni(dst, hlidac):
                 f.write("\n")
 
     # 2. Antigravity hooks (hooks.json)
-    py_cmd = f'"{_python_windows()}" -I -X utf8 tools/hlidac_site.py' if os.name == "nt" else 'python3 -I tools/hlidac_site.py'
+    py = _python_windows()
+    if " " in py and not py.startswith('"'):
+        py = f'"{py}"'
+    py_cmd = f'{py} -I -X utf8 tools/hlidac_site.py' if os.name == "nt" else 'python3 -I tools/hlidac_site.py'
     hook_entry = {
         "matcher": "run_command",
         "hooks": [
