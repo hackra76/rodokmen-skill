@@ -1,7 +1,7 @@
 {
   "name": "rodokmen",
   "displayName": "Rodokmeň",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Sprievodca tvorbou rodokmeňa z matrík a rodinného webu pre ľudí bez predchádzajúcich skúseností s genealógiou a programovaním (Antigravity).",
   "author": {
     "name": "Jindřich Šaršon, port a slovenský preklad: Radovan Dvorský"

@@ -63,4 +63,23 @@ Farby rodov sú v `tools/export_web.py` (`LINE_COLORS`) a `tools/fan_chart.py` (
 `python -I -X utf8 tools/fan_chart.py vystupy/` → SVG a HTML (a PNG, ak je nainštalovaný Google Chrome alebo Microsoft Edge) na tlač.
 
 ## Aktualizácia staršieho projektu
-Znova spusti `python -I -X utf8 SKILL_DIR/tools/novy_projekt.py <priečinok projektu>`. Dáta (`data/`, výrezy) zostanú, `tools/` sa prepíše a zmenené súbory vo `web/` sa zálohujú do `pracovni/zaloha_web_<datum>/`. Následne vo `web/` spusti `npm install` a `npm run data`.
+Znova spusti `python -I -X utf8 SKILL_DIR/tools/novy_projekt.py <priečinok projektu>`. Dáta (`data/`, výrezy) zostanú. Projekt má
+v `.skill_sablona/` kópiu šablóny `web/` a `tools/`, z ktorej vznikol (commitovať s projektom), a skript podľa nej rozhodne
+o každom súbore a vypíše zoznam:
+- **Přepsáno**: súbor projekt neupravoval, nahradila ho nová verzia.
+- **Ponecháno**: vlastná úprava, šablóna sa nezmenila.
+- **Sloučeno**: zmenila sa úprava aj šablóna, každá inde; `git merge-file` ich spojil. Over, že súbor dáva zmysel.
+- **Ke kontrole**: úprava aj šablóna zmenili rovnaké miesta, chýba `git`, súbor pridal projekt aj nová šablóna, alebo ho
+  projekt zmazal a šablóna zmenila. Súbor zostal, ako bol; nová verzia je v `pracovni/zaloha_<datum>/nova_sablona/`
+  (pri konflikte zlúčenia, ak je `git`, vedľa aj návrh so značkami `<<<<<<<` ako `.konflikt`). Prevezmi zmeny šablóny
+  ručne a potom spusti `python -I -X utf8 SKILL_DIR/tools/novy_projekt.py <priečinok projektu> --vyreseno web/src/…` (voľbu možno
+  opakovať). Ako základ uloží presne ten návrh, ktorý je v zálohe (zapamätaný v `.skill_sablona/cekajici.json`),
+  takže neskoršie zmeny šablóny prídu pri ďalšej aktualizácii; súbor v projekte nezmení.
+- **Smazáno v projektu**: súbor projekt zmazal a šablóna ho nezmenila, zostane zmazaný.
+- **Šablona už nemá**: súbor zostal (skript nič nemaže) a hlási sa pri každej aktualizácii. Skontroluj, či ho web
+  ešte potrebuje; prípadne ho zmaž ručne a spusti `--vyreseno` s jeho cestou.
+- **Přepsáno, původní verze v záloze**: projekt zo staršej verzie bez `.skill_sablona/`. Upravené súbory nahradila nová
+  verzia a pôvodné sú v `pracovni/zaloha_<datum>/puvodni/`; vlastné úpravy z nich prevezmi.
+
+`web/package-lock.json` (mení ho `npm install`) sa nezlučuje: ak ho zmenila šablóna, vezme sa nový a starý ide do zálohy.
+Následne vo `web/` spusti `npm install` a `npm run data`.

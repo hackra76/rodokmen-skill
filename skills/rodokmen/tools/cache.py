@@ -46,6 +46,39 @@ def pripona(data):
     return next((p for z, p in PRIPONY if data.startswith(z)), None)
 
 
+def _cely(hlava, konec, velikost):
+    """Má obrázok koniec? Prerušené sťahovanie má hlavičku tiež, len mu chýba spodok snímky."""
+    p = pripona(hlava)
+    if p in (".jpg", ".jp2", ".j2k"):   # značka konca FF D9 (za ňou býva výplň); vnútri dát sa objaviť nemôže
+        return b"\xff\xd9" in konec
+    if p == ".png":
+        return b"IEND" in konec[-64:]
+    if p == ".gif":
+        return konec.rstrip(b"\x00")[-1:] == b";"
+    if p == ".webp":
+        return int.from_bytes(hlava[4:8], "little") + 8 <= velikost
+    return p is not None   # TIFF koniec nemá – postráži ho len dĺžka zo servera
+
+
+def cely(data, delka=None):
+    """Úplný obrázok: sedí dĺžka zo servera (Content-Length), ak je, a má značku konca."""
+    if delka is not None and len(data) != delka:
+        return False
+    return _cely(data[:16], data[-1024:], len(data))
+
+
+def cely_soubor(path):
+    """To isté pre uložený súbor (číta len začiatok a koniec)."""
+    try:
+        n = os.path.getsize(path)
+        with open(path, "rb") as f:
+            hlava = f.read(16)
+            f.seek(max(0, n - 1024))
+            return _cely(hlava, f.read(), n)
+    except OSError:
+        return False
+
+
 # --- obrázky podľa adresy (ukladá brzda slusne.py) ----------------------------------------------------------------
 def klic_url(url):
     """Kľúč podľa adresy bez častí, ktoré obsah nemenia. Neznáme parametre zostávajú."""
@@ -71,6 +104,12 @@ def najdi_url(url):
     k = cesta(klic_url(url))
     for _, p in PRIPONY + ((None, ".webp"),):
         if os.path.exists(k + p):
+            if not cely_soubor(k + p):   # skrátený (uložený staršou verziou) – zmazať a stiahnuť znova
+                try:
+                    os.remove(k + p)
+                except OSError:
+                    pass
+                return None
             _pouzito(k + p)
             return k + p
     return None
@@ -79,10 +118,10 @@ def najdi_url(url):
 _ulozeno = [0]
 
 
-def uloz_url(url, data):
-    """Uloží obrázok stiahnutý z adresy (len skutočný obrázok). Vracia cestu alebo None."""
+def uloz_url(url, data, delka=None):
+    """Uloží obrázok stiahnutý z adresy (len skutočný a úplný obrázok). Vracia cestu alebo None."""
     p = pripona(data)
-    return uloz(klic_url(url) + p, data) if p else None
+    return uloz(klic_url(url) + p, data) if p and cely(data, delka) else None
 
 
 # --- spoločné ---------------------------------------------------------------------------------------------------
@@ -254,6 +293,8 @@ def main(a):
         klic = klic_ebadatelna(*m.groups())
         znovu = os.path.exists(cesta(klic))   # snímka už bola uložená – prehliadač ju načítal z archívu zbytočne
         data = base64.b64decode(d["data"].split(",", 1)[1])
+        if not cely(data):
+            sys.exit("snímka z prehliadača nie je celá (chýba koniec obrázka) – počkajte na načítanie a uložte ju znova")
         p = uloz(klic, data)
         _zapocti(EBAD_WEB, len(data), z_disku=False)
         if not p:
@@ -271,6 +312,12 @@ def main(a):
         m = EBAD.search(a[1])
         p = cesta(klic_ebadatelna(*m.groups())) if m else None
         if not p or not os.path.exists(p):
+            sys.exit(1)
+        if not cely_soubor(p):   # skrátený – zmazať, snímka sa uloží znova z prehliadača
+            try:
+                os.remove(p)
+            except OSError:
+                pass
             sys.exit(1)
         _pouzito(p)
         _zapocti(EBAD_WEB, os.path.getsize(p))   # snímka sa nemusí znova otvárať v prehliadači

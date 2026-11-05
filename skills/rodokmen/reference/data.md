@@ -30,6 +30,10 @@ P = {
   `"† 1940"` keď poznáme len úmrtie; nič nevieme → `""`).
 - `f` fakty: začínajú `*` (narodenie), `×` (sobáš), `†` (úmrtie) alebo sú voľný text (remeslo, bydlisko).
   Názvy obcí vo faktoch používa mapa (`mista.json` → `re`).
+  Sobáš menuje partnera (`× 1919 Holice Josefa Pokorná`); `kontrola.py` hlási, keď žiadny sobáš nemenuje osobu
+  na susednom čísle (manžel 2k, manželka 2k+1, aj cez `SAME`). Pri `doc` hlási `č.`, ktoré nie je v žiadnom citovanom
+  zápise (`shrnuti`, prepis) ako číslo domu (`č. 23`, `čp. 23`, `No 23`, `N. 23`, `[Dům] 23`, `z Ostřetína 23`; dátum, vek ani
+  číslo zápisu, strany či snímky neplatia); číslo prevzaté odinakiaľ označ vo fakte zdrojom: `* 1862 Ostřetín č. 23 (podľa stromu)`.
 - `r` kľúče zápisov zo `zaznamy.json`. `st` pozri `matriky.md`: `doc` prečítané v matrike, `prob` pravdepodobné,
   `fam` od rodiny (aj strom, ktorý si rodina vedie sama, napr. GEDCOM z jej MyHeritage), `mh` cudzí strom z internetu, `unk`.
 - `LINES = {8: ("Novákovci", "Kováči z Holíc…"), …}` – len čísla 8–15; názov rodu = priezvisko v množnom čísle.
@@ -69,6 +73,10 @@ vo faktoch osôb (kmeň slova, aby sedelo skloňovanie: „Holic“ nájde Holic
 Pozor na kolízie. Hypotéza: `"hypoteza": true, "rod": 8`. Keď OpenStreetMap obec nenájde, skús tretí parameter – dotaz:
 `mista.py pridej "Žár" "Žár" "Žár, okres..."` alebo dotaz s väčšou obcou či okresom. Pri **viacznačných názvoch** (Podolie, Lúka, Vieska) over okres a zadaj dotaz so susednou obcou.
 Miestopis najlepšie pozná rodina – keď si nie si istý, opýtaj sa.
+`mista.py` hľadá len sídla a pod zoznamom upozorní, keď našiel niečo iné ako obec (bar, ulicu) alebo keď je nový bod
+viac ako 50 km od všetkých ostatných miest projektu (najskôr iná obec rovnakého mena). Kontrola mapy (`kontrola.py`) pri
+predkoch bez obce vypíše v hranatých zátvorkách slová z faktov, ktoré vyzerajú ako obec. Keď je obec v `mista.json`,
+len ju výraz `re` nezachytí v skloňovanom tvare („v Přesece“ × `Přesek`) – uprav výraz (`Přese?[kc]`).
 
 ## `dokumenty.json` – rodinné fotky a dokumenty na webe
 `[{"img": "foto_svadba_1919", "popis": "Svadba Jána a Josefy, Holice 1919.", "osoby": [8, 9]}]`

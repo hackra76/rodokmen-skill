@@ -15,6 +15,7 @@ import glob, json, math, os, shutil, ssl, subprocess, sys, tempfile, time, urlli
 import concurrent.futures as cf
 import xml.etree.ElementTree as ET
 import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import slusne  # noqa: E402 – brzda proti zablokování archivem (společný limit dotazů, tools/slusne.py)
+import cache  # noqa: E402 – výrez a zmenšenie z uloženého skenu
 for _s in (sys.stdout, sys.stderr):   # UTF-8 výstup i na Windows bez -X utf8 (cp1250 neumí třeba „→“)
     if hasattr(_s, "reconfigure"):
         _s.reconfigure(encoding="utf-8", errors="replace")
@@ -123,6 +124,40 @@ def fetch_image(dzi_url, level_offset=1, out="page.jpg", crop=None):
     return out, (W, H)
 
 
+def sken(vol, n):
+    """Celý sken snímky n (súbor PUBLISHED) jedným požiadavkom; None, ak v zväzku nie je."""
+    for dao in vol.get("digitalObjects", []):
+        for f in dao.get("files", []):
+            if f.get("type") == "PUBLISHED" and f.get("order") == n:
+                return f"{API}/referencedfiles/{f['id']}"
+    return None
+
+
+def fetch_sken(url, level_offset=1, out="page.jpg", crop=None):
+    """Stiahne celý sken a z disku urobí výrez a zmenšenie. Vráti (out, (W, H)), alebo None (potom dlaždice)."""
+    M = magick()
+    data = get(url, binary=True)
+    if cache.pripona(data) != ".jpg" or not cache.cely(data):
+        return None
+    os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
+    tmp = f"{out}.{os.getpid()}.sken.jpg"
+    try:
+        with open(tmp, "wb") as f:
+            f.write(data)
+        r = subprocess.run([M, tmp + "[0]", "-format", "%w %h", "info:"], capture_output=True, text=True)
+        W, H = map(int, r.stdout.split())
+        if level_offset == 0 and not crop:
+            os.replace(tmp, out)   # plné rozlíšenie: pôvodný sken bez zmeny (bez opätovného ukladania JPEG)
+        elif not cache.odvod(tmp, out, crop, 2 ** level_offset):
+            return None
+    except ValueError:
+        return None
+    finally:
+        if os.path.exists(tmp):
+            os.remove(tmp)
+    return out, (W, H)
+
+
 def bez_snimku(vol, tiles, n):
     """Snímek n ve svazku není: srozumitelná hláška místo KeyError."""
     if not tiles:
@@ -187,12 +222,25 @@ if __name__ == "__main__":
     n = int(sys.argv[2])
     lo = int(sys.argv[3]) if len(sys.argv) > 3 else 1
     out = sys.argv[4] if len(sys.argv) > 4 else f"{apu[:8]}_{n:04d}.jpg"
-    crop = tuple(float(v) for v in sys.argv[5].split(",")) if len(sys.argv) > 5 else None
+    if len(sys.argv) >= 9:   # PowerShell bez úvodzoviek rozdelí x0,y0,x1,y1 na 4 argumenty
+        crop = tuple(float(v) for v in sys.argv[5:9])
+    elif len(sys.argv) > 5:
+        crop = tuple(float(v) for v in sys.argv[5].split(","))
+    else:
+        crop = None
     if n not in tiles:
         bez_snimku(vol, tiles, n)
     os.makedirs(os.path.dirname(os.path.abspath(out)), exist_ok=True)
+    vysledek = None
+    if sken(vol, n):
+        try:
+            vysledek = fetch_sken(sken(vol, n), lo, out, crop)
+        except SIT:
+            vysledek = None
+        if not vysledek:
+            print("Celý sken sa nepodarilo stiahnuť – skúšam dlaždice (pomalšie).", file=sys.stderr)
     try:
-        path, dims = fetch_image(tiles[n], lo, out, crop)
+        path, dims = vysledek or fetch_image(tiles[n], lo, out, crop)
     except SIT + (ET.ParseError,) as e:
         chyba_archivu(e)
     print(path, "full size", dims)

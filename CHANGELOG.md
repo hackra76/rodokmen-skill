@@ -6,6 +6,23 @@ dá v repozitáři **Watch → Custom → Releases**.
 
 Projekt založený starší verzí Claude sám nabídne aktualizovat (pozná to podle souboru `VERZE`).
 
+## 0.8.1 – 5. 11. 2026
+
+Rýchly ARON celým skenom, kontrola integrity cache, geokódovanie sídiel a 3-cestná aktualizácia projektu.
+
+**Nové**
+- **Bezpečná 3-cestná aktualizácia projektu (`tools/novy_projekt.py`):** Nový mechanizmus aktualizácie založený na uloženej šablóne (`.skill_sablona/`) a `git merge-file`. Automaticky zlučuje zmeny v šablóne a vlastné úpravy v projekte, uchováva bezpečné zálohy (`pracovni/zaloha_<datum>/`) a umožňuje interaktívne riešenie konfliktov (`--vyreseno`). Plne zachováva generovanie Antigravity konfigurácie (`hooks.json`, `.agents/hooks.json`, `AGENTS.md`, `.vscode/launch.json`).
+- **Overovanie integrity obrázkov v cache (`tools/cache.py`):** Cache ukladá iba kompletné a nepoškodené obrázky (validácia koncových značiek pre JPEG, PNG, GIF, WebP a zhoda `Content-Length`). Prerušené alebo skrátené sťahovania sa automaticky zahadzujú a opätovne sťahujú.
+- **Rýchle sťahovanie ARON jedným dopytom (`tools/aron_img.py`):** Sťahovanie celého skenu v plnej kvalite jedinou požiadavkou cez `referencedfiles` (ekvivalent tlačidla „Stiahnuť“ v ARONe), lokálne zmenšenie a výrez z disku. Dlaždicové sťahovanie zostáva len ako záložný variant.
+- **Geokódovanie sídiel a detekcia vzdialených obcí (`tools/mista.py`):** Nominatim vyhľadáva prednostne sídla (`featuretype=settlement`). Upozorňuje, ak výsledok nie je obec, a varuje, ak je novo pridaná obec vzdialená viac ako 50 km od ostatných miest v rodokmeni (ochrana pred zámenou obcí s rovnakým názvom).
+- **Rozšírená kontrola konzistencie (`tools/kontrola.py`):** Kontrola partnerov pri sobášoch (overenie mena partnera na susednom čísle) a overenie čísel domov vo faktoch (`doc`) oproti prepisom a zhrnutiam v citovaných zápisoch s podporou viacjazyčných názvov mesiacov (latinské, nemecké, slovenské, české).
+
+**Opravy a vylepšenia**
+- **Odstránenie `trebon.py`:** Nástroj bol natrvalo odstránený na žiadosť SOA Třeboň; matriky Třebone sa prehliadajú výhradne v prehliadači.
+- **PowerShell a argumenty:** Robustné spracovanie ciest a výrezov s čiarkami v prostredí PowerShell na Windows (`vyrez.py`, `overit.py`, `ramecek.py`, `aron_img.py`).
+- **Skloňovanie obcí:** Podpora regulárnych výrazov pre viacslovné názvy obcí a miest.
+- **Testovacie sady:** Doplnené komplexné regresné testy pre aktualizáciu (`test_aktualizace.py`), integritu medzipamäte (`test_mezipamet.py`), geokódovanie (`test_mista.py`) a čísla domov (`test_cisla.py`).
+
 ## 0.8.0 – 4. 11. 2026
 
 Zdieľaná disková medzipamäť snímok, mapa knihy, aktualizácie archívov a opravy nástrojov.

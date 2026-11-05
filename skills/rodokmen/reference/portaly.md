@@ -75,6 +75,7 @@ Portály často opakovane sťahujú rovnaké dáta. Na úsporu siete a ochranu p
 - **Stiahnutie snímky:** `python -I -X utf8 tools/aron_img.py <apu_id> <snímka> 1 pracovni/holice_n_57.jpg`
   (úroveň 1 = polovičné rozlíšenie; 0 = plné rozlíšenie na čítanie a výrez).
   Výrez priamo v plnom rozlíšení: `… <snímka> 0 pracovni/detail.jpg 0.0,0.4,1.0,0.7`.
+  Nástroj stiahne celý sken jednou požiadavkou (ako tlačidlo „Stiahnuť“ v ARONe cez referencedfiles) a zmenšenie aj výrez robí z disku; dlaždice slúžia len ako záloha pri zlyhaní celého skenu.
 - **Trvalý odkaz:** `python -I -X utf8 tools/aron_img.py <apu_id> link <snímka>`.
 - **Zväzok do dát:** `python -I -X utf8 tools/aron_img.py <apu_id> svazek`.
 
