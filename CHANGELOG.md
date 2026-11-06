@@ -6,6 +6,22 @@ dá v repozitáři **Watch → Custom → Releases**.
 
 Projekt založený starší verzí Claude sám nabídne aktualizovat (pozná to podle souboru `VERZE`).
 
+## 0.8.2 – 6. 11. 2026
+
+Porta fontium podľa obcí a 10 s limit, kontrast pre vyblednuté zápisy, FamilySearch do cache, vojaci 1. sv. vojny a kontrola Netlify.
+
+**Nové**
+- **Porta fontium podľa obcí (`tools/portafontium.py`):** Príkaz `portafontium.py obec "<obec>"` vyhľadá všetky knihy obce zoskupené podľa fary a zoradené podľa rokov, vrátane prechodu obce medzi farami a civilných matrík.
+- **Zvýšenie kontrastu (`tools/vyrez.py`, `tools/overit.py`):** Prepínač `--kontrast` automaticky upravuje rozloženie jasu pomocou ImageMagick pre vyblednuté, zle čitateľné alebo mikrofilmové zápisy.
+- **FamilySearch snímky do cache (`tools/cache.py`):** Podpora ukladania a vyhľadávania snímok z prihláseného prehliadača (Playwright) priamo pod ARK identifikátorom (`familysearch.org/.../3:1:...`).
+- **Zoznamy strát 1. svetovej vojny (`tools/anno.py`):** Prepínač `--ztraty` prehľadáva rakúsko-uhorské zoznamy strát z rokov 1914–1919 (pluk, bydlisko, ročník, status). Opravený filter titulov periodík.
+- **Overenie nasadenia na Netlify (`scripts/overit.mjs`, `npm run overit`):** Automatická kontrola po `npm run nasadit` overí, či web nie je blokovaný tímovou ochranou Netlify namiesto rodinnej otázky, a poskytne presný príkaz na jej vypnutie.
+
+**Opravy a pravidlá archivárov**
+- **Porta fontium – 10 s limit:** Dodržiavanie požiadavky `robots.txt` portálu (Crawl-delay: 10) – brzda `tools/slusne.py` drží 10 s interval medzi dopytmi.
+- **Nočné výpadky v brzde (`tools/slusne.py`):** 3 po sebe idúce vypršania odpovede (timeout) zastavia dopyty na daný archív, aby proces nečakal neúmerne dlho.
+- **Nové metodické návody:** Postup pre FamilySearch na Slovensku (katalóg „Farský úrad <obec>“, digitalizácia do 1895), indikačné skice stabilného katastra (ČÚZK openmap), zväzky uložené na úradoch a rady pre ZA Opava a SOA Litoměřice.
+
 ## 0.8.1 – 5. 11. 2026
 
 Rýchly ARON celým skenom, kontrola integrity cache, geokódovanie sídiel a 3-cestná aktualizácia projektu.

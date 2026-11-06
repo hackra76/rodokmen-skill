@@ -15,6 +15,7 @@
 - **Česko (zákon č. 301/2000 Sb.):** Do archívu (online) ide zväzok až po uplynutí: narodenia **100 rokov**, sobáše **75 rokov**, úmrtia **30 rokov** od posledného zápisu v knihe.
 
 Mladšie knihy sú na príslušnom matričnom úrade – výpis dostane len priamy príbuzný (žiadosť + doklady o príbuzenstve). Zapíš do `archivni_dotazy.md`.
+Katalógy archívov uvádzajú **aj zväzky, ktoré sú ešte na úrade**: v detaile býva poznámka „Matrika je dosiaľ uložená na matričnom úrade“, miesto uloženia a 0 snímok. Túto poznámku si všimnite skôr, než začnete hľadať snímky. Zväzok zapíšte do `archivni_dotazy.md`. Vyskúšajte **samostatný index / register** (I-N, I-O, I-Z) cez rovnaké roky – býva online a poskytne aspoň dátum a číslo domu. Narodenia zhruba po roku 1910 často online nebudú (kniha pokračuje za rok 1926 a lehota beží od posledného zápisu).
 
 ## Ako vyzerá hľadanie v praxi
 1. **Obec → farnosť.** Malé dediny patrili pod faru v susednej obci; popis zväzku vymenúva všetky obce farnosti.
@@ -24,6 +25,7 @@ Mladšie knihy sú na príslušnom matričnom úrade – výpis dostane len pria
    hodia sa, keď originál chýba, je nečitateľný alebo poškodený.
 3. **Index, potom kniha.** Index radený podľa písmen a rokov dá stranu/fólio; snímku odhadni a dolaď.
    Staršie registre (18. stor.) občas ukazujú o 1–4 strany vedľa – ak zápis na udanej strane nie je, listuj okolo.
+   **Posun nikdy nedomýšľaj:** prečítaj „Pag./fol.“ na 2–3 snímkach, spočítaj posun a až potom skáč. Pri knihách dodatočne prefóliovaných odkazuje register na pôvodné ručné číslo listu (vpravo hore), nie na archivársku fóliáciu.
    Veľké fary majú registre aj ako **samostatné zväzky** – hľadaj ich najskôr.
    **Keď matrika chýba** (nie je online alebo sa nezachovala), skús register – býval vedený osobitne a prežil aj tam, kde kniha nie. Zápis v registri dokladá dátum, miesto a otca; zapíš ho ako `prob` (odpis, nie originál).
 4. **Bez indexu: listuj chronologicky.** Odhadni pozíciu podľa rokov na prvých a posledných snímkach zväzku (polenie intervalu).
@@ -84,6 +86,7 @@ Dedinské farnosti viedli knihu často **po obciach**: každá obec má vlastný
 | `unk` | poznáme len miesto v rodokmeni |
 
 ## Typické nástrahy
+- **Vyblednuté písmo** (mikrofilmy, prepiska či ceruza 1945–1949, vyblednutý atrament): ak je písmo zápisu svetlé alebo strana vyzerá takmer prázdna, čítaj z výrezu s prepínačom `--kontrast` (`vyrez.py … --kontrast`, `overit.py … --kontrast`). Stranu nikdy neprehlasuj za prázdnu a zápis za nenájdený, kým ju neskúsiš s kontrastom.
 - Pisár pomýlil meno starého otca (Jozef namiesto Václava) – rozhodne viac zápisov tej istej rodiny.
 - Dieťa zapísané pod iným krstným menom, ako ho volala rodina.
 - Predok v dospelosti „Ján“ bol pokrstený ako Václav: starší Václav zomrel a mladšie dieťa dostalo jeho meno, v dospelosti ho volali inak. V registri preto hľadaj **všetky deti rodičov** (podľa priezviska a domu), nie len hľadané meno.

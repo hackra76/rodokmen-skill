@@ -18,7 +18,14 @@ Pre rodokmeň zo Slovenska (Horné Uhorsko pred rokom 1918) je situácia špecif
   - Priezviská: Priezviská môžu byť zapísané maďarským pravopisom (napr. Dvorský ako *Dvorszkij* / *Dvorszky*, Jurčák ako *Jurcsák*, Kováč ako *Kovács*).
   - Krstné mená: latinsky (*Joannes*, *Stephanus*, *Georgius*, *Maria*), maďarsky (*János*, *István*, *György*).
 - **Prezeranie celých kníh (Catalog):**
-  - Ak záznam nie je v indexe, choďte cez *Search → Catalog → Place: Slovakia, [Názov stolice / okresu / farnosti]* (napr. *Slovakia, Šariš, Bardejov*). Tu sú k dispozícii celé nasnímané matričné knihy záber po zábere.
+  - Ak záznam nie je v indexe, choďte cez *Search → Catalog → Place: Slovakia, [Názov stolice / okresu / farnosti]* (napr. *Slovakia, Šariš, Bardejov*), alebo cez *Keywords: Farský úrad <obec>* (napr. *Farský úrad Bardejov*). Tu sú k dispozícii celé nasnímané matričné knihy záber po zábere.
+  - Cirkevné knihy na Slovensku na FamilySearch spravidla končia rokom **1895** (keď začala štátna matrika).
+  - Dobrovoľnícke indexy sú často neúplné – pri neúspechu listujte priamo v knihe príslušnej farnosti.
+- **Uloženie snímky v plnom rozlíšení do medzipamäte (`cache.py`):**
+  - Z prihláseného prehliadača (Playwright) možno snímku uložiť v plnom rozlíšení:
+    `python -I -X utf8 tools/cache.py uloz pracovni/fs.json pracovni/fs.jpg --nahled pracovni/nahled.jpg`
+  - Snímka sa v medzipamäti uloží pod svojím ARK kódom a ďalšie výrezy už nevyžadujú prehliadač.
+  - Náhradný postup: stiahnutie tlačidlom *Download* do `~/Downloads` a presun do `pracovni/`.
 
 ### B. Sčítanie ľudu 1869 (Slovakia Census 1869)
 - Zbierka na FamilySearch: *Slovakia Census, 1869*.
@@ -91,10 +98,12 @@ Portály často opakovane sťahujú rovnaké dáta. Na úsporu siete a ochranu p
      `python -I -X utf8 tools/ebadatelna.py snimek <matrikaId> <snimok> pracovni/x.jpg [nahled] [x0,y0,x1,y1]`
 
 ### SOA Plzeň (Porta fontium, portafontium.eu) – `tools/portafontium.py`
-- `python -I -X utf8 tools/portafontium.py fara <fara>` → zoznam kníh farnosti.
-- `python -I -X utf8 tools/portafontium.py info <kniha>` → počet snímok, roky, obce.
+- **Obec → knihy:** `python -I -X utf8 tools/portafontium.py obec "<obec>"` → všetky knihy s obcou v popise, zoskupené podľa fary a zoradené podľa rokov (kniha | obce | roky a druhy | popis). Zobrazuje aj prechod obce medzi farami a civilné matriky okresných úradov.
+- `python -I -X utf8 tools/portafontium.py fara <fara>` → zoznam kníh farnosti. Rovnomenné fary majú príponu okresu (`plana-ps`, `radnice-ro`) – správnu adresu ukáže `obec`.
+- `python -I -X utf8 tools/portafontium.py info <kniha>` → počet snímok, roky, obce a rozvrhnutie strán.
 - `python -I -X utf8 tools/portafontium.py snimek <kniha> <cislo> pracovni/x.jpg` → stiahnutie snímky (automaticky cachované cez `cache.py`).
 - Výrez: `python -I -X utf8 tools/portafontium.py snimek <kniha> <cislo> pracovni/x.jpg 0,0,1,1`.
+- **Tempo:** portál vyžaduje 10 s medzi dopytmi (robots.txt „Crawl-delay: 10“) – brzda `slusne.py` to dodržiava automaticky.
 
 ### SOA Třeboň (digi.ceskearchivy.cz) – iba v prehliadači
 - Od 2. 11. 2026 archív odmieta nástroj (HTTP 403). Matriky čítaj v prehliadači (Playwright alebo používateľ).
@@ -141,14 +150,25 @@ Portály často opakovane sťahujú rovnaké dáta. Na úsporu siete a ochranu p
 
 ## 4. Noviny a ročenky – `tools/anno.py`, `tools/kramerius.py`
 - **ANNO** (Historické noviny Rakúska a Uhorska 1700–1950, Österreichische Nationalbibliothek):
-  `python -I -X utf8 tools/anno.py hladaj "priezvisko" 1880 1900`
+  `python -I -X utf8 tools/anno.py "priezvisko" 1880 1900`
+- **Vojaci 1. svetovej vojny – zoznamy strát (ANNO):**
+  `python -I -X utf8 tools/anno.py '"Priezvisko Meno"' 1914 1919 3 --snip --ztraty`
+  Hľadá v rakúsko-uhorských zoznamoch strát (`vll` Verlustliste, register `vlv`, ranení `nvv`). Záznam uvádza: hodnosť, pluk, stotina, **domovská obec, ročník**, zranený / zajatý / padlý.
 - **Kramerius** (NK ČR / SNK – digitalizované periodiká a monografie):
   `python -I -X utf8 tools/kramerius.py hladaj "priezvisko"`
 - Vhodné pre úradníkov, dôstojníkov, učiteľov, remeselníkov a mešťanov.
 
 ---
 
-## 5. Postup zápisu do projektu
+## 5. Mapy stabilného katastra a indikačné skice
+- Na `ags.cuzk.gov.cz/archiv` vyhľadajte katastrálne územie, kliknite do mapy → „Indikační skici“ → ID rastru (napr. `HRA235018400`).
+- Skica sa dá otvoriť priamo: `https://ags.cuzk.gov.cz/archiv/openmap.html?typ=skicic&idrastru=<ID>` (načítava sa cca 20 s).
+- **Čítanie:** čierne čísla v budovách = čísla domov (čp./č.), červené čísla = parcelné čísla. Žltá stavba je drevená, ružová/červená murovaná.
+- Zosnímajte výrez so zakrúžkovaným domom predkov a uložte na web k rodine.
+
+---
+
+## 6. Postup zápisu do projektu
 1. Snímku stiahnuť alebo zosnímať do `pracovni/` (alebo načítať cez `cache.py`).
 2. Zväzok zapísať do `data/svazky.json`:
    ```json

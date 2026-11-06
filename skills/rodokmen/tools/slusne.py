@@ -39,6 +39,7 @@ LIMITY = {                           # konec názvu webu: (dotaz, obrázek)
     "mza.cz": (4.0, 4.0),            # MZA Brno – skriptem jen hledání knih (ZAKAZ níže), blokuje i za rychlé dotazy na katalog
     "digi.nacr.cz": (4.0, 4.0),      # Národní archiv (policejní přihlášky) – po pár rychlých kartách přiškrcuje podle IP
     "aron.vychodoceskearchivy.cz": (2.0, 2.0),   # ARON: celý sken (2–4 MB) jedným požiadavkom; dlaždice imgx.… ďalej 0,1 s
+    "portafontium.eu": (10.0, 10.0), # SOA Plzeň – robots.txt „Crawl-delay: 10“ (snímka IIIF je jeden požiadavok)
 }
 ZAKAZ = {                            # konec názvu webu: (cesty povolené skriptům, hláška pro ostatní)
     suffix: (re.compile(r"/actapublica/matrika/hledani"),
@@ -403,7 +404,11 @@ def _zapni():
             r, velikost = _odpoved_z_disku(ulozeny)
             _zapocti(_host(self), velikost)
             return r
-        r = get(self)
+        try:
+            r = get(self)
+        except (TimeoutError, socket.timeout) as e:   # spojenie vzniklo, ale odpoveď neprišla (archív „zamrzol“)
+            _spojeni_selhalo(_host(self), e)
+            raise
         host, obr = _host(self), getattr(self, "_slusne_obr", False)
         telo = None
         skupina, _ = _skupina(host)

@@ -106,7 +106,7 @@ Základná slučka pre každú osobu:
 3. **Nájdi zväzok a portál**:
    - **Slovensko:** Hlavným zdrojom je **FamilySearch** (zbierka *Slovakia Church and Synagogue Books, 1592-1935* – rímskokatolícke, gréckokatolícke, evanjelické a.v. a židovské matriky), kde je veľká časť indexovaná a vyhľadateľná podľa mena! Ďalej sčítanie ľudu 1869 (Slovakia Census 1869).
    - **Východné Čechy:** ARON (SOA Zámrsk): `python -I -X utf8 tools/aron_search.py "Obec"`.
-   - **Západné Čechy:** SOA Plzeň: `tools/portafontium.py`.
+   - **Západné Čechy:** SOA Plzeň: `python -I -X utf8 tools/portafontium.py obec "Obec"` (alebo `fara <fara>`).
    - **Stredné Čechy, Morava a južné Čechy:** SOA Praha (eBadatelna), MZA Brno a SOA Třeboň len v prehliadači, ZA Opava cez `tools/soal_zoomify.py`.
    - **Praha:** AHMP `tools/ahmp_search.sh` a policajné prihlášky `tools/policie_prihlasky.py`.
    - **Rakúsko a Nemecko:** Matricula (`tools/matricula_dl.sh`).
@@ -115,7 +115,7 @@ Základná slučka pre každú osobu:
 5. **Zapíš nález** (vždy všetkých 6 krokov):
    1. zväzok do `data/svazky.json`,
    2. zápis do `data/zaznamy.json` (kľúč = popisný názov, napr. `bardejov_krst_jan_dvorsky_1890`; odkaz na snímku) cez `tools/zapis.py`,
-   3. výrez: `python -I -X utf8 tools/vyrez.py pracovni/<stranka>.jpg <kľúč> "x0,y0,x1,y1"` (veľkoryso – celý zápis so záhlavím stĺpcov; v PowerShelli vždy v úvodzovkách),
+   3. výrez: `python -I -X utf8 tools/vyrez.py pracovni/<stranka>.jpg <kľúč> "x0,y0,x1,y1" [--kontrast]` (veľkoryso – celý zápis so záhlavím stĺpcov; pri vyblednutom písme `--kontrast`; v PowerShelli vždy v úvodzovkách),
    4. rámček čítaného miesta: `python -I -X utf8 tools/ramecek.py <kľúč> "x0,y0,x1,y1"` a **prehliadni si** `pracovni/ramecek_<kľúč>.jpg`,
    5. prepis originálu (latinčina/maďarčina/kurent/slovenčina) a preklad do `data/prepisy.json`,
    6. osobu/osoby do `data/osoby.py` (`f` fakty, `r` kľúč zápisu, `st="doc"`), súrodencov a krstných rodičov do `SIDE`.
@@ -137,6 +137,9 @@ pre každý web pre všetky procesy na počítači.
   `python -I -X utf8 tools/slusne.py curl …`. Priame `curl`/`wget` má projekt zakázané (`hooks.json` / `AGENTS.md`).
 - **Hláška „slusne: … je zastavený“ (kód 3)** = archív dal najavo preťaženie (429/503/403). Neobchádzaj to, povedz to používateľovi
   a rob inú prácu. Stav: `python -I -X utf8 tools/slusne.py stav`.
+- **Výpadky archívov** (večer a v noci – eBadatelna zhruba 22:45–0:45 a okolo 2:00 –, údržba, expirovaný certifikát):
+  nástroj hlási „neodpovedá“ a brzda po 3 neúspešných spojeniach alebo vypršaniach za sebou web zastaví. Prepni na iný
+  archív alebo inú prácu a skús to neskôr. Kontrolu certifikátu nikdy nevypínaj.
 - **V prehliadači brzda neplatí, stráž sa sám:** pri cielenom hľadaní (konkrétna snímka, register) aspoň 5 s medzi
   stránkami, pri listovaní stránku po stránke 10 s. Na jednom archíve len jeden prehliadač, žiadne slučky `fetch` ani `Promise.all`.
 - **Archív môže zablokovať aj prehliadač** (403 po stovkách snímok za deň). Keď sa snímka nenačíta alebo hlási chybu,

@@ -206,11 +206,24 @@ def odvod(src, out, crop=None, zmenseni=1):
     return subprocess.run(args + ["-quality", "90", out], capture_output=True).returncode == 0
 
 
-# --- snímky z prehliadača (eBadatelna) -------------------------------------------------------------------------------
+# --- snímky z prehliadača (eBadatelna, FamilySearch) -------------------------------------------------------------------------------
 EBAD = re.compile(r"ebadatelna\.soapraha\.cz/(d|a)/(\d+)/(\d+)")
-
-
 EBAD_WEB = "ebadatelna.soapraha.cz"
+
+# FamilySearch: snímku určuje ARK „3:1:XXXX-XXXX-XXX“ – rovnaký v adrese $dist aj v trvalom odkaze /ark:/61903/3:1:…
+FS = re.compile(r"familysearch\.org/.*?\b3:1:([0-9A-Z]{4}-[0-9A-Z-]{4,})")
+FS_WEB = "www.familysearch.org"
+
+
+def z_prohlizece(adresa):
+    """(kľúč v medzipamäti, web) pre adresu snímky z prehliadača (eBadatelna, FamilySearch), inak None."""
+    m = EBAD.search(adresa or "")
+    if m:
+        return klic_ebadatelna(*m.groups()), EBAD_WEB
+    m = FS.search(adresa or "")
+    if m:
+        return f"familysearch/3_1_{m.group(1)}.jpg", FS_WEB   # bez dvojbodiek – Windows ich v názve súboru nepovolí
+    return None
 
 
 def _slusne():
@@ -287,20 +300,20 @@ def main(a):
             pass
     elif a[0] == "uloz" and len(a) > 1:
         d = _ze_souboru(a[1])
-        m = EBAD.search(d.get("adresa", ""))
-        if not m or not str(d.get("data", "")).startswith("data:image/"):
-            sys.exit("súbor nie je výsledok úryvku pre eBadatelnu (chýba adresa snímky alebo obrázok)")
-        klic = klic_ebadatelna(*m.groups())
+        zdroj = z_prohlizece(d.get("adresa", ""))
+        if not zdroj or not str(d.get("data", "")).startswith("data:image/"):
+            sys.exit("súbor nie je výsledok úryvku pre eBadatelnu ani FamilySearch (chýba adresa snímky alebo obrázok)")
+        klic, web = zdroj
         znovu = os.path.exists(cesta(klic))   # snímka už bola uložená – prehliadač ju načítal z archívu zbytočne
         data = base64.b64decode(d["data"].split(",", 1)[1])
         if not cely(data):
             sys.exit("snímka z prehliadača nie je celá (chýba koniec obrázka) – počkajte na načítanie a uložte ju znova")
         p = uloz(klic, data)
-        _zapocti(EBAD_WEB, len(data), z_disku=False)
+        _zapocti(web, len(data), z_disku=False)
         if not p:
             sys.exit(f"do {KOREN} nie je možné zapisovať")
         os.remove(a[1])
-        print("uložené:", p, f"({d.get('w')} × {d.get('h')})")
+        print("uloženo:", p, f"({d.get('w')} × {d.get('h')})")
         if znovu:
             print("pozor: táto snímka už v medzipamäti bola – nabudúce sa najprv opýtajte „cache.py najdi <adresa>“")
         if len(a) > 2:
@@ -309,8 +322,8 @@ def main(a):
             print(a[2])
         _nahled(p, nahled, d.get("w"))
     elif a[0] == "najdi" and len(a) > 1:
-        m = EBAD.search(a[1])
-        p = cesta(klic_ebadatelna(*m.groups())) if m else None
+        zdroj = z_prohlizece(a[1])
+        p = cesta(zdroj[0]) if zdroj else None
         if not p or not os.path.exists(p):
             sys.exit(1)
         if not cely_soubor(p):   # skrátený – zmazať, snímka sa uloží znova z prehliadača
@@ -320,7 +333,7 @@ def main(a):
                 pass
             sys.exit(1)
         _pouzito(p)
-        _zapocti(EBAD_WEB, os.path.getsize(p))   # snímka sa nemusí znova otvárať v prehliadači
+        _zapocti(zdroj[1], os.path.getsize(p))   # snímka sa nemusí znova otvárať v prehliadači
         print(p)
         _nahled(p, nahled)
     else:

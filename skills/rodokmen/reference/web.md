@@ -14,6 +14,7 @@ a prekladom), stránka osoby, rodiny, „Čo hľadáme“, výskumný denník, v
 | `npm run nahled` | dáta + build + náhľad na http://localhost:4321 (Ctrl+C ukončí) |
 | `npm run dev` | vývojový režim pri úpravách vzhľadu |
 | `npm run nasadit` | dáta + build + nahratie na Netlify |
+| `npm run overit` | kontrola nasadeného webu bez prihlásenia (rodinná otázka × ochrana tímu Netlify) |
 
 Náhľad spúšťaj na pozadí a používateľovi pošli odkaz. Vzhľad si over sám (snímka obrazovky cez prehliadač, ak je k dispozícii).
 
@@ -43,7 +44,11 @@ Náhľad spúšťaj na pozadí a používateľovi pošli odkaz. Vzhľad si over 
 1. Používateľ si založí účet na netlify.com (stačí prihlásenie cez Google/GitHub).
 2. Prihlásenie CLI (otvorí prehliadač): `cd web && npx -y netlify-cli@latest login`.
 3. Založenie webu a prepojenie priečinka (interaktívne, raz): `cd web && npx -y netlify-cli@latest sites:create` (zvolí tím a názov → adresa `https://<nazov>.netlify.app`).
-4. Nasadenie: `cd web && npm run nasadit`.
+   **Nový web býva predvolene „Private“ (ochrana tímu)** – rodina by namiesto rodinnej otázky videla prihlásenie k Netlify.
+   Vypnúť sa dá so súhlasom používateľa príkazom:
+   `npx -y netlify-cli@latest api updateSite --data '{"site_id":"<siteId z web/.netlify/state.json>","body":{"sso_login":false}}'`
+   (v administrácii: Project configuration → Access & security → Visitor access → Project visibility → Edit visibility → Public).
+4. Nasadenie: `cd web && npm run nasadit`. Na konci sa automaticky spustí kontrola `scripts/overit.mjs` (ručne `npm run overit`).
 5. Overenie: otvor adresu **v anonymnom okne** → musí sa zobraziť rodinná prihlasovacia otázka; po správnej odpovedi samotný web.
    Prihlásenie zabezpečuje Netlify Edge Function `web/netlify/edge-functions/brana.js`.
 Ďalšia aktualizácia = len `npm run nasadit`. Vlastnú doménu je možné nastaviť v administrácii Netlify.
