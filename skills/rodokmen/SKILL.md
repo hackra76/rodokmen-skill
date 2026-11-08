@@ -27,11 +27,19 @@ Nájdeš v ňom `tools/` (nástroje), `template/` (šablóna projektu a webu) a 
 ## Na začiatku každej konverzácie
 1. Si v priečinku projektu? (`data/STAV.md` existuje.) → Prečítaj `data/STAV.md`, koniec `data/research_log.md`
    a pokračuj podľa sekcie „Rozpracované“. Krátko používateľovi zhrň, kde ste skončili.
-   **Verzia:** porovnaj súbor `.skill_verze` v projekte so `SKILL_DIR/VERZE`. Ak chýba alebo sa líši, povedz jednou vetou,
-   že je nová verzia skillu, a ponúkni aktualizáciu projektu: `python -I -X utf8 SKILL_DIR/tools/novy_projekt.py <priečinok projektu>`
-   (dáta zostanú, zmenené súbory webu sa zazálohujú do `pracovni/`), potom vo `web/` `npm install`. Po súhlase ju urob
-   a podľa výpisu prevezmi zo zálohy prípadné úpravy vzhľadu (pozri `reference/web.md`). Ak odmietne, pripomeň to až nabudúce.
-   Po aktualizácii povedz používateľovi, nech pre istotu reštartuje Antigravity / reláciu – zmeny v pravidlách
+   **Verzia:** spusti `python -I -X utf8 SKILL_DIR/tools/verze.py <priečinok projektu>` (alebo `python -I -X utf8 tools/verze.py`).
+   Riad sa posledným riadkom výstupu („→“):
+   - `NOVA_VERZE_SKILLU`: povedz používateľovi jednou vetou, že na GitHube vyšla nová verzia skillu, a poraď mu podľa
+     výpisu, ako skill aktualizovať. Projekt z GitHubu neaktualizuj – ten sa aktualizuje až z nového skillu.
+   - `AKTUALIZUJ_PROJEKT`: skill je novší ako projekt – ponúkni aktualizáciu projektu:
+     `python -I -X utf8 SKILL_DIR/tools/novy_projekt.py <priečinok projektu>` (dáta zostanú, zmenené súbory webu sa zazálohujú
+     do `pracovni/`), potom vo `web/` `npm install`. Po súhlase ju urob a podľa výpisu prevezmi zo zálohy prípadné
+     úpravy vzhľadu (pozri `reference/web.md`). Ak odmietne, pripomeň to až nabudúce.
+   - `PROJEKT_NOVEJSI`: projekt vznikol novším skillom ako ten, ktorý je teraz nainštalovaný (stará kópia skillu).
+     Projekt neaktualizuj (vrátil by si ho k staršej verzii) a povedz používateľovi, nech aktualizuje skill.
+   - `SKILL_NEZJISTEN`: nainštalovaný skill sa nenašiel, verziu neporovnávam.
+   - `AKTUALNI`: všetko sedí, pokračuj v práci.
+   Po aktualizácii projektu povedz používateľovi, nech pre istotu reštartuje Antigravity / reláciu – zmeny v pravidlách
    a hákoch (`hooks.json`) sa inak nemusia prejaviť hneď.
 2. Projekt ešte neexistuje → **Fáza 0**.
 
@@ -175,7 +183,9 @@ Podrobne v `reference/web.md`. V skratke:
 4. Pred zverejnením si zober `reference/soukromi.md` a prejdi s používateľom, čo na webe bude (žijúci ľudia!).
 
 ## Fáza 5 – Zverejnenie (voliteľné, len so súhlasom)
-Predvolená cesta je **Netlify** (zadarmo): `npm run nasadit`. Prihlásenie k Netlify a prvé prepojenie webu sú interaktívne.
+Odporúčaná cesta je **Cloudflare Workers** (zadarmo, bez limitov na nasadenie): `npm run nasadit-cloudflare`
+(adresa `https://rodokmen.<subdomena>.workers.dev`, podrobne v `reference/web.md`). Druhá možnosť je **Netlify**
+(`npm run nasadit`, bezplatný účet má limit ~20 nasadení mesačne). Prihlásenie je interaktívne.
 Nič nezverejňuj bez výslovného súhlasu používateľa.
 
 ## Poznámky pre správcu skillu

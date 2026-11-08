@@ -12,7 +12,7 @@ Vznikol pri skutočnom hľadaní predkov.
 **Autor pôvodného skillu:** Jindřich Šaršon ([sarsonj@gmail.com](mailto:sarsonj@gmail.com), [GitHub](https://github.com/sarsonj), [pôvodný repozitár](https://github.com/sarsonj/rodokmen-skill))  
 **Port pre Google Antigravity & slovenský preklad:** Radovan Dvorský ([GitHub](https://github.com/hackra76/rodokmen-skill))
 
-**Aktuálna verzia: 0.8.2 (Antigravity port).** Zoznam zmien nájdete v [histórii repozitára](https://github.com/hackra76/rodokmen-skill/commits/main).
+**Aktuálna verzia: 0.9.2 (Antigravity port).** Zoznam zmien nájdete v [histórii repozitára](https://github.com/hackra76/rodokmen-skill/commits/main).
 
 > **Kým začnete**
 >

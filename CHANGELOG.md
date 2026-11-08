@@ -6,6 +6,22 @@ dá v repozitáři **Watch → Custom → Releases**.
 
 Projekt založený starší verzí Claude sám nabídne aktualizovat (pozná to podle souboru `VERZE`).
 
+## 0.9.2 – 8. 11. 2026
+
+Zverejnenie na Cloudflare Workers (bezplatné, bez limitov na nasadenie), denná kontrola nových verzií cez GitHub, ochrana proti degradácii projektu starším skillom, oprava Windows hooku a Nginx Docker.
+
+**Nové**
+- **Zverejnenie rodinného webu na Cloudflare Workers (odporúčané, predvolené):** Subdomény na `*.workers.dev` (napr. `rodokmen.dvorski.workers.dev`) sú zadarmo, s limitom 100 000 zobrazení denne a bez prísnych limitov na počet nasadení. Web sa nasadzuje jednoducho cez `npm run nasadit-cloudflare` s plnou ochranou rodinnou otázkou (`cloudflare/worker.js`, `wrangler.jsonc`) a automatickým overením nasadenia (`scripts/overit.mjs`).
+- **Kontrola nových verzií cez GitHub (`tools/verze.py`):** Agent na začiatku konverzácie overí najnovšie vydanie na GitHube (najviac raz za 24 hodín s lokálnou cache) a porovná verziu nainštalovaného skillu a projektu. Pri novej verzii ponúkne aktualizáciu.
+- **Bezpečnostná poistka proti degradácii (`tools/novy_projekt.py`):** Projekt sa neodmietne aktualizovať, ak by bola použitá staršia kópia skillu, než akou bol projekt vytvorený.
+
+**Opravy a vylepšenia**
+- **Hlídač siete a GitHub API (`tools/hlidac_site.py`, `tools/slusne.py`):** Povolené bezpečné domény `workers.dev`, `cloudflare.com` a dopyty skriptov (ako `verze.py`) na GitHub bez blokovania hlídačom siete.
+- **Windows hook stabilita (`tools/novy_projekt.py`):** Pre hook v Claude Code a Antigravity na Windows sa do konfigurácie zapisuje vždy priama plná cesta k bežiacemu Pythonu namiesto relatívneho `python`, čím sa predchádza kolíziám s nefunkčnými Microsoft Store zástupcami.
+- **Nginx v Dockeri:** Opravený problém s duplicitnou direktívou `default` pri otvorenom webe a aktualizácia na obraz `nginx:stable-alpine`.
+- **Riešenie blokácií MZA Brno:** Metodika čítania matrík MZA výhradne cez Playwright alebo v používateľovom prehliadači (vyhnutie sa blokovaniu 403 vo vstavanom prehliadači).
+- **Indikačné skice katastra:** Spresnenie čítania čísel v budovách (červené = číslo popisné, čierne = stavebná parcela).
+
 ## 0.8.2 – 6. 11. 2026
 
 Porta fontium podľa obcí a 10 s limit, kontrast pre vyblednuté zápisy, FamilySearch do cache, vojaci 1. sv. vojny a kontrola Netlify.

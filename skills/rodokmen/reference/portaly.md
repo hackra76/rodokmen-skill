@@ -116,6 +116,9 @@ Portály často opakovane sťahujú rovnaké dáta. Na úsporu siete a ochranu p
   `python -I -X utf8 tools/slusne.py curl -s "https://www.mza.cz/actapublica/matrika/hledani?typ=obec&search_by_obec=<obec>&page=<n>"`
   (limit brzdy 1 dotaz za 4 s).
 - Zobrazenie matrík a snímky rob výhradne v prehliadači: listuj v otvorenej relácii (`viewer.goToPage(n-1)`), návrat späť ide z cache prehliadača.
+- **Prehliadač: Playwright** (uloží snímku do súboru). **Vstavaný prehliadač Claude desktop pre MZA nepoužívaj** – podľa hlásení používateľov dostáva na snímky 403 aj po dni pauzy, zatiaľ čo bežný prehliadač prejde. Bez Playwrightu nech používateľ otvorí snímku vo svojom prehliadači a pošle snímky obrazovky sám (celá dvojstrana na orientáciu, potom priblížený zápis – koliesko myši, macOS Cmd+Shift+4, Windows Win+Shift+S) a ulož ich do `pracovni/`.
+- **Blokácia snímok (403):** MZA po zhruba 45–60 snímkach za deň (počíta sa každé priblíženie – sťahuje nové dlaždice) prestane vydávať obraz: stránka aj overenie prejdú, ale snímka zostane biela a dlaždice vracajú 403. **Nie je to pomalé načítanie – okamžite prestaň**, neskúšaj znova a povedz to používateľovi. Blokácia trvala aj na druhý deň; ďalší deň skús najviac jednu snímku.
+- Dlaždica vracajúca **410** nie je blokácia – vypršal token v adrese; stačí znova otvoriť rovnakú adresu snímky (`?image=…jp2`).
 - Uloženie priblíženého výrezu ako snímka obrazovky.
 - **Pozor:** Doména `actapublica.eu` nepatrí archívu MZA a je zablokovaná. Používaj výhradne `www.mza.cz/actapublica`.
 
@@ -163,7 +166,7 @@ Portály často opakovane sťahujú rovnaké dáta. Na úsporu siete a ochranu p
 ## 5. Mapy stabilného katastra a indikačné skice
 - Na `ags.cuzk.gov.cz/archiv` vyhľadajte katastrálne územie, kliknite do mapy → „Indikační skici“ → ID rastru (napr. `HRA235018400`).
 - Skica sa dá otvoriť priamo: `https://ags.cuzk.gov.cz/archiv/openmap.html?typ=skicic&idrastru=<ID>` (načítava sa cca 20 s).
-- **Čítanie:** čierne čísla v budovách = čísla domov (čp./č.), červené čísla = parcelné čísla. Žltá stavba je drevená, ružová/červená murovaná.
+- **Čítanie:** v budove je **červeno číslo popisné** a **čierne číslo stavebnej parcely** (pozemkové parcely majú čísla červené); zámena prečíta celú dedinu naopak. Pri pochybnosti over na pár domoch: vrstva pozemkového katastra (archiv_spojene_pk) s adresnými bodmi RÚIAN ukáže, na ktorej parcele stojí dnešné súpisné číslo. „N° 35 Priezvisko“ pri pozemku = patrí k domu č.p. 35. Žltá stavba je drevená, ružová/červená murovaná.
 - Zosnímajte výrez so zakrúžkovaným domom predkov a uložte na web k rodine.
 
 ---

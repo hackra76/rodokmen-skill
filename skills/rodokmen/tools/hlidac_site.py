@@ -30,7 +30,7 @@ HEREDOC = re.compile(r"<<-?\s*['\"]?\w+|@['\"]\s*\n")   # bash <<EOF, PowerShell
 PS = re.compile(r"\b(Invoke-WebRequest|Invoke-RestMethod|iwr|irm|curl\.exe|wget|Start-BitsTransfer|Net\.WebClient|"
                 r"HttpClient|DownloadString|DownloadFile)\b", re.I)
 URL = re.compile(r"https?://([^/\s\"'`:;)]+)", re.I)
-VOLNE = ("localhost", "127.0.0.1", "0.0.0.0", "netlify.app", "netlify.com", "github.com", "githubusercontent.com",
+VOLNE = ("localhost", "127.0.0.1", "0.0.0.0", "netlify.app", "netlify.com", "workers.dev", "cloudflare.com", "github.com", "githubusercontent.com",
          "npmjs.org", "pypi.org", "pythonhosted.org")
 RADA = ("Síť na weby archivů jen přes brzdu proti zablokování (tools/slusne.py), i u pomocníků:\n"
         "  python3 -I tools/slusne.py curl …            místo curl/wget\n"
@@ -61,7 +61,7 @@ def posoudit(tool, cmd, cwd):
     """Vrátí důvod zamítnutí, nebo None (pustit)."""
     if tool == "Monitor":   # spouští příkaz v bashi stejně jako Bash
         tool = "Bash"
-    if tool == "PowerShell" or PS.search(cmd):
+    if tool == "PowerShell":
         if PS.search(cmd) and "slusne.py" not in cmd and not jen_volne(cmd):
             return "PowerShell stahuje z webu mimo brzdu"
         tool = "Bash"   # python a curl.exe v PowerShellu posoudit stejně
@@ -82,9 +82,9 @@ def posoudit(tool, cmd, cwd):
             obsah = cist(args[0].strip("\"'"), cwd)
             if "import slusne" in obsah:          # nástroje v tools/ se brzdí samy
                 continue
-            if SIT_PY.search(obsah):
+            if SIT_PY.search(obsah) and not jen_volne(obsah):   # síť jen na povolené weby (verze.py → GitHub) projde
                 return f"Python skript {args[0]} používá síť"
-        if (SIT_PY_RADEK if HEREDOC.search(cmd) and " -c" not in cmd else SIT_PY).search(cmd):                   # heredoc / python -c "…"
+        if (SIT_PY_RADEK if HEREDOC.search(cmd) and " -c" not in cmd else SIT_PY).search(cmd):   # heredoc / python -c "…"
             return "Python se síťovým importem přímo v příkazu"
     for m in SHELL.finditer(cmd):
         obsah = cist(m.group(1), cwd)
