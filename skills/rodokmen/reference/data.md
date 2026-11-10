@@ -34,7 +34,8 @@ P = {
   na susednom čísle (manžel 2k, manželka 2k+1, aj cez `SAME`). Pri `doc` hlási `č.`, ktoré nie je v žiadnom citovanom
   zápise (`shrnuti`, prepis) ako číslo domu (`č. 23`, `čp. 23`, `No 23`, `N. 23`, `[Dům] 23`, `z Ostřetína 23`; dátum, vek ani
   číslo zápisu, strany či snímky neplatia); číslo prevzaté odinakiaľ označ vo fakte zdrojom: `* 1862 Ostřetín č. 23 (podľa stromu)`.
-- `r` kľúče zápisov zo `zaznamy.json`. `st` pozri `matriky.md`: `doc` prečítané v matrike, `prob` pravdepodobné,
+- `r` kľúče zápisov zo `zaznamy.json`; pridávaj ich cez `python -I -X utf8 tools/zapis.py odkaz <číslo> <kľúč> [<kľúč> …]` (u `SIDE`
+  miesto čísla časť mena) – nástroj zachová zvyšok súboru a overí, že zápis existuje. `st` pozri `matriky.md`: `doc` prečítané v matrike, `prob` pravdepodobné,
   `fam` od rodiny (aj strom, ktorý si rodina vedie sama, napr. GEDCOM z jej MyHeritage), `mh` cudzí strom z internetu, `unk`.
 - `LINES = {8: ("Novákovci", "Kováči z Holíc…"), …}` – len čísla 8–15; názov rodu = priezvisko v množnom čísle.
 - `SIDE` – súrodenci a ďalší príbuzní: `dict(k=<číslo predka>, n="Josef Novák (1865–1920)", t="text", r=[kľúče])`.
@@ -79,7 +80,8 @@ predkoch bez obce vypíše v hranatých zátvorkách slová z faktov, ktoré vyz
 len ju výraz `re` nezachytí v skloňovanom tvare („v Přesece“ × `Přesek`) – uprav výraz (`Přese?[kc]`).
 
 ## `dokumenty.json` – rodinné fotky a dokumenty na webe
-`[{"img": "foto_svadba_1919", "popis": "Svadba Jána a Josefy, Holice 1919.", "osoby": [8, 9]}]`
+`[{"img": "foto_svadba_1919", "popis": "Svadba Jána a Josefy, Holice 1919.", "osoby": [8, 9]}]` – `popis` je na webe
+vidieť ako popisku, vyplň ho (rovnako ako `t` u bočných príbuzných).
 Obrázok ulož cez `vyrez.py dokumenty/<sken>.jpg foto_svadba_1919` (vznikne `vyrezy/` aj `zdroje/`).
 
 ## `web.json` – nastavenie webu
@@ -97,3 +99,21 @@ Pozri `web.md`.
 ## Odkazy na osoby (slug)
 Slug = meno bez diakritiky + rok, napr. `jan-novak-1890`; pri kolízii pridá číslo osoby. Presné slugy po `npm run data`
 v `web/src/data/site.json` (`people`). Pri premenovaní osoby sa slug zmení – oprav odkazy v textoch.
+
+## Import rodinného stromu (Fáza 1)
+- **GEDCOM** (`.ged`, export z MyHeritage/Geni/FamilySearch): `python -I -X utf8 tools/ged_import.py dokumenty/strom.ged "Meno Priezvisko"`
+  vypíše predkov s číslami, všetky udalosti a poznámky a **front zápisov** (najmladšia známa udalosť pri každom predkovi,
+  a či je už v archíve). `--osoby` vytvorí kostru pre `osoby.py`. Poznámky v strome bývajú plné rodinných historiek –
+  prečítaj ich a vyťaž do `udaje_od_rodiny.md`.
+- Starší strom z **Brother's Keeper** (kódovanie ANSI a slovenské/české dátumy „SRPEN 1945“ nástroj prevedie sám): miesta tam bývajú
+  v 6. páde („Táboře“) – do `osoby.py` ich prepíš do 1. pádu. Koreňom takého stromu často nie je používateľ, ale jeho
+  deti (oba rody) – východiskovú osobu preto vyber menom.
+- **Záloha stromu z MyHeritage** (ZIP so súborom `<strom>.ftb` a priečinkom `Photos/` – databáza, nie GEDCOM): rozbaľ do
+  vlastného priečinka v `dokumenty/` (býva veľká – daj ju do `.gitignore`), potom
+  `python -I -X utf8 tools/ftb_export.py <strom.ftb> dokumenty/strom.ged "Meno Priezvisko" <rok narodenia> pracovni/prima_linie.md <priečinok Photos>`.
+  Vznikne GEDCOM pre `ged_import.py` (bez adries, e-mailov a telefónov) a prehľad priamej línie s **pôvodom údajov** – pri každej
+  osobe, z ktorých cudzích stromov (Smart Match) či zdrojov jej údaje prišli. Osoba bez cudzej citácie = `fam`, doložená len
+  cudzími stromami = `mh`. V prehľade sú aj pripojené skeny (odpisy matrík, parte, domovské listy) – prečítaj ich, bývajú to
+  najcennejšie rodinné doklady.
+- Údaje zo stromov (aj Smart Match) sú len vodidlo k zápisu – dátum a číslo domu ťa dovedú na stranu, ale **mená vždy
+  over v zápise v matrike** (skutočná chyba: „sobáš“ zo Smart Match bol iný pár z rovnakého domu).

@@ -34,9 +34,12 @@ Náhľad spúšťaj na pozadí a používateľovi pošli odkaz. Vzhľad si over 
 ```
 - `kontakt.jmeno` je v datíve („Napíšte Radovanovi na …“).
 - **Prihlásenie:** otázka, na ktorú pozná odpoveď len rodina (nie ľahko dohľadateľná na sociálnych sieťach).
-  Odpoveď sa porovnáva bez diakritiky a veľkých písmen. Na serveri aj v cookie prehliadača je len jej odtlačok (SHA-256),
-  samotná odpoveď sa nikde neukladá. Bez odpovede nasadenie (`npm run nasadit`, `deploy-caprover`)
+  Odpoveď sa porovnáva bez diakritiky a veľkých písmen a musí obsahovať písmená alebo číslice z latinky (azbuka
+  a samotné symboly nejdú). Na serveri aj v cookie prehliadača je len jej odtlačok (SHA-256),
+  samotná odpoveď sa nikde neukladá. Krátku alebo bežnú odpoveď (meno, obec) však možno z odtlačku uhádnuť skúšaním,
+  preto nech ju používateľ nepoužíva ako heslo inde. Bez odpovede nasadenie (`npm run nasadit-cloudflare`, `nasadit`, `deploy-caprover`)
   skončí chybou; otvorený web je možný len výslovne cez `"otevreny": true` v `prihlaseni`.
+  Je to ľahká ochrana proti náhodným návštevníkom, nie bankové zabezpečenie – citlivé veci na web nepatria.
 - `uvod.foto` = kľúč obrázka vo `vyrezy/` (ulož cez `vyrez.py`).
 - `pribeh`: `menu` a `tlacitko` pomenuj podľa hlavného rodu („Príbeh Dvorských“), `rod` = číslo rodu (8–15).
 - `citlive_schvaleno`: zoznam úryvkov textu, ktoré používateľ na webe schválil – `kontrola.py` ich potom nehlási ako `CITLIVÉ`.
@@ -54,7 +57,11 @@ na Cloudflare, napr. `dvorski`). Zadarmo, bez kreditov na nasadenie (na Netlify 
 3. Prihlásenie CLI: daj používateľovi príkaz `! cd web && npx wrangler login`. Otvorí sa prehliadač Cloudflare, kde klikne
    na „Allow“ (oprávnenie pre Workers). Príkaz beží v termináli ďalej a po schválení sám skončí.
    Pozor: ak už používateľ na Cloudflare subdoménu má z minulosti, Cloudflare ju nezmení a názov z `web.json` sa nepoužije –
-   adresu potom povie až nasadenie.
+   adresu potom povie až nasadenie. Subdoména je na účte len jedna a cez API ju zmeniť nemožno (len v administrácii).
+   **Druhý rodokmeň na rovnakom účte** potrebuje iný názov webu, inak by prvý web prepísal: spýtaj sa naň (napr.
+   `rodokmen-horvathovci`), zapíš `"cloudflare": {"web": "rodokmen-horvathovci"}` a ukáž celú adresu
+   `https://rodokmen-horvathovci.<subdoména>.workers.dev`. Nasadenie to samo stráži: keď web s tým názvom na účte už je
+   a z tohto priečinka sa ešte nenasadzoval, skončí s radou (ten istý projekt z iného počítača: `node scripts/nasadit_cloudflare.mjs --prepsat`).
 4. Nasadenie: `cd web && npm run nasadit-cloudflare` (spusti sám). Vypíše adresu a sám spustí kontrolu
    `scripts/overit.mjs`. Pri novej adrese kontrola počká, kým sa rozšíri (pár minút); ak ju počítač ešte nepozná, povie to
    a skončí bez chyby – potom over neskôr `npm run overit`. Do tej doby adresu v prehliadači neotváraj: počítač alebo

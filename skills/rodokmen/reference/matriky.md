@@ -8,14 +8,14 @@
 | **Z** | zomrelí, *Liber defunctorum / mortuorum*, *Sterbebuch*, *Halotti anyakönyv* | dátum úmrtia a pohrebu, dom, meno, vek, príčina | vek → odhad roku narodenia, stav (vdova po…) |
 | **I** | index (register) k N/O/Z | meno → dátum / strana | rýchle hľadanie; **index býva neúplný**, negatívny výsledok v indexe nič nedokazuje |
 
-Ďalšie pramene: sčítanie ľudu (1869 na Slovensku a v Uhorsku; 1857–1921 v Česku; domácnosti s dátumami narodenia), urbáre a pozemkové knihy (kto vlastnil aký dom – prepojí generácie cez nehnuteľnosť), vojenské záznamy, domovské listy, parte. Pozri `portaly.md` a `playbook.md` §2.
+Ďalšie pramene: sčítanie ľudu (1869 na Slovensku a v Uhorsku; 1857–1921 v Česku – operáty 1930 sú len v Národním archíve,
+bežne neprístupné a online nie sú; domácnosti s dátumami narodenia), urbáre a pozemkové knihy (kto vlastnil aký dom – prepojí generácie cez nehnuteľnosť), vojenské záznamy, domovské listy, parte. Pozri `portaly.md` a `metodika.md` (Pramene mimo ČR).
 
 ## Lehoty prístupu k matrikám
-- **Slovensko (zákon č. 154/1994 Z. z. o matrikách):** Knihy prechádzajú z matričných úradov do štátnych archívov po uplynutí **100 rokov od posledného zápisu** pre všetky tri druhy (narodenia, sobáše i úmrtia). Cirkevné matriky do roku 1895 sú v štátnych archívoch a zdigitalizované na FamilySearch. Záznamy mladšie ako 100 rokov spravuje príslušný matričný úrad (výpis dostane len priamy príbuzný).
+- **Slovensko (zákon č. 154/1994 Z. z. o matrikách):** Knihy prechádzajú z matričných úradov do štátnych archívov po uplynutí **100 rokov od posledného zápisu** pre všetky tri druhy (narodenia, sobáše i úmrtia). Cirkevné matriky do roku 1895 sú v štátnych archívoch a zdigitalizované na FamilySearch. Kým je kniha na úrade, výpis dostane len dotknutá osoba alebo člen rodiny (§ 18; pozri `metodika.md`).
 - **Česko (zákon č. 301/2000 Sb.):** Do archívu (online) ide zväzok až po uplynutí: narodenia **100 rokov**, sobáše **75 rokov**, úmrtia **30 rokov** od posledného zápisu v knihe.
-
-Mladšie knihy sú na príslušnom matričnom úrade – výpis dostane len priamy príbuzný (žiadosť + doklady o príbuzenstve). Zapíš do `archivni_dotazy.md`.
-Katalógy archívov uvádzajú **aj zväzky, ktoré sú ešte na úrade**: v detaile býva poznámka „Matrika je dosiaľ uložená na matričnom úrade“, miesto uloženia a 0 snímok. Túto poznámku si všimnite skôr, než začnete hľadať snímky. Zväzok zapíšte do `archivni_dotazy.md`. Vyskúšajte **samostatný index / register** (I-N, I-O, I-Z) cez rovnaké roky – býva online a poskytne aspoň dátum a číslo domu. Narodenia zhruba po roku 1910 často online nebudú (kniha pokračuje za rok 1926 a lehota beží od posledného zápisu).
+  Mladšie knihy sú na matričnom úrade obce s rozšírenou pôsobnosťou / poverenom úrade. **Matričný úrad ale počíta lehotu u každého zápisu zvlášť** (§ 25b zákona 301/2000 Sb.): zápis starší ako 100 / 75 / 30 rokov (narodenie / sobáš / úmrtie) vydá **komukoľvek** aj zo zväzku, ktorý je ešte na úrade, a dovolí do knihy nahliadnuť. Mladší zápis dostane len osoba, ktorej sa týka, alebo člen rodiny (manžel, partner, rodičia, deti, súrodenci, starí rodičia, vnuci, pravnuci) s doložením príbuzenstva. Žiadaj o **doslovný výpis** – na rozdiel od rodného či sobášneho listu obsahuje aj okrajové poznámky (neskorší sobáš, úmrtie, legitimizáciu). Rovnaké lehoty platia pre zbierku listín a druhopisy do roku 1958. Zapíš do `archivni_dotazy.md`.
+- Katalógy archívov uvádzajú **aj zväzky, ktoré sú ešte na úrade**: v detaile býva poznámka „Matrika je dosiaľ uložená na matričnom úrade“, miesto uloženia a 0 snímok. Túto poznámku si všimnite skôr, než začnete hľadať snímky. Zväzok zapíšte do `archivni_dotazy.md`. Vyskúšajte **samostatný index / register** (I-N, I-O, I-Z) cez rovnaké roky alebo **druhopis** (môže končiť skôr ako originál a byť tak už v archíve) – býva online a poskytne aspoň dátum a číslo domu. Narodenia zhruba po roku 1910 často online nebudú (kniha pokračuje za rok 1926 a lehota beží od posledného zápisu).
 
 ## Ako vyzerá hľadanie v praxi
 1. **Obec → farnosť.** Malé dediny patrili pod faru v susednej obci; popis zväzku vymenúva všetky obce farnosti.
@@ -53,6 +53,7 @@ Dedinské farnosti viedli knihu často **po obciach**: každá obec má vlastný
 - Priezvisko sa píše foneticky a v čase sa mení (Dvorszký / Dvorschak / Dvorský, Šaršon / Scharschon, Krupka / Kroupa). Hľadaj všetky varianty.
 - Priezviská žien: v maďarčine často s príponou `-né` (podľa manžela, napr. *Kovács Jánosné* = manželka Jána Kovácsa) alebo s dievčenským priezviskom (*született* / *szül.*); v nemčine bez „-ová“ (*Maria Novak*).
 - Mená v maďarčine: János = Ján, István = Štefan, József = Jozef, Ferenc = František, György = Juraj, Mihály = Michal, András = Andrej/Ondrej, Pál = Pavol, Mária = Mária, Erzsébet = Alžbeta, Katalin = Katarína, Anna, Ilona = Helena, Zsuzsanna = Zuzana.
+- Dátumami bývajú sviatky (*Dominica*, *festum S. Joannis*) – v nejasných prípadoch dopočítaj: *feria* = deň v týždni (*feria 2da* = pondelok), nedele sa volajú podľa introitu (*Dominica Laetare* = 4. pôstna nedeľa), takže „feria 2da post Dominicam Laetare“ = pondelok po 4. pôstnej nedeli; presný dátum dá večný (liturgický) kalendár pre daný rok (Veľká noc sa mení).
 
 ### Slovníček pojmov (lat. / nem. / maď. → slovensky)
 | latinsky | nemecky | maďarsky | slovensky |
@@ -64,12 +65,37 @@ Dedinské farnosti viedli knihu často **po obciach**: každá obec má vlastný
 | *viduus / vidua* | *Witwer / Witwe* | *özvegy* | vdovec / vdova |
 | *filius / filia* | *Sohn / Tochter* | *fia / lánya* | syn / dcéra |
 | *patrini / testes* | *Pathen / Zeugen* | *keresztszülők / tanúk* | krstní rodičia / svedkovia |
-| *agricola, rusticus* | *Bauer* | *földműves, gazda* | sedliak, roľník |
-| *inquilinus, inquilina* | *Inwohner, Taglöhner* | *zsellér* | želiar, podruh, nádenník |
-| *casarius* | *Häusler* | *házas zsellér* | domkár |
+| *agricola, rusticus, colonus* | *Bauer* | *földműves, gazda* | sedliak, roľník |
+| *inquilinus, inquilina* | *Inwohner, Inleute, Taglöhner* | *zsellér, napszámos* | želiar, podruh, nádenník |
+| *casarius / domunculus* | *Häusler / Chalupner* | *házas zsellér* | domkár / chalupník |
 | *civis* | *Bürger* | *polgár* | mešťan |
 | *sartor / sutor / faber / textor / molitor* | *Schneider / Schuhmacher / Schmied / Weber / Müller* | *szabó / varga, csizmadia / kovács / takács / molnár* | krajčír / obuvník, čižmár / kováč / tkáč / mlynár |
 | *ex, aus, von* | *aus, von* | *helyből, -ból/-ből* | z (obce) |
+
+#### Ďalšie časté latinské a nemecké výrazy v matrikách a pozemkových knihách
+| výraz | význam |
+|---|---|
+| *avus, avia / Großvater, Großmutter*, *nepos / Enkel, Neffe* | starý otec, stará mama; vnuk aj synovec (podľa súvislostí) |
+| *maritus, uxor / Ehemann, Ehefrau*, *gener / Schwiegersohn*, *nurus / Schwiegertochter*, *socer / Schwiegervater* | manžel, manželka; zať, nevesta (nevesta syna); svokor |
+| *vitricus / Stiefvater*, *noverca / Stiefmutter*, *privignus / Stiefsohn*, *tutor / Vormund*, *orphanus / Waise* | otčim, macocha, nevlastný syn; poručník, sirota |
+| *gemelli / Zwillinge*, *posthumus / nachgeboren*, *expositus, inventus / Findelkind* | dvojčatá, pohrobok (po otcovej smrti), nájdenec |
+| *spurius*, *legitimatus per subsequens matrimonium / legitimiert durch nachfolgende Ehe* | nemanželský (hanlivo), legitimizovaný následným sobášom rodičov |
+| *parvulus, infans / Kind*, *in periculo mortis baptizatus / nottgetauft*, *mortuus natus / totgeboren* | nemluvňa, dieťa; pokrstený z núdze, mŕtvo narodený |
+| *proclamationes, banna / Aufgebot*, *consanguinitas*, *dispensatio / Dispens*, *Konsens* | ohlášky; pokrvné príbuzenstvo, dišpenz, povolenie k sobášu |
+| *provisus sacramentis / versehen*, *obiit, denatus* | zaopatrený sviatosťami pred smrťou; zomrel |
+| *Ausgedinger, Auszügler*, *Gärtner* (na dedine), *servus, famulus / Knecht*, *ancilla / Magd* | výmenník (odovzdal grunt); záhradník (malý usadlík); čeľadník, slúžka |
+| *subditus / Untertan*, *dominium / Herrschaft*, *judex / Richter*, *miles / Soldat*, *miles emeritus / Invalide* | poddaný, panstvo, richtár; vojak, vyslúžilec |
+| *ludimagister / Schullehrer*, *aedituus / Mesner* | učiteľ, kostolník |
+| *Grund*, *Kaufbrief*, *Waisenbuch*, *Heiratsvertrag*, *Verlassenschaft* | grunt (usadlosť), trhová zmluva, sirotská kniha, svadobná zmluva, pozostalosť |
+| *Heimatrecht, Heimatschein*, *Entlassungsschein* | domovské právo, domovský list; výhostný list (prepustenie z poddanstva) |
+| *vulgo / genannt*, *olim / ehemals*, *quondam (q.) / weiland*, *hujas / hiesig* | prímenom / zvaný, predtým, nebohý (zosnulý), tunajší |
+| *annorum 40 / alt 40 J.*, *eodem*, *ut supra (u. s.)*, *anno currente* | 40-ročný, toho istého dňa, ako vyššie, tohto roku |
+| *7bris, 8bris, 9bris, Xbris* | september, október, november, december (nie 7.–10. mesiac!) |
+| *febris*, *hydrops / Wassersucht*, *apoplexia / Schlagfluss*, *marasmus senilis / Altersschwäche* | horúčka, vodnatieľka, mŕtvica, staroba |
+| *phthisis, tabes, Lungensucht, Abzehrung*, *variolae, Blattern*, *convulsiones, Fraisen* | tuberkulóza / souchotiny, kiahne, kŕče |
+| *dysenteria / Ruhr*, *typhus / Nervenfieber*, *angina, diphtheria / Halsbräune*, *morbilli*, *pertussis*, *partus*, *submersus* | dyzentéria / úplavica, týfus, záškrt; osýpky, čierny kašeľ, šestonedelie, utopený |
+| *confirmatus*, *A.C.*, *H.C.*, *acatholicus*, *Judaeus*, *conversus* | birmovaný; evanjelik a. v. (Augsburger), reformovaný h. v. (Helvetisch), nekatolík, Žid, konvertita |
+| *lanio*, *pistor*, *braxator*, *caupo*, *figulus*, *faber lignarius*, *murarius*, *opilio*, *pastor*, *venator*, *mendicus*, *testamentum*, *mane / vespere* | mäsiar, pekár, sládek, krčmár, hrnčiar, tesár, murár, ovčiar, **pastier** (nie farár!), poľovník, žobrák, závet, ráno / večer |
 
 ## Odhad rokov
 - Vek pri úmrtí/sobáši je často zaokrúhlený o ±2–5 rokov. Uvádzaj „asi 1756“ a hľadaj krst v širšom časovom intervale.
@@ -95,7 +121,7 @@ Dedinské farnosti viedli knihu často **po obciach**: každá obec má vlastný
 - Nemanželské dieťa nesie priezvisko matky; otec chýba alebo je dopísaný neskôr (legitimácia na okraji).
 - Ten istý predok dvakrát v rodokmeni (vzdialení príbuzní sa vzali) – v dátach `SAME`.
 - Index nenašiel ≠ zápis neexistuje. Zapíš, čo presne si prešiel.
-- Pomocníci (subagenti) a OCR/AI čítajú historické písmo chybne – vždy overuj na snímke sám.
+- Čítanie pomocníkov (subagentov) aj iných nástrojov na čítanie písma vždy over sám na snímke (princíp štyroch očí, `SKILL.md` → Pomocníci).
 
 ## Technické pravidlá (Windows)
 - Python: `python -I -X utf8 tools/<nástroj>.py`. Bez `-X utf8` je výstup do rúry v cp1250 / ANSI, čo spôsobí chyby pri diakritike a špeciálnych znakoch.

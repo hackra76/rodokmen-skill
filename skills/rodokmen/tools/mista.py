@@ -14,6 +14,8 @@ Použití:
 Položka může mít "hypoteza": true a "rod": <Kekulé 8–15> – pak se na mapě ukáže jako hypotéza bez osob.
 """
 import json, math, os, re, sys, time, urllib.parse, urllib.request
+if sys.argv[1:2] in (["-h"], ["--help"]):   # nápoveda namiesto pádu
+    sys.exit(__doc__.strip())
 import os as _os, sys as _sys; _sys.path.insert(0, _os.path.dirname(_os.path.abspath(__file__))); import slusne  # noqa: E402 – brzda proti zablokování archivem (společný limit dotazů, tools/slusne.py)
 for _s in (sys.stdout, sys.stderr):   # UTF-8 výstup i na Windows bez -X utf8 (cp1250 neumí třeba „→“)
     if hasattr(_s, "reconfigure"):
@@ -93,7 +95,7 @@ def nejblizsi(name, cache):
 
 
 def main():
-    cache = json.load(open(OUT, encoding="utf-8")) if os.path.exists(OUT) else {}
+    cache = json.load(open(OUT, encoding="utf-8-sig")) if os.path.exists(OUT) else {}
     if len(sys.argv) > 2 and sys.argv[1] == "pridej":
         name = sys.argv[2]
         if len(name.split()) == 1:
@@ -101,8 +103,14 @@ def main():
         else:
             # Pre viacslovné obce (napr. Moravský Písek, Ostrožská Lhota) skráti každé slovo pre české aj slovenské skloňovanie
             stem = r"\b" + r"\w*\s+".join(re.escape(w[:max(3, len(w) - 2)]) for w in name.split()) + r"\w*"
-        cache[name] = dict(cache.get(name, {}), re=sys.argv[3] if len(sys.argv) > 3 and sys.argv[3] else stem,
-                           dotaz=sys.argv[4] if len(sys.argv) > 4 else f"{name}, Česko")
+        stare = cache.get(name, {})
+        dotaz = sys.argv[4] if len(sys.argv) > 4 else stare.get("dotaz", f"{name}, Česko")
+        cache[name] = dict(stare, re=sys.argv[3] if len(sys.argv) > 3 and sys.argv[3] else stare.get("re", stem),
+                           dotaz=dotaz)
+        if "lat" in stare and dotaz != stare.get("dotaz", f"{name}, Česko"):   # iný dopyt = oprava miesta → hľadať znova
+            for k in ("lat", "lon", "osm"):
+                cache[name].pop(k, None)
+            print(f"prepočítavam: {name} (nový dopyt „{dotaz}“)")
     pozor, nove = [], []   # varovania sa vypíšu až pod zoznamom
     for name, e in cache.items():
         if "lat" not in e:

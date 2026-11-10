@@ -135,7 +135,8 @@ Portály často opakovane sťahujú rovnaké dáta. Na úsporu siete a ochranu p
 
 ### ZA Opava – `tools/soal_zoomify.py`
 - Portál `https://digi.archives.cz/da/` vyžaduje pripojený prehliadač a CAPTCHU rieši používateľ.
-- Získaj adresu obrázka a stiahni cez `soal_zoomify.py`. Dodržuj pauzy 3–6 s medzi dopytmi.
+- Získaj adresu obrázka (pre viac snímok vždy najviac pár naraz, s pauzou aspoň 5 s) a stiahni cez `soal_zoomify.py`.
+- Obrázkový server `images.archives.cz` nepotrebuje cookies, ale **po niekoľkých snímkach rýchlo za sebou vracia 403** – sťahuj po jednom s pauzou a pri 403 skonči (brzda web zastaví). V prehliadači dodržuj pauzu aspoň 5 s medzi stránkami a nespúšťaj slučky na pozadí ani dávky celých zväzkov.
 
 ### Pražské policajné prihlášky 1850–1914 (Národní archiv) – `tools/policie_prihlasky.py`
 - Prihlášky pražských rodín (otec, matka, deti, dátumy a miesta narodenia, sobáš, bydliská).
@@ -144,10 +145,11 @@ Portály často opakovane sťahujú rovnaké dáta. Na úsporu siete a ochranu p
 
 ---
 
-## 3. Ostatné krajiny
+## 3. Ostatné krajiny a staršie pramene
 
 - **Rakúsko a Nemecko:** Portál **Matricula Online** (`data.matricula-online.eu`) – rímskokatolícke a evanjelické matriky Viedne, Dolného Rakúska, Burgenlandu a Bavorska bez poplatku a bez prihlásenia (`tools/matricula_dl.sh`).
-- **Poľsko:** Portál **Geneteka** (`geneteka.genealodzy.pl`) – dobrovoľnícke indexy narodení, sobášov a úmrtí po vojvodstvách a farnostiach. Dodržuj pravidlo „linkujeme, nesťahujeme masovo“.
+- **Poľsko:** Portál **Geneteka** (`geneteka.genealodzy.pl`) – dobrovoľnícke indexy narodení, sobášov a úmrtí po vojvodstvách a farnostiach. Dodržuj pravidlo „linkujeme, nesťahujeme masovo“. Podrobnosti k zahraničným prameňom: `metodika.md`.
+- **Gruntové (pozemkové) knihy:** prevody domov z otca na syna; online časť: SOA Plzeň takmer všetko, SOA Praha časť, **SOA Třeboň** pozemkové knihy veľkostatkov (len v prehliadači: stránka obce → „Pozemkové knihy“, hľadaj aj u sídla panstva), **ZA Opava** urbáre a pozemkové knihy v Digitálnej bádateľni. Časť kníh z Třebone a Opavy je aj na FamilySearch (*Czech Republic, Land Records, 1450–1889*).
 
 ---
 
@@ -164,18 +166,19 @@ Portály často opakovane sťahujú rovnaké dáta. Na úsporu siete a ochranu p
 ---
 
 ## 5. Mapy stabilného katastra a indikačné skice
-- Na `ags.cuzk.gov.cz/archiv` vyhľadajte katastrálne územie, kliknite do mapy → „Indikační skici“ → ID rastru (napr. `HRA235018400`).
+- Na `ags.cuzk.gov.cz/archiv` vyhľadajte katastrálne územie, kliknite do mapy → „Indikační skici“ → ID rastru (napr. `HRA235018400`, dá ho aj tlačidlo `#btn_skicic` v okne obce).
 - Skica sa dá otvoriť priamo: `https://ags.cuzk.gov.cz/archiv/openmap.html?typ=skicic&idrastru=<ID>` (načítava sa cca 20 s).
-- **Čítanie:** v budove je **červeno číslo popisné** a **čierne číslo stavebnej parcely** (pozemkové parcely majú čísla červené); zámena prečíta celú dedinu naopak. Pri pochybnosti over na pár domoch: vrstva pozemkového katastra (archiv_spojene_pk) s adresnými bodmi RÚIAN ukáže, na ktorej parcele stojí dnešné súpisné číslo. „N° 35 Priezvisko“ pri pozemku = patrí k domu č.p. 35. Žltá stavba je drevená, ružová/červená murovaná.
-- Zosnímajte výrez so zakrúžkovaným domom predkov a uložte na web k rodine.
+- **Ostrý výrez dediny (lepší než snímka obrazovky):** stránka kreslí skicu volaním `…/archiv_nespojene_skici/ImageServer/exportImage` (pri otlačku obdobná služba) s `bbox` v S-JTSK a `size` v pixeloch. V prehliadači (JavaScript) zober poslednú takú adresu z `performance.getEntriesByType('resource')`, prepočítaj `bbox` na výrez dediny (`x = x0 + (x1 − x0) · px / W`, `y = y1 − (y1 − y0) · py / H`), nastav `size` na šírku 2000–4000 px v rovnakom pomere strán (server pustí najviac 15000 × 4100) a obrázok stiahni cez `fetch` na stránke (`URL.createObjectURL(blob)` → `<a download="skica_obec.jpg">`). Token v adrese nevypisuj. Len výrezy obcí pre rodinu, žiadne hromadné sťahovanie listov.
+- **Čítanie:** v budove je **červené číslo popisné** a **čierne číslo stavebnej parcely** (pozemkové parcely majú čísla červené); zámena prečíta celú dedinu naopak. Pri pochybnosti over na pár domoch: vrstva pozemkového katastra (`archiv_spojene_pk`) s adresnými bodmi RÚIAN ukáže, na ktorej parcele stojí dnešné súpisné číslo. „N° 35 Priezvisko“ pri pozemku = patrí k domu č.p. 35. Žltá stavba je drevená, ružová/červená murovaná.
+- Na web daj výrez so zakrúžkovaným domom predkov (u rodiny majú staré mapy veľký úspech).
 
 ---
 
 ## 6. Postup zápisu do projektu
 1. Snímku stiahnuť alebo zosnímať do `pracovni/` (alebo načítať cez `cache.py`).
-2. Zväzok zapísať do `data/svazky.json`:
+2. Zväzok zapísať do `data/svazky.json` cez nástroj (zapíš JSON do `pracovni/svazek.json` a spusti `python -I -X utf8 tools/zapis.py svazky <kluc> pracovni/svazek.json`; ručne neupravuj):
    ```json
-   "fs_bardejov_rk_1890": {
+   {
      "archiv": "Štátny archív v Prešove / FamilySearch",
      "portal": "familysearch.org",
      "svazek": "Bardejov, rímskokatolícka matrika krstov 1880–1900",
@@ -186,5 +189,5 @@ Portály často opakovane sťahujú rovnaké dáta. Na úsporu siete a ochranu p
 3. Zápis do `data/zaznamy.json` pomocou `tools/zapis.py`.
 4. Výrez zápisu: `python -I -X utf8 tools/vyrez.py pracovni/<stranka>.jpg <kluc> "x0,y0,x1,y1"`.
 5. Rámček čítaného riadku: `python -I -X utf8 tools/ramecek.py <kluc> "x0,y0,x1,y1"`.
-6. Prepis a preklad do `data/prepisy.json`.
-7. Doplnenie údajov osoby do `data/osoby.py`.
+6. Prepis a preklad do `data/prepisy.json` pomocou `tools/zapis.py`.
+7. Doplnenie údajov osoby do `data/osoby.py` (odkaz `r` na zápis pridaj príkazom `python -I -X utf8 tools/zapis.py odkaz <osoba> <kluc>`).

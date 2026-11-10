@@ -12,7 +12,7 @@ Vznikol pri skutočnom hľadaní predkov.
 **Autor pôvodného skillu:** Jindřich Šaršon ([sarsonj@gmail.com](mailto:sarsonj@gmail.com), [GitHub](https://github.com/sarsonj), [pôvodný repozitár](https://github.com/sarsonj/rodokmen-skill))  
 **Port pre Google Antigravity & slovenský preklad:** Radovan Dvorský ([GitHub](https://github.com/hackra76/rodokmen-skill))
 
-**Aktuálna verzia: 0.9.2 (Antigravity port).** Zoznam zmien nájdete v [histórii repozitára](https://github.com/hackra76/rodokmen-skill/commits/main).
+**Aktuálna verzia: 0.10.0 (Antigravity port).** Zoznam zmien nájdete v [histórii repozitára](https://github.com/hackra76/rodokmen-skill/commits/main) a v [CHANGELOG.md](CHANGELOG.md).
 
 > **Kým začnete**
 >
@@ -40,7 +40,7 @@ s prepisom a prekladom, „Čo hľadáme“ a denník hľadania. **[Pozrite si c
 - Programy **Python 3, Node.js, ImageMagick a git**. Nemusíte ich inštalovať vopred – agent skontroluje, čo chýba,
   a pomôže s inštaláciou (na Windows cez winget, na Macu cez Homebrew).
 - Pre vybrané archívy (SOA Třeboň, MZA Brno, ZA Opava) **prehliadač pre agenta** – príkaz `/browser` alebo MCP server Playwright/Puppeteer. Tieto archívy sťahovacie nástroje nepúšťajú, agent preto číta matriky priamo v ich prehliadači.
-- Voliteľne bezplatný účet na [Netlify](https://www.netlify.com), ak chcete web zverejniť pre rodinu.
+- Voliteľne bezplatný účet na [Cloudflare](https://dash.cloudflare.com) (odporúčané) alebo [Netlify](https://www.netlify.com), ak chcete web zverejniť pre rodinu.
 
 ## S akými modelmi to funguje
 - **Antigravity:** Hlavný model **Gemini Pro** (či ekvivalentný najsilnejší model). Pomocníci (subagenti) pre čítanie a hľadanie bežia na **Gemini Flash**. Hlavný model vždy overuje nález na snímke.
@@ -85,16 +85,16 @@ Chcete najprv vidieť, ako web vyzerá? Povedzte: *„Ukáž mi ukážkový web.
 | 2. Matriky | rozhodujete sporné miesta | hľadá zväzky, sťahuje a číta zápisy, robí výrezy, prepisy a preklady, vedie denník hľadania |
 | 3. Príbehy | doplníte rodinné historky, schválite texty | priebežne zbiera zaujímavosti, napíše „Príbeh <vášho rodu>“ |
 | 4. Web | pozeráte sa a hovoríte, čo upraviť | stavia web a ukazuje náhľad |
-| 5. Zverejnenie | založíte účet na Netlify, schválite obsah | nasadí web s prihlásením rodinnou otázkou |
+| 5. Zverejnenie | založíte účet na Cloudflare / Netlify, schválite obsah | nasadí web s prihlásením rodinnou otázkou |
 
-Matriky sú online len do určitého dátumu: na Slovensku prechádzajú cirkevné a štátne matriky do archívu po 100 rokoch od posledného zápisu. V Česku je to 100 rokov pri narodeniach, 75 pri sobášoch a 30 pri úmrtiach. O mladšie údaje sa žiada na matričnom úrade. Agent vám povie, kedy je to potrebné.
+Matriky sú online len do určitého dátumu: na Slovensku prechádzajú cirkevné a štátne matriky do archívu po 100 rokoch od posledného zápisu. V Česku je to 100 rokov pri narodeniach, 75 pri sobášoch a 30 pri úmrtiach. O mladšie údaje sa žiada na matričnom úrade (v ČR podľa § 25b vydajú zápisy staršie ako lehota komukoľvek aj zo zväzku na úrade). Agent vám povie, kedy je to potrebné.
 
 ## Čo je v repozitári
 ```
 skills/rodokmen/
   SKILL.md           sprievodca pre agenta (fázy, pravidlá)
-  reference/         podrobné návody: čítanie matrík, portály archívov (SK, CZ, AT), formát dát, web, súkromie,
-                     metodická príručka (playbook, anglicky)
+  reference/         podrobné návody: príprava počítača, čítanie matrík, portály archívov (SK, CZ, AT),
+                     metodika (spájanie záznamov, mŕtve body, pramene mimo ČR), formát dát, web, súkromie
   tools/             nástroje v Pythone (ARON, výrezy, rámčeky, mapa, kontrola dát, export do webu, vejár)
   template/          šablóna projektu: prázdne dáta, ukážková rodina, web (Astro)
 plugin.json          manifest pluginu pre Antigravity
@@ -137,4 +137,3 @@ Skill tvorí návod pre agenta a pomocné skripty v Pythone.
 
 ## Licencia
 Skill je pod licenciou [MIT](LICENSE): smiete ho voľne používať, upravovať a šíriť ďalej, so zachovaním uvedenia pôvodného autora (Jindřich Šaršon).
-Výnimkou je metodická príručka `skills/rodokmen/reference/playbook.md`, na ktorú sa licencia MIT nevzťahuje (podrobnosti na začiatku súboru).

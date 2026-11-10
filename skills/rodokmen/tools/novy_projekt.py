@@ -342,7 +342,7 @@ def nastaveni(dst, hlidac):
     data = {}
     if os.path.exists(path):
         try:
-            data = json.load(open(path, encoding="utf-8"))
+            data = json.load(open(path, encoding="utf-8-sig"))
         except ValueError:
             print(f"POZOR: {path} není platný JSON – nastavení brzdy jsem nedoplnil. Oprav ho a spusť znovu.")
             return
@@ -388,7 +388,7 @@ def nastaveni(dst, hlidac):
         hdata = {}
         if os.path.exists(hpath):
             try:
-                hdata = json.load(open(hpath, encoding="utf-8"))
+                hdata = json.load(open(hpath, encoding="utf-8-sig"))
             except ValueError:
                 continue
         if hlidac is True:

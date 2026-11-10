@@ -14,6 +14,12 @@ Kópia v tools/ projektu nájde nainštalovaný skill sama (register pluginov Cl
 Kód je vždy 0 (kontrola nesmie zastaviť prácu).
 """
 import json, os, re, sys, time, urllib.request
+if sys.argv[1:2] in (["-h"], ["--help"]):   # nápoveda namiesto kontroly (inak by „--help“ bral ako priečinok projektu)
+    print(__doc__.strip())
+    sys.exit(0)   # kód vždy 0, pozri vyššie
+if len(sys.argv) > 1 and (sys.argv[1].startswith("-") or not os.path.isdir(sys.argv[1])):
+    print(f"verze.py: „{sys.argv[1]}“ nie je priečinok projektu – zadaj cestu k priečinku projektu (alebo nič).")
+    sys.exit(0)
 
 for _s in (sys.stdout, sys.stderr):
     if hasattr(_s, "reconfigure"):

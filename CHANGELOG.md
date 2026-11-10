@@ -6,6 +6,24 @@ dá v repozitáři **Watch → Custom → Releases**.
 
 Projekt založený starší verzí Claude sám nabídne aktualizovat (pozná to podle souboru `VERZE`).
 
+## 0.10.0 – 10. 11. 2026
+
+Prepracované návody (kratší `SKILL.md`, nová `instalace.md` a slovenská `metodika.md` namiesto `playbook.md`), Cloudflare s vlastným názvom webu, vylepšená brzda a strážca siete, Windows opravy (kódovanie, cesty s medzerou, `npx.mjs`), opravy pádov exportu/importu a § 25b pri matričných úradoch.
+
+**Nové**
+- **Prepracované návody (`SKILL.md`, `reference/instalace.md`, `reference/metodika.md`):** `SKILL.md` je o tretinu stručnejší – príprava počítača sa presunula do `instalace.md`, import stromu do `data.md` a anglickú príručku `playbook.md` nahradila slovenská `metodika.md` (spájanie záznamov, stotožnenie osôb, mŕtve body, pramene pre Slovensko, Rakúsko, Poľsko, Nemecko a Maďarsko vrátane uhorskej a československej legislatívy).
+- **Dva rodokmene na jednom Cloudflare účte (`cloudflare.web`):** Názov webu možno nastaviť v `data/web.json` (predvolene `"rodokmen"`). Nasadenie kontroluje kolíziu názvu na účte, aby neprepísalo iný rodokmeň.
+- **Úvod na mobile a plynulý vejár:** Úvodná stránka webu (`index.astro`) ukazuje na mobile priamo vejár; vo `vejir.astro` je približovanie kolieskom a touchpadom úmerné posunu; `global.css` vracia `main.wide` na `1400 px`.
+- **`zapis.py odkaz`:** Pridá k osobe v `data/osoby.py` odkaz `r` na zápis bez rizika rozbitých úvodzoviek a čiarok.
+- **Ostrý výrez indikačnej skice ČÚZK (`portaly.md`):** Návod na stiahnutie výrezu vo vysokom rozlíšení cez `exportImage`.
+
+**Opravy a vylepšenia**
+- **Windows (kódovanie, cesty s medzerou, `npx.mjs`):** Spúšťanie `npx` bez shellu cez nový skript `web/scripts/npx.mjs`, oprava vstupu s BOM (`utf-8-sig`) v nástrojoch (`export_web.py`, `kontrola.py`, `fan_chart.py`, `mista.py`, `aron_img.py`, `ramecek.py`, `novy_projekt.py`), prenastavenie `sys.stdin` na `utf-8-sig` v `hlidac_site.py` a `slusne.py`, podpora `r"\n"` v `-w` pre batch wrappery curlu na Windows.
+- **Brzda a strážca siete (`slusne.py`, `hlidac_site.py`):** Brzda zachytí aj adresy bez `https://`, viac URL alebo rozsahy `[1-200]` v jednom `curl`, spomaľuje obrázky ZA Opava; strážca siete už nezamieta nevinné príkazy (napr. text v úvodzovkách pri `git commit`, `echo`, `grep` popri Pythone) pri plnom zachovaní podpory Antigravity hookov (`hooks.json`, `.agents/hooks.json`).
+- **Opravy exportu, kontroly, GEDCOM a miest (`export_web.py`, `kontrola.py`, `ged_import.py`, `mista.py`):** Ošetrenie zástupnej osoby bez mena, aliasov v `SAME`, dokumentov bez popisu, bočných príbuzných bez textu, číselnej prihlasovacej odpovede, dvoch rodov rovnakého mena, UTF-16 v GEDCOMe a smyčiek v strome; prepočítanie súradníc v `mista.py pridej` pri zmene dotazu (so zachovaním skloňovacích regexov pre viacslovné obce).
+- **Nápoveda `--help`:** Nástroje po `--help` alebo bez argumentov vypíšu zrozumiteľnú nápovědu namiesto chyby (vrátane `verze.py`, `anno.py`, `aron_search.py`).
+- **Matričné úrady (§ 25b zákona 301/2000 Sb.) a pozemkové knihy:** Doplnené pravidlo vydania zápisu staršieho ako 100/75/30 rokov v ČR komukoľvek (na Slovensku platí § 18 zákona 154/1994 Z. z.) a online pozemkové knihy pre SOA Třeboň a ZA Opava.
+
 ## 0.9.2 – 8. 11. 2026
 
 Zverejnenie na Cloudflare Workers (bezplatné, bez limitov na nasadenie), denná kontrola nových verzií cez GitHub, ochrana proti degradácii projektu starším skillom, oprava Windows hooku a Nginx Docker.

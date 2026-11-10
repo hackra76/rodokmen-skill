@@ -15,7 +15,7 @@ dieťa…), ktoré idú na web – v poznámkach osôb, v „Čo hľadáme“ (`
 2. Rodinné fotky a dokumenty – súhlasia tí, ktorí sú na nich (alebo ich rodina)?
 3. Prihlasovacia otázka a odpoveď (`web.json`) – nastavená a dostatočne ťažká pre cudzích?
 4. Kontakt na webe – chce tam používateľ svoj e-mail?
-Až potom `npm run nasadit`.
+Až potom zverejni (`npm run nasadit-cloudflare`, kto má web na Netlify `npm run nasadit` – pozri `web.md`).
 
 ## Platené a cudzie služby (MyHeritage, Ancestry, Geni, FamilySearch)
 - Prihlásenie, platby a predplatné rieši **len používateľ**. Skúšobná verzia sa po skončení automaticky platí – pripomeň,
